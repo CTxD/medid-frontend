@@ -1,65 +1,51 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:medid/src/blocs/counter_bloc.dart';
-import 'package:medid/src/blocs/counter_event.dart';
-import 'package:medid/src/blocs/counter_state.dart';
+import 'package:medid/src/blocs/events/counter_event.dart';
+import 'package:medid/src/blocs/states/counter_state.dart';
 
-class CounterPage extends StatefulWidget {
-
-  @override
-  State<StatefulWidget> createState() {
-    return _CounterPageState();
-  }
-  
-}
-
-class _CounterPageState extends State<CounterPage> {
-    final _counterBloc = CounterBloc();
-
+class CounterPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final CounterBloc _counterBloc = BlocProvider.of<CounterBloc>(context);
+
     return Scaffold(
-      appBar: AppBar(title: Text("Counter")),
-      body: BlocBuilder(
+      appBar: AppBar(title: Text('Counter')),
+      body: BlocBuilder<CounterEvent, int>(
         bloc: _counterBloc,
-        builder: (context, CounterState state) {
-          Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Text("You have pushed the button this many times:"),
-                Text(
-                  "$state.counter",
-                  style: Theme.of(context).textTheme.display1
-                ),
-              ],
+        builder: (context, int state) {
+          return Center(
+            child: Text(
+              '$state',
+              style: TextStyle(fontSize: 24.0),
             ),
           );
-          },
-        ),
-        floatingActionButton: Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: <Widget>[
-            FloatingActionButton(
-              onPressed: () => _counterBloc.dispatch(IncrementEvent()),
-              tooltip: "Increment",
-              child: Icon(Icons.add),  
+        },
+      ),
+      floatingActionButton: Column(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: <Widget>[
+          Padding(
+            padding: EdgeInsets.symmetric(vertical: 5.0),
+            child: FloatingActionButton(
+              child: Icon(Icons.add),
+              onPressed: () {
+                _counterBloc.dispatch(IncrementEvent());
+              },
             ),
-            SizedBox(width: 10),
-            FloatingActionButton(
-              onPressed: () => _counterBloc.dispatch(DecrementEvent()),
-              tooltip: "Decrement",
+          ),
+          Padding(
+            padding: EdgeInsets.symmetric(vertical: 5.0),
+            child: FloatingActionButton(
               child: Icon(Icons.remove),
-            )
-            
-          ],
-        ),
+              onPressed: () {
+                _counterBloc.dispatch(DecrementEvent());
+              },
+            ),
+          ),
+        ],
+      ),
     );
   }
-
-  void dispose() {
-    _counterBloc.dispose();
-    super.dispose();
-  }
-  
 }
