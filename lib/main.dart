@@ -29,7 +29,12 @@ class HomePage extends StatelessWidget{
               padding: const EdgeInsets.all(8.0),
               textColor: Colors.white,
               color: Colors.blue,
-              child:  new Text("Take a picture"),
+              child:Column(
+                children: <Widget>[
+                  Icon(Icons.camera_alt),
+                  Text("Take a picture"),
+                ],
+              ),
               onPressed: () {
                 Navigator.push(
                   context,
@@ -43,7 +48,12 @@ class HomePage extends StatelessWidget{
               padding: const EdgeInsets.all(8.0),
               textColor: Colors.white,
               color: Colors.blue,
-              child:  new Text("Pill library"),
+              child:Column(
+                children: <Widget>[
+                  Icon(Icons.folder_open),
+                  Text("Pill library"),
+                ],
+              ),
               onPressed: () {
                 Navigator.push(
                   context,
@@ -57,7 +67,12 @@ class HomePage extends StatelessWidget{
               padding: const EdgeInsets.all(8.0),
               textColor: Colors.white,
               color: Colors.blue,
-              child:  new Text("Info"),
+              child:Column(
+                children: <Widget>[
+                  Icon(Icons.info),
+                  Text("Info"),
+                ],
+              ),
               onPressed: () {
                 Navigator.push(
                   context,
@@ -71,7 +86,12 @@ class HomePage extends StatelessWidget{
               padding: const EdgeInsets.all(8.0),
               textColor: Colors.white,
               color: Colors.blue,
-              child:  new Text("Help"),
+              child:Column(
+                children: <Widget>[
+                  Icon(Icons.help),
+                  Text("Help"),
+                ],
+              ),
               onPressed: () {
                 Navigator.push(
                   context,
