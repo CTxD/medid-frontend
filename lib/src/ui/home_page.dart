@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:medid/src/ui/cam_page.dart';
+import 'package:medid/src/ui/cam_page_mock.dart';
 import 'package:medid/src/ui/info.dart';
 import 'package:medid/src/ui/help.dart';
 import 'package:medid/src/ui/pill_library.dart';
@@ -31,7 +33,7 @@ class HomePage extends StatelessWidget{
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => TakeAPicture(),
+                    builder: (context) => CamPageMock(),
                   ),
                 );
               },
