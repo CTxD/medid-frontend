@@ -4,24 +4,26 @@ import 'package:medid/src/ui/help.dart';
 import 'package:medid/src/ui/pill_library.dart';
 import 'package:medid/src/ui/take_a_picture.dart';
 
-
-
-class HomePage extends StatelessWidget{
+class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("HomePage"),
-      ),
-      body: new Center(
-        child: new Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: <Widget>[
-            new RaisedButton(
+        appBar: AppBar(
+          title: Text("HomePage"),
+        ),
+        body: new Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+          new Row(         
+          mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+            new Expanded(
+            child:  new MaterialButton(
               padding: const EdgeInsets.all(8.0),
               textColor: Colors.white,
               color: Colors.blue,
-              child:Column(
+              height: 150,
+              child: Column(
                 children: <Widget>[
                   Icon(Icons.camera_alt),
                   Text("Take a picture"),
@@ -36,13 +38,18 @@ class HomePage extends StatelessWidget{
                 );
               },
             ),
-            new RaisedButton(
+            ),
+            SizedBox(width: 4),
+            new Expanded(
+            child: new MaterialButton(
               padding: const EdgeInsets.all(8.0),
               textColor: Colors.white,
-              color: Colors.blue,
-              child:Column(
+              color: Colors.blue[300],
+              height: 150,
+              minWidth: 150,
+              child: Column(
                 children: <Widget>[
-                  Icon(Icons.folder_open),
+                  Icon(Icons.list),
                   Text("Pill library"),
                 ],
               ),
@@ -54,12 +61,19 @@ class HomePage extends StatelessWidget{
                   ),
                 );
               },
+            )
             ),
-            new RaisedButton(
+            ],
+          ),
+          SizedBox(height: 4),
+          new Row(
+            children: <Widget>[
+            new Expanded(
+            child:  new MaterialButton(
               padding: const EdgeInsets.all(8.0),
               textColor: Colors.white,
-              color: Colors.blue,
-              child:Column(
+              color: Colors.blue[300],
+              child: Column(
                 children: <Widget>[
                   Icon(Icons.info),
                   Text("Info"),
@@ -74,11 +88,14 @@ class HomePage extends StatelessWidget{
                 );
               },
             ),
-            new RaisedButton(
+            ),
+            SizedBox(width: 4),
+            new Expanded(      
+            child: new MaterialButton(
               padding: const EdgeInsets.all(8.0),
               textColor: Colors.white,
-              color: Colors.blue,
-              child:Column(
+              color: Colors.blue[300],  
+              child: Column(
                 children: <Widget>[
                   Icon(Icons.help),
                   Text("Help"),
@@ -93,15 +110,12 @@ class HomePage extends StatelessWidget{
                 );
               },
             ),
-          ],
-        ),
-      ),
-    );
+            ),
+            ],
+          ),
+          SizedBox(height: 20),
+        ])
+        
+      );
   }
 }
-
-
-
-
-
-
