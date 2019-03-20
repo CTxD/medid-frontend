@@ -45,13 +45,21 @@ class HomePage extends StatelessWidget {
                                 child: new Container(
                               height: 150,
                               child: new FlatButton(
+                                key: navigateToTakeAPictureButtonKey,
                                 child: new Image.asset(
                                   'images/photo.png',
                                   height: 70,
                                   width: 70,
                                 ),
                                 color: Colors.white,
-                                onPressed: () => {},
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => TakeAPicture(),
+                                    ),
+                                  );
+                                },
                               ),
                             )),
                             SizedBox(
@@ -61,13 +69,22 @@ class HomePage extends StatelessWidget {
                                 child: new Container(
                               height: 150,
                               child: new FlatButton(
-                                  child: new Image.asset(
-                                    'images/list.png',
-                                    height: 55,
-                                    width: 55,
-                                  ),
-                                  color: Colors.white,
-                                  onPressed: () => {}),
+                                key: navigateToPillLibraryButtonKey,
+                                child: new Image.asset(
+                                  'images/list.png',
+                                  height: 55,
+                                  width: 55,
+                                ),
+                                color: Colors.white,
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => PillLibrary(),
+                                    ),
+                                  );
+                                },
+                              ),
                             ))
                           ],
                         ),
@@ -81,13 +98,21 @@ class HomePage extends StatelessWidget {
                                 child: new Container(
                               height: 100,
                               child: new FlatButton(
+                                key: navigateToInfoButtonKey,
                                 child: new Image.asset(
                                   'images/info.png',
                                   height: 35,
                                   width: 35,
                                 ),
                                 color: Colors.white,
-                                onPressed: () => {},
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => Info(),
+                                    ),
+                                  );
+                                },
                               ),
                             )),
                             SizedBox(
@@ -97,120 +122,28 @@ class HomePage extends StatelessWidget {
                                 child: new Container(
                               height: 100,
                               child: new FlatButton(
-                                  child: new Image.asset(
-                                    'images/help.png',
-                                    height: 35,
-                                    width: 35,
-                                  ),
-                                  color: Colors.white,
-                                  onPressed: () => {}),
+                                key: navigateToHelpButtonKey,
+                                child: new Image.asset(
+                                  'images/help.png',
+                                  height: 35,
+                                  width: 35,
+                                ),
+                                color: Colors.white,
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => Help(),
+                                    ),
+                                  );
+                                },
+                              ),
                             ))
                           ],
                         ),
                       ],
                     ),
                   ),
-                  // new Row(
-                  //   mainAxisAlignment: MainAxisAlignment.center,
-                  //   children: <Widget>[
-                  //     new Expanded(
-                  //       child: new FlatButton(
-                  //         key: navigateToTakeAPictureButtonKey,
-                  //         padding: const EdgeInsets.all(8.0),
-                  //         textColor: Colors.black,
-                  //         color: Colors.white,
-                  //         child: Column(
-                  //           children: <Widget>[
-                  //             Icon(Icons.camera_alt, color: Colors.black),
-                  //             Text("Take a picture"),
-                  //           ],
-                  //         ),
-                  //         onPressed: () {
-                  //           Navigator.push(
-                  //             context,
-                  //             MaterialPageRoute(
-                  //               builder: (context) => TakeAPicture(),
-                  //             ),
-                  //           );
-                  //         },
-                  //       ),
-                  //     ),
-                  //     SizedBox(width: 4),
-                  //     new Expanded(
-                  //         child: new MaterialButton(
-                  //       key: navigateToPillLibraryButtonKey,
-                  //       padding: const EdgeInsets.all(8.0),
-                  //       textColor: Colors.white,
-                  //       color: Colors.blue[300],
-                  //       height: 150,
-                  //       child: Column(
-                  //         children: <Widget>[
-                  //           Icon(Icons.list),
-                  //           Text("Pill library"),
-                  //         ],
-                  //       ),
-                  //       onPressed: () {
-                  //         Navigator.push(
-                  //           context,
-                  //           MaterialPageRoute(
-                  //             builder: (context) => PillLibrary(),
-                  //           ),
-                  //         );
-                  //       },
-                  //     )),
-                  //   ],
-                  // ),
-                  // SizedBox(height: 4),
-                  // new Row(
-                  //   children: <Widget>[
-                  //     new Expanded(
-                  //       child: new MaterialButton(
-                  //         key: navigateToInfoButtonKey,
-                  //         padding: const EdgeInsets.all(8.0),
-                  //         textColor: Colors.white,
-                  //         color: Colors.blue[300],
-                  //         child: Column(
-                  //           children: <Widget>[
-                  //             Icon(Icons.info),
-                  //             Text("Info"),
-                  //           ],
-                  //         ),
-                  //         onPressed: () {
-                  //           Navigator.push(
-                  //             context,
-                  //             MaterialPageRoute(
-                  //               builder: (context) => Info(),
-                  //             ),
-                  //           );
-                  //         },
-                  //       ),
-                  //     ),
-                  //     SizedBox(width: 4),
-                  //     new Expanded(
-                  //       child: new MaterialButton(
-                  //         key: navigateToHelpButtonKey,
-                  //         padding: const EdgeInsets.all(8.0),
-                  //         textColor: Colors.white,
-                  //         color: Colors.blue[300],
-                  //         child: Column(
-                  //           children: <Widget>[
-                  //             Icon(Icons.help),
-                  //             Text("Help"),
-                  //           ],
-                  //         ),
-                  //         onPressed: () {
-                  //           Navigator.push(
-                  //             context,
-                  //             MaterialPageRoute(
-                  //               builder: (context) => Help(),
-                  //             ),
-                  //           );
-                  //         },
-                  //       ),
-                  //     ),
-                  //   ],
-                  // ),
-                  SizedBox(height: 1),
                 ])));
   }
 }

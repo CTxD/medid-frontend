@@ -98,40 +98,24 @@ void main() {
 
       expect(find.byType(Help), findsOneWidget);
     });
-  
-    testWidgets('HomePage renders four buttons',
-      (WidgetTester tester) async {
+
+    testWidgets('HomePage renders four buttons', (WidgetTester tester) async {
       await _buildHomePage(tester);
-      expect(find.byType(MaterialButton), findsNWidgets(4));
-      });
+      expect(find.byType(FlatButton), findsNWidgets(4));
+    });
 
-    testWidgets('HomePage renders four icons',
-      (WidgetTester tester) async {
+    testWidgets('HomePage renders five images', (WidgetTester tester) async {
       await _buildHomePage(tester);
-
-      expect(find.byIcon(Icons.camera_alt), findsOneWidget);
-      expect(find.byIcon(Icons.list), findsOneWidget);
-      expect(find.byIcon(Icons.help), findsOneWidget);
-      expect(find.byIcon(Icons.info), findsOneWidget);
-      });
-
-    testWidgets('HomePage renders four texts',
-      (WidgetTester tester) async{
-        await _buildHomePage(tester);
-      
-        expect(find.text("Take a picture"), findsOneWidget);
-        expect(find.text("Pill library"), findsOneWidget);
-        expect(find.text("Info"), findsOneWidget);
-        expect(find.text("Help"), findsOneWidget);
-      });
+      expect(find.byType(Image), findsNWidgets(5));
+    });
     
     testWidgets('HomePage has five column and three rows',
-      (WidgetTester tester) async{
-        await _buildHomePage(tester);
-      
-        expect(find.byType(Column), findsNWidgets(5));
-        expect(find.byType(Row), findsNWidgets(2));
-      });
+        (WidgetTester tester) async {
+      await _buildHomePage(tester);
 
+      expect(find.byType(Column), findsOneWidget);
+      expect(find.byType(Row), findsNWidgets(3));
+      expect(find.byType(Container), findsNWidgets(11));
+    });
   });
 }
