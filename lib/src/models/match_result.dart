@@ -3,5 +3,7 @@ class MatchResult {
   final String activeSubstance;
   final String pillImageUrl;
 
-  MatchResult({this.title, this.activeSubstance, this.pillImageUrl =  "http://pro.medicin.dk/resource/media/L58WAN1L?ptype=1"});
+  final String strength;
+
+  MatchResult({this.title, this.strength, this.activeSubstance, this.pillImageUrl =  "http://pro.medicin.dk/resource/media/L58WAN1L?ptype=1"});
 }

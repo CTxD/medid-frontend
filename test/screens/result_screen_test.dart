@@ -10,7 +10,7 @@ main() {
       provideMockedNetworkImages(() async {
         Widget mqResultScreen = new MediaQuery(
             data: new MediaQueryData(),
-            child: new MaterialApp(home: new ResultScreen.fromNothing()));
+            child: new MaterialApp(home: new ResultScreen()));
 
         await tester.pumpWidget(mqResultScreen);
         final titleFinder = find.descendant(

@@ -16,14 +16,14 @@ class CamPageMock extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           textColor: Colors.white,
           color: Colors.blue,
-          child: Column(  
+          child: Column(
             children: <Widget>[
               Icon(Icons.camera_alt),
               Text("Take a picture"),
             ],
           ),
           onPressed: () => Navigator.push(
-              context, MaterialPageRoute(builder: (context) => ResultScreen.fromNothing())),
+              context, MaterialPageRoute(builder: (context) => ResultScreen())),
         )));
   }
 }

@@ -4,12 +4,12 @@ import 'package:medid/src/models/match_result.dart';
 class PillList extends StatelessWidget {
   List<MatchResult> matchResults;
 
-  PillList(this.matchResults) : super();
+  PillList({this.matchResults}) : super();
   PillList.fromNothing() {
     matchResults = List.generate(
         10,
         (i) =>
-            MatchResult(title: 'Title $i', activeSubstance: 'Description $i'));
+            MatchResult(title: 'Title $i', activeSubstance: 'Description $i', strength: '$i mg'));
   }
 
   @override
@@ -26,6 +26,7 @@ class PillList extends StatelessWidget {
                     child: Image.network(matchResults[i].pillImageUrl)),
                 subtitle: Text(matchResults[i].activeSubstance),
                 title: Text(matchResults[i].title),
+                trailing: Text(matchResults[i].strength),
               ));
         });
   }

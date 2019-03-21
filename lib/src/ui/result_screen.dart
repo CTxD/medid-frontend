@@ -7,19 +7,14 @@ class ResultScreen extends StatelessWidget {
   List<MatchResult> matchResults;
 
   ResultScreen({Key key, this.matchResults}) : super(key: key);
-  ResultScreen.fromNothing() {
-    matchResults = List.generate(
-        10,
-        (i) =>
-            MatchResult(title: 'Title $i', activeSubstance: 'Description $i'));
-  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text("Resultat"),
       ),
-      body: PillList(matchResults),
+      body: matchResults != null ? PillList(matchResults: matchResults) : PillList.fromNothing(),
     );
   }
 }
