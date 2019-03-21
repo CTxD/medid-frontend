@@ -1,0 +1,425 @@
+[
+    {
+        "breastFeeding": [
+            "d80c7390-3260-11e9-e7e0-b9c21723193a",
+            "d80ce8c0-3260-11e9-dcb7-f5fd4470600d",
+            "d80d0fd0-3260-11e9-a71e-35ae76c2c027"
+        ],
+        "otherFieldsOfApplication": [
+            "d80d36e0-3260-11e9-d955-c3a2b20d17c4",
+            "d80d5df0-3260-11e9-c996-8b58731c886a",
+            "d80d5df0-3260-11e9-d118-63f5a6713289"
+        ],
+        "fieldsOfApplication": [
+            "d80d8500-3260-11e9-9ba1-e3521c83f5f6",
+            "d80dac10-3260-11e9-8f11-1b5ec70bb3fe",
+            "d80dac10-3260-11e9-bea5-9982af061818"
+        ],
+        "commonSideEffects": [
+            "d80dac10-3260-11e9-ae6f-71ec61cc85b8",
+            "d80dac10-3260-11e9-a880-e5760756fd4f",
+            "d80dd320-3260-11e9-d885-d1ef29f36493"
+        ],
+        "uncommonSideEffects": [
+            "d80dd320-3260-11e9-b8b2-23ff4fd0364a",
+            "d80dd320-3260-11e9-d3a3-892a795e22a0",
+            "d80dfa30-3260-11e9-ea89-b9119ceefffe"
+        ],
+        "unknownSideEffects": [
+            "d80dfa30-3260-11e9-c9b2-7ffe2187d308",
+            "d80dfa30-3260-11e9-fdd1-110c7f5f0732",
+            "d80dfa30-3260-11e9-c49b-2f54e804e8ad"
+        ],
+        "bloodDonor": [
+            "d80e2140-3260-11e9-e0e6-f370d0692810",
+            "d80e2140-3260-11e9-bfb2-9378f4a3a979",
+            "d80e2140-3260-11e9-9170-9b04799135fd"
+        ],
+        "dispensingForms": [
+            "d80e2140-3260-11e9-c781-8938ffde5d99",
+            "d80e2140-3260-11e9-8e7c-cb08b48f39b9",
+            "d80e4850-3260-11e9-a541-79cb8abe9473"
+        ],
+        "doping": [
+            "d80e4850-3260-11e9-9500-658a703ce751",
+            "d80e4850-3260-11e9-a87e-dbb0019a9333",
+            "d80e4850-3260-11e9-bb91-ab5d0457fede"
+        ],
+        "dosageProposals": [
+            "d80e4850-3260-11e9-f727-15e7f7f6acdb",
+            "d80e4850-3260-11e9-9ab0-cb161b3662f3",
+            "d80e9670-3260-11e9-999b-b5c7b3df4566"
+        ],
+        "featuresHandlingDurability": [
+            "d80e9670-3260-11e9-d98c-b5666773b9ee",
+            "d80ebd80-3260-11e9-f85e-712c9b337cc7",
+            "d80ebd80-3260-11e9-b174-bb22073607d2"
+        ],
+        "pharmacodynamics": [
+            "d80ebd80-3260-11e9-ea7e-ff0f80a7d372",
+            "d80ebd80-3260-11e9-964d-5d6284dc3719",
+            "d80ebd80-3260-11e9-f5fd-150f49f8366a"
+        ],
+        "pharmacokinetics": [
+            "d80ebd80-3260-11e9-ce32-87b76d9e7758",
+            "d80ebd80-3260-11e9-c6bf-19733135a380",
+            "d80ebd80-3260-11e9-c209-a17fc4bf1199"
+        ],
+        "company": [
+            "d80ee490-3260-11e9-db44-77f87d83a6e3",
+            "d80ee490-3260-11e9-e4f9-913b7ef179f2",
+            "d80ee490-3260-11e9-a983-fbf64e8c0c19"
+        ],
+        "poisoning": [
+            "d80ee490-3260-11e9-d751-37c2dc2e9ffa",
+            "d80ee490-3260-11e9-d054-0d159d78fa3c",
+            "d80ee490-3260-11e9-8c93-d19b05a6335d"
+        ],
+        "precautions": [
+            "d80f0ba0-3260-11e9-88e7-75d681821fc3",
+            "d80f0ba0-3260-11e9-d8e7-e96d297dbd88",
+            "d80f0ba0-3260-11e9-f8ee-abce8af03a46"
+        ],
+        "pregnancy": [
+            "d80f0ba0-3260-11e9-aa16-fb03efa855df",
+            "d80f0ba0-3260-11e9-9cce-e18aa426508a",
+            "d80f0ba0-3260-11e9-c78e-bd9f0ddf0662"
+        ],
+        "exipients": [
+            "d80f0ba0-3260-11e9-a03e-0bf0eaae5486",
+            "d80f32b0-3260-11e9-ed4c-31e2fe71c559",
+            "d80f32b0-3260-11e9-cc91-e3c683be17bb"
+        ],
+        "substances": [
+            "d80f32b0-3260-11e9-e2b5-9986e5f37b0b",
+            "d80f32b0-3260-11e9-9973-19d572d061b5",
+            "d80f32b0-3260-11e9-85a4-5f38a36d0e96"
+        ],
+        "instructions": [
+            "d80f32b0-3260-11e9-e26d-c95dbfad90d0",
+            "d80f59c0-3260-11e9-da01-6354f30bfa1d",
+            "d80f59c0-3260-11e9-b56f-1b52181e721d"
+        ],
+        "interactions": [
+            "d80f59c0-3260-11e9-f60b-613fc8099f98",
+            "d80f59c0-3260-11e9-ab47-33336a602574",
+            "d80f59c0-3260-11e9-99ca-5bc6cd267a06"
+        ],
+        "contraIndications": [
+            "d80f59c0-3260-11e9-f2eb-b37bf1b741d3",
+            "d80f59c0-3260-11e9-ef24-053e27485296",
+            "d80f80d0-3260-11e9-9d29-2b17833caf50"
+        ],
+        "hepaticImpairment": [
+            "d80f80d0-3260-11e9-8c49-e1c0c2e69c50",
+            "d80f80d0-3260-11e9-ebea-e170b2cc3cf5",
+            "d80f80d0-3260-11e9-c44e-1b3fc1eeb85a"
+        ],
+        "renalImpairment": [
+            "d80f80d0-3260-11e9-8343-7bbfb5570dee",
+            "d80f80d0-3260-11e9-c88b-bb232bbc1ad2",
+            "d80fa7e0-3260-11e9-a5fa-8f72acb16a4b"
+        ],
+        "schengenCertificates": [
+            "d80fa7e0-3260-11e9-e542-f5dc47033791",
+            "d80fa7e0-3260-11e9-b1e2-692e6360552f",
+            "d80fa7e0-3260-11e9-d31f-55ec549a0eb3"
+        ],
+        "substitutions": [
+            "d80fa7e0-3260-11e9-c1bc-d9c7ee7980e6",
+            "d80fa7e0-3260-11e9-8610-878f6cc7ca09",
+            "d80fa7e0-3260-11e9-fabc-27ad6f2fd052"
+        ],
+        "subsidies": [
+            "d80fa7e0-3260-11e9-c5e6-5b227802a73d",
+            "d80fcef0-3260-11e9-cbf9-f3a20f227313",
+            "d80fcef0-3260-11e9-985a-97fc915857ea"
+        ],
+        "traffic": "d80fcef0-3260-11e9-99b8-9dd78f2c3c76",
+        "photoIdentifications": "[{\"type\":\"d8104420-3260-11e9-d480-635d91b0b6d6\",\"imprint\":\"d8104420-3260-11e9-c655-e54ce4c341cf\",\"score\":\"d8104420-3260-11e9-a8fd-2598d215a1f1\",\"colour\":\"d8104420-3260-11e9-8bb8-731728a779a0\",\"sizeDimensions\":\"d8106b30-3260-11e9-aa2e-a7a490bf775b\",\"imageUrl\":\"d8106b30-3260-11e9-a52c-b144539e04be\"},{\"type\":\"d810b950-3260-11e9-a868-e9d2ce8126e6\",\"imprint\":\"d810b950-3260-11e9-ee4e-a926714ab5dc\",\"score\":\"d810b950-3260-11e9-e316-554ff561c728\",\"colour\":\"d810b950-3260-11e9-caf1-21a92d3aaeb7\",\"sizeDimensions\":\"d810b950-3260-11e9-b8b9-8529583d4c25\",\"imageUrl\":\"d810b950-3260-11e9-b980-e119d8b7ba8b\"},{\"type\":\"d810e060-3260-11e9-b315-5f9d061db7f6\",\"imprint\":\"d810e060-3260-11e9-bdec-cd6a7c1086f3\",\"score\":\"d810e060-3260-11e9-d801-278858c04b2e\",\"colour\":\"d8110770-3260-11e9-88ad-7f110c50789a\",\"sizeDimensions\":\"d8110770-3260-11e9-e973-4d09cbb2b83d\",\"imageUrl\":\"d8110770-3260-11e9-d938-b343a8f32803\"}]",
+        "marketRepresentations": "[{\"subsidy\":\"d80ff600-3260-11e9-abea-659a33fb4f32\",\"delivery\":\"d80ff600-3260-11e9-8d82-69239571fe1a\",\"dispensingForm\":\"d8101d10-3260-11e9-e13b-1f6264cf1a30\",\"vNumber\":\"d8101d10-3260-11e9-d876-a71e80b32032\",\"packaging\":\"d8101d10-3260-11e9-940d-91f50f809175\",\"priceInDkk\":\"d8101d10-3260-11e9-8664-3347d41cac34\",\"dddPrice\":\"d8101d10-3260-11e9-bdd5-0d2202b70ece\"},{\"subsidy\":\"d8106b30-3260-11e9-89d7-abdcf634ead2\",\"delivery\":\"d8109240-3260-11e9-c8ca-2918125bb92f\",\"dispensingForm\":\"d8109240-3260-11e9-9942-6fdf9f586cae\",\"vNumber\":\"d8109240-3260-11e9-f97e-7d3c3db111ce\",\"packaging\":\"d8109240-3260-11e9-8e92-216400fa5079\",\"priceInDkk\":\"d8109240-3260-11e9-bcc7-f342ffa721c3\",\"dddPrice\":\"d8109240-3260-11e9-ca05-e5c8f35d749b\"},{\"subsidy\":\"d810e060-3260-11e9-e00c-45c1a9029f11\",\"delivery\":\"d810e060-3260-11e9-ff80-8d0fdcc47a2e\",\"dispensingForm\":\"d810e060-3260-11e9-c53c-91b85942d4b4\",\"vNumber\":\"d810e060-3260-11e9-b695-87163ab9c2ab\",\"packaging\":\"d810e060-3260-11e9-97a5-0f947c64b79f\",\"priceInDkk\":\"d810e060-3260-11e9-999b-0b57f8898eeb\",\"dddPrice\":\"d810e060-3260-11e9-9f42-4d82957baf01\"}]",
+        "crucialErrors": "[{\"description\":\"d8106b30-3260-11e9-8c64-f960dbb1eb42\",\"consequence\":\"d8106b30-3260-11e9-c1a6-cdf4d4bb377e\"},{\"description\":\"d810b950-3260-11e9-e06e-93394edd04de\",\"consequence\":\"d810b950-3260-11e9-8011-2b99f12748ec\"},{\"description\":\"d8110770-3260-11e9-b3bb-d79fd4043e30\",\"consequence\":\"d8110770-3260-11e9-a3dc-73ac9157cd63\"}]"
+    },
+    {
+        "breastFeeding": [
+            "d8110770-3260-11e9-b993-19700615fd63",
+            "d8110770-3260-11e9-c9a1-2d003f363c4d",
+            "d8110770-3260-11e9-9f95-6b8ad25cf308"
+        ],
+        "otherFieldsOfApplication": [
+            "d8112e80-3260-11e9-c78d-d9b2465e966f",
+            "d8112e80-3260-11e9-9968-5f986c3f1b2c",
+            "d8112e80-3260-11e9-e85e-6999332d57b9"
+        ],
+        "fieldsOfApplication": [
+            "d8112e80-3260-11e9-d122-4b68518927c7",
+            "d8112e80-3260-11e9-c13e-6fb31ff5284f",
+            "d8112e80-3260-11e9-d9d7-6578ff49cce4"
+        ],
+        "commonSideEffects": [
+            "d8112e80-3260-11e9-8913-093fe2317691",
+            "d8112e80-3260-11e9-f809-950e33c1e6b6",
+            "d8112e80-3260-11e9-8bcc-8d324e56634a"
+        ],
+        "uncommonSideEffects": [
+            "d8115590-3260-11e9-b255-c74555a947e7",
+            "d8115590-3260-11e9-b9f5-257aa15b09a5",
+            "d8115590-3260-11e9-8dc4-db945c19f6e0"
+        ],
+        "unknownSideEffects": [
+            "d8115590-3260-11e9-f5f6-a968ab85e2ee",
+            "d8115590-3260-11e9-e6f6-e5cafa3fc29c",
+            "d8115590-3260-11e9-e8f7-cdefdf7cf28d"
+        ],
+        "bloodDonor": [
+            "d8115590-3260-11e9-f830-731dd15001e6",
+            "d8117ca0-3260-11e9-e112-f392860e2eb9",
+            "d8117ca0-3260-11e9-ac28-df520da049e5"
+        ],
+        "dispensingForms": [
+            "d8117ca0-3260-11e9-bc5b-b9237d1b3472",
+            "d8117ca0-3260-11e9-ee81-313ea8174f53",
+            "d8117ca0-3260-11e9-e8b0-81de3f0a283d"
+        ],
+        "doping": [
+            "d8117ca0-3260-11e9-e521-b96c25d11dda",
+            "d8117ca0-3260-11e9-9cca-1daacdad0936",
+            "d8117ca0-3260-11e9-dd7d-3178739be559"
+        ],
+        "dosageProposals": [
+            "d811a3b0-3260-11e9-bc24-c504417d649a",
+            "d811a3b0-3260-11e9-cb6a-475a9898760b",
+            "d811a3b0-3260-11e9-fe3a-977d3658b53a"
+        ],
+        "featuresHandlingDurability": [
+            "d811a3b0-3260-11e9-f529-1945df8fe798",
+            "d811a3b0-3260-11e9-acb7-0568f1ab5b75",
+            "d811a3b0-3260-11e9-ddea-dfc514f13353"
+        ],
+        "pharmacodynamics": [
+            "d811a3b0-3260-11e9-a404-751e0029d5fe",
+            "d811a3b0-3260-11e9-97cf-df7210177ab0",
+            "d811a3b0-3260-11e9-e643-e3ccaa4c079e"
+        ],
+        "pharmacokinetics": [
+            "d811cac0-3260-11e9-a1de-aba436e43028",
+            "d811cac0-3260-11e9-c5c6-4f54cbbdb2d5",
+            "d811cac0-3260-11e9-b8c0-2314307807b9"
+        ],
+        "company": [
+            "d811cac0-3260-11e9-db28-45b51186189d",
+            "d811cac0-3260-11e9-d6cc-f9748bcb1589",
+            "d811cac0-3260-11e9-efa1-01f329c735f3"
+        ],
+        "poisoning": [
+            "d811cac0-3260-11e9-f728-458d9d50388a",
+            "d811cac0-3260-11e9-e7ca-4f97a83ddff1",
+            "d811cac0-3260-11e9-8010-0f77946bdbf8"
+        ],
+        "precautions": [
+            "d811f1d0-3260-11e9-8893-0f9c9e5ab3d1",
+            "d811f1d0-3260-11e9-be68-5b331da2d819",
+            "d811f1d0-3260-11e9-d20b-c5eff1218e69"
+        ],
+        "pregnancy": [
+            "d811f1d0-3260-11e9-99dd-a731c19f9f00",
+            "d811f1d0-3260-11e9-bb4a-893093c9b981",
+            "d811f1d0-3260-11e9-ac83-ab8a66e90a23"
+        ],
+        "exipients": [
+            "d811f1d0-3260-11e9-b42d-c17ee9609034",
+            "d811f1d0-3260-11e9-9833-0357f287a20b",
+            "d81218e0-3260-11e9-bffb-45b005d89325"
+        ],
+        "substances": [
+            "d81218e0-3260-11e9-99f7-8f7b59a2150e",
+            "d81218e0-3260-11e9-9a50-376685d25da5",
+            "d81218e0-3260-11e9-a098-ef2bab1f9ed0"
+        ],
+        "instructions": [
+            "d81218e0-3260-11e9-83b2-37fb52530d30",
+            "d81218e0-3260-11e9-b752-b573c1f97993",
+            "d81218e0-3260-11e9-9a53-d924b0a1f8da"
+        ],
+        "interactions": [
+            "d8123ff0-3260-11e9-ef99-edf5662fd822",
+            "d8123ff0-3260-11e9-af34-f50974f2718c",
+            "d8123ff0-3260-11e9-9376-ed2fc1546411"
+        ],
+        "contraIndications": [
+            "d8123ff0-3260-11e9-9406-8f31e9c996ed",
+            "d8123ff0-3260-11e9-d7ff-7fb5b0d254f6",
+            "d8123ff0-3260-11e9-a816-49548ed85dc4"
+        ],
+        "hepaticImpairment": [
+            "d8123ff0-3260-11e9-9058-13069bc76ef4",
+            "d8123ff0-3260-11e9-b35a-1b75b16e4192",
+            "d8123ff0-3260-11e9-cc84-5f7841663b08"
+        ],
+        "renalImpairment": [
+            "d8126700-3260-11e9-b592-755504a7ffe6",
+            "d8126700-3260-11e9-873e-1b6be6de6051",
+            "d8126700-3260-11e9-f498-d7dd7e711fab"
+        ],
+        "schengenCertificates": [
+            "d8126700-3260-11e9-fcff-630c9643d8fa",
+            "d8126700-3260-11e9-c73f-2f8526bfee31",
+            "d8126700-3260-11e9-bee2-8dc1c24a1413"
+        ],
+        "substitutions": [
+            "d8126700-3260-11e9-a43c-b9f026ea51dd",
+            "d8126700-3260-11e9-c6e6-e78446eb3fa8",
+            "d8126700-3260-11e9-80ec-a1c90ed6cde0"
+        ],
+        "subsidies": [
+            "d8126700-3260-11e9-986b-e5a7f18c259f",
+            "d8126700-3260-11e9-9c88-05f356a29774",
+            "d8128e10-3260-11e9-a361-e7dbb4ffed65"
+        ],
+        "traffic": "d8128e10-3260-11e9-8b8c-b361e07c8f26",
+        "photoIdentifications": "[{\"type\":\"d812b520-3260-11e9-cb48-3150f9f7e60f\",\"imprint\":\"d812b520-3260-11e9-818f-493eb0c9e729\",\"score\":\"d812b520-3260-11e9-bf52-31edfe6fe675\",\"colour\":\"d812b520-3260-11e9-d844-d5367d27bc0d\",\"sizeDimensions\":\"d812b520-3260-11e9-8fe0-8f91dd0a5734\",\"imageUrl\":\"d812b520-3260-11e9-9915-b79ba01fead0\"},{\"type\":\"d8130340-3260-11e9-d968-733f3ab7b32d\",\"imprint\":\"d8130340-3260-11e9-d69f-9b17b1cfb137\",\"score\":\"d8130340-3260-11e9-cd68-cb190e8dca89\",\"colour\":\"d8130340-3260-11e9-8154-630904a660c3\",\"sizeDimensions\":\"d8130340-3260-11e9-ddc2-531c2cb1fcb3\",\"imageUrl\":\"d8130340-3260-11e9-b181-cf0c9ccb3389\"},{\"type\":\"d8135160-3260-11e9-887d-b32435e3d087\",\"imprint\":\"d8135160-3260-11e9-ac20-6b29808d48d1\",\"score\":\"d8135160-3260-11e9-a73f-dd55f6964e61\",\"colour\":\"d8135160-3260-11e9-bcf0-b1858fba5656\",\"sizeDimensions\":\"d8135160-3260-11e9-9d36-e337a8fe2888\",\"imageUrl\":\"d8135160-3260-11e9-c2a4-a1137c648921\"}]",
+        "marketRepresentations": "[{\"subsidy\":\"d8128e10-3260-11e9-facd-217198bc5478\",\"delivery\":\"d8128e10-3260-11e9-d8c8-4974a6a5539d\",\"dispensingForm\":\"d8128e10-3260-11e9-9cd6-2105a1e93d1b\",\"vNumber\":\"d8128e10-3260-11e9-e8b0-7dc9c559ea5b\",\"packaging\":\"d8128e10-3260-11e9-c3f9-0944e3d176d7\",\"priceInDkk\":\"d8128e10-3260-11e9-e9ac-fd91d8e6c6a8\",\"dddPrice\":\"d812b520-3260-11e9-b00a-8f33ea58663a\"},{\"subsidy\":\"d812dc30-3260-11e9-a153-3db93231e02e\",\"delivery\":\"d812dc30-3260-11e9-b56f-19eb13a7c776\",\"dispensingForm\":\"d812dc30-3260-11e9-c74d-17cd389708a6\",\"vNumber\":\"d812dc30-3260-11e9-8188-855527c5c890\",\"packaging\":\"d812dc30-3260-11e9-a20e-5778e5b18c92\",\"priceInDkk\":\"d812dc30-3260-11e9-d218-351c3b815361\",\"dddPrice\":\"d812dc30-3260-11e9-f3c1-ed1d5c9d8d23\"},{\"subsidy\":\"d8132a50-3260-11e9-f7e3-f58186816c73\",\"delivery\":\"d8132a50-3260-11e9-91fb-99ccb6a47f06\",\"dispensingForm\":\"d8132a50-3260-11e9-fe0c-715402d8e205\",\"vNumber\":\"d8132a50-3260-11e9-994e-f52b1e8ddc41\",\"packaging\":\"d8132a50-3260-11e9-a401-5dda850b1773\",\"priceInDkk\":\"d8132a50-3260-11e9-b134-03e6da7e12d7\",\"dddPrice\":\"d8135160-3260-11e9-9829-553354d0c2dd\"}]",
+        "crucialErrors": "[{\"description\":\"d812dc30-3260-11e9-8436-9dc5ed191d20\",\"consequence\":\"d812dc30-3260-11e9-fc19-a10e25655db4\"},{\"description\":\"d8132a50-3260-11e9-8399-1781c417b797\",\"consequence\":\"d8132a50-3260-11e9-f2a3-c5d3947ee09b\"},{\"description\":\"d8135160-3260-11e9-857f-edfbc1d2d02e\",\"consequence\":\"d8137870-3260-11e9-9eda-977ecc8dd93f\"}]"
+    },
+    {
+        "breastFeeding": [
+            "d8137870-3260-11e9-bf65-0bde2b7ba6e4",
+            "d8137870-3260-11e9-dc25-dff04e8a781f",
+            "d8137870-3260-11e9-e666-edf7ea4c3d06"
+        ],
+        "otherFieldsOfApplication": [
+            "d8137870-3260-11e9-91ae-afdc9b1cb54e",
+            "d8137870-3260-11e9-a3d0-570f95e8d758",
+            "d8137870-3260-11e9-e991-b390889333ba"
+        ],
+        "fieldsOfApplication": [
+            "d8137870-3260-11e9-ccd0-63dc526fdd38",
+            "d8137870-3260-11e9-c83d-138067f4bf3e",
+            "d8139f80-3260-11e9-f3eb-571646e6a510"
+        ],
+        "commonSideEffects": [
+            "d8139f80-3260-11e9-a1ce-8590c20f4233",
+            "d8139f80-3260-11e9-a241-776c039cdcf9",
+            "d8139f80-3260-11e9-984e-17398a0eec3e"
+        ],
+        "uncommonSideEffects": [
+            "d8139f80-3260-11e9-9a8c-9d755746c9aa",
+            "d8139f80-3260-11e9-da5c-29602e0feacc",
+            "d8139f80-3260-11e9-866c-db79426d6a4c"
+        ],
+        "unknownSideEffects": [
+            "d8139f80-3260-11e9-ac83-35a97a3ccdfd",
+            "d813c690-3260-11e9-ec3d-bb360b2e830b",
+            "d813c690-3260-11e9-900a-6b3d6bb8bcf4"
+        ],
+        "bloodDonor": [
+            "d813c690-3260-11e9-bae5-0f7161cb1d36",
+            "d813c690-3260-11e9-b987-65ead832ea36",
+            "d813c690-3260-11e9-abe0-075cdb6b9aeb"
+        ],
+        "dispensingForms": [
+            "d813c690-3260-11e9-a8b7-7fdcacb4b456",
+            "d813c690-3260-11e9-ca97-3535ce8daaae",
+            "d813c690-3260-11e9-ff98-fdc08d09f636"
+        ],
+        "doping": [
+            "d813eda0-3260-11e9-a99d-bb030f07dc63",
+            "d813eda0-3260-11e9-b93c-27531d333454",
+            "d813eda0-3260-11e9-afc3-f9bf19798ca7"
+        ],
+        "dosageProposals": [
+            "d813eda0-3260-11e9-ca05-6b37469db83f",
+            "d813eda0-3260-11e9-f38d-497b2b1f9b26",
+            "d813eda0-3260-11e9-ff6d-79a8b662eb76"
+        ],
+        "featuresHandlingDurability": [
+            "d813eda0-3260-11e9-d93b-192b68d10fad",
+            "d813eda0-3260-11e9-ab1b-6dcc2671e4d3",
+            "d813eda0-3260-11e9-f72a-8db2146390fa"
+        ],
+        "pharmacodynamics": [
+            "d813eda0-3260-11e9-974c-5b4724f33562",
+            "d81414b0-3260-11e9-ff59-dbf10f091fb6",
+            "d81414b0-3260-11e9-d48b-cf6919ac940a"
+        ],
+        "pharmacokinetics": [
+            "d81414b0-3260-11e9-a004-a5f42c11cc39",
+            "d81414b0-3260-11e9-93ef-ad5dd60ffa2f",
+            "d81414b0-3260-11e9-8aee-7b49de8faf21"
+        ],
+        "company": [
+            "d81414b0-3260-11e9-f86c-b988e32be9f1",
+            "d81414b0-3260-11e9-8553-43444baf95a5",
+            "d81414b0-3260-11e9-a108-a59436dfd2d5"
+        ],
+        "poisoning": [
+            "d8143bc0-3260-11e9-e982-119400380a03",
+            "d8143bc0-3260-11e9-fd5e-399e3107807f",
+            "d8143bc0-3260-11e9-89ad-3597a1d4735d"
+        ],
+        "precautions": [
+            "d8143bc0-3260-11e9-d816-5dec65632867",
+            "d8143bc0-3260-11e9-c688-076dbe3bfcf3",
+            "d8143bc0-3260-11e9-e00f-b1cedc6190a9"
+        ],
+        "pregnancy": [
+            "d8143bc0-3260-11e9-dc5f-5b1ce7ea131a",
+            "d8143bc0-3260-11e9-c32d-e9e186aa85bc",
+            "d8143bc0-3260-11e9-f648-03d82c3fec5a"
+        ],
+        "exipients": [
+            "d81462d0-3260-11e9-dd47-8b09024b501d",
+            "d81462d0-3260-11e9-e0e1-99406dc31ad4",
+            "d81462d0-3260-11e9-d48a-31ae9e7f4326"
+        ],
+        "substances": [
+            "d81462d0-3260-11e9-f5a7-6d7508d82aee",
+            "d81462d0-3260-11e9-aabe-99e1a906dfb8",
+            "d81462d0-3260-11e9-f42d-e34d005c6f0d"
+        ],
+        "instructions": [
+            "d81462d0-3260-11e9-9b91-210653ae908f",
+            "d81462d0-3260-11e9-88d5-a9c9d07088a0",
+            "d81462d0-3260-11e9-bfa7-81c67aea8d1a"
+        ],
+        "interactions": [
+            "d81462d0-3260-11e9-a0a7-f54a4b94542f",
+            "d81489e0-3260-11e9-e460-9d90f624ad6c",
+            "d81489e0-3260-11e9-ab16-07ab9bd10c95"
+        ],
+        "contraIndications": [
+            "d81489e0-3260-11e9-c678-a5d9228e732b",
+            "d81489e0-3260-11e9-84b7-efbaceab6e61",
+            "d81489e0-3260-11e9-e82d-31d3a2dfcc1f"
+        ],
+        "hepaticImpairment": [
+            "d81489e0-3260-11e9-b4bf-0d871c813db5",
+            "d81489e0-3260-11e9-ed2d-77a1d6c54640",
+            "d81489e0-3260-11e9-d882-27edb827dd1c"
+        ],
+        "renalImpairment": [
+            "d81489e0-3260-11e9-98f7-cf8c8e7c4e4b",
+            "d81489e0-3260-11e9-e076-edca7eedd95e",
+            "d814b0f0-3260-11e9-b2ca-319598b52a67"
+        ],
+        "schengenCertificates": [
+            "d814b0f0-3260-11e9-f9de-f11af54f8319",
+            "d814b0f0-3260-11e9-921d-4d7d472cebcc",
+            "d814b0f0-3260-11e9-ec52-ab3cfee4b487"
+        ],
+        "substitutions": [
+            "d814b0f0-3260-11e9-b41a-7759721c37a8",
+            "d814b0f0-3260-11e9-f322-e546951c40ba",
+            "d814b0f0-3260-11e9-c42b-750f6718b609"
+        ],
+        "subsidies": [
+            "d814b0f0-3260-11e9-8567-75ca6e7c40e3",
+            "d814b0f0-3260-11e9-b802-4bdd4fb47056",
+            "d814d800-3260-11e9-b853-6fce107be31d"
+        ],
+        "traffic": "d814d800-3260-11e9-fcb8-772cbf5f0a07",
+        "photoIdentifications": "[{\"type\":\"d814ff10-3260-11e9-a5de-c75bebb48cfc\",\"imprint\":\"d814ff10-3260-11e9-90aa-a7acb2f3984b\",\"score\":\"d814ff10-3260-11e9-898b-03e158dc9d7c\",\"colour\":\"d814ff10-3260-11e9-84cd-818c2af3fbee\",\"sizeDimensions\":\"d814ff10-3260-11e9-8ae0-1b7080d1ed1b\",\"imageUrl\":\"d814ff10-3260-11e9-c985-7377ea796cba\"},{\"type\":\"d8154d30-3260-11e9-be5a-616ee21fc689\",\"imprint\":\"d8154d30-3260-11e9-eb71-6f925deb8127\",\"score\":\"d8154d30-3260-11e9-cd66-41d4c0ecc6fd\",\"colour\":\"d8154d30-3260-11e9-b12b-1d56a118f136\",\"sizeDimensions\":\"d8154d30-3260-11e9-de24-619234934cbb\",\"imageUrl\":\"d8154d30-3260-11e9-9fd7-fbcdf713f6f3\"},{\"type\":\"d8159b50-3260-11e9-e0c1-6d79f3b0eb01\",\"imprint\":\"d8159b50-3260-11e9-c186-a71fd93360fa\",\"score\":\"d8159b50-3260-11e9-ad73-671342e69d9d\",\"colour\":\"d815c260-3260-11e9-82bc-93bd37fd4461\",\"sizeDimensions\":\"d815c260-3260-11e9-994e-f9302cca17b5\",\"imageUrl\":\"d815c260-3260-11e9-a01b-831906acbc51\"}]",
+        "marketRepresentations": "[{\"subsidy\":\"d814d800-3260-11e9-eadd-11190a95885c\",\"delivery\":\"d814d800-3260-11e9-eec2-f563b642c2f2\",\"dispensingForm\":\"d814d800-3260-11e9-d4cb-0de220335a32\",\"vNumber\":\"d814d800-3260-11e9-e1e4-ebdba44a07ab\",\"packaging\":\"d814ff10-3260-11e9-afe6-27de569fef11\",\"priceInDkk\":\"d814ff10-3260-11e9-f04b-9b3a11ad0333\",\"dddPrice\":\"d814ff10-3260-11e9-fe39-fdc22560b6e5\"},{\"subsidy\":\"d8152620-3260-11e9-a9bd-65ebf1c79474\",\"delivery\":\"d8152620-3260-11e9-bfb0-d1aeabdb1d67\",\"dispensingForm\":\"d8152620-3260-11e9-9c88-995237540151\",\"vNumber\":\"d8152620-3260-11e9-facf-959aa76f36b4\",\"packaging\":\"d8152620-3260-11e9-9be7-51879b55c839\",\"priceInDkk\":\"d8152620-3260-11e9-f4d9-f91882962f9b\",\"dddPrice\":\"d8152620-3260-11e9-9d94-4b4aafbf94da\"},{\"subsidy\":\"d8154d30-3260-11e9-9aa5-c143150676ab\",\"delivery\":\"d8157440-3260-11e9-8070-572a691fdd5c\",\"dispensingForm\":\"d8157440-3260-11e9-e5df-bf57c3b984eb\",\"vNumber\":\"d8157440-3260-11e9-b724-393f84ea63a7\",\"packaging\":\"d8157440-3260-11e9-d923-1956d90df4d6\",\"priceInDkk\":\"d8157440-3260-11e9-b5bf-71573ea253cf\",\"dddPrice\":\"d8159b50-3260-11e9-a505-e3e40b764013\"}]",
+        "crucialErrors": "[{\"description\":\"d8152620-3260-11e9-d011-a93fc542e835\",\"consequence\":\"d8152620-3260-11e9-cdec-d959957ca1a4\"},{\"description\":\"d8154d30-3260-11e9-c110-c3868ae2756d\",\"consequence\":\"d8154d30-3260-11e9-cf2e-eb03cc97d2a1\"},{\"description\":\"d815c260-3260-11e9-d7d7-137d963631c0\",\"consequence\":\"d815c260-3260-11e9-e34d-a7a460f7ad79\"}]"
+    }
+]
