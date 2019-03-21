@@ -42,9 +42,15 @@ flutter:
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
-  uses-material-design: true
+  uses-material-design: true  
 
   # To add assets to your application, add an assets section, like this:
+  assets: 
+    - images/photo.png 
+    - images/list.png
+    - images/MEDID_LOGO.png
+    - images/help.png
+    - images/info.png
   #assets:
   #  - images/medid_logo.png
   #  - images/a_dot_ham.jpeg
