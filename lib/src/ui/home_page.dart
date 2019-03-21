@@ -3,12 +3,11 @@ import 'package:medid/src/ui/cam_page.dart';
 import 'package:medid/src/ui/cam_page_mock.dart';
 import 'package:medid/src/ui/info.dart';
 import 'package:medid/src/ui/help.dart';
+import 'package:medid/src/ui/pill_info_screen.dart';
 import 'package:medid/src/ui/pill_library.dart';
 import 'package:medid/src/ui/take_a_picture.dart';
 
-
-
-class HomePage extends StatelessWidget{
+class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,7 +22,7 @@ class HomePage extends StatelessWidget{
               padding: const EdgeInsets.all(8.0),
               textColor: Colors.white,
               color: Colors.blue,
-              child:Column(
+              child: Column(
                 children: <Widget>[
                   Icon(Icons.camera_alt),
                   Text("Take a picture"),
@@ -38,11 +37,12 @@ class HomePage extends StatelessWidget{
                 );
               },
             ),
+            
             new RaisedButton(
               padding: const EdgeInsets.all(8.0),
               textColor: Colors.white,
               color: Colors.blue,
-              child:Column(
+              child: Column(
                 children: <Widget>[
                   Icon(Icons.folder_open),
                   Text("Pill library"),
@@ -61,7 +61,7 @@ class HomePage extends StatelessWidget{
               padding: const EdgeInsets.all(8.0),
               textColor: Colors.white,
               color: Colors.blue,
-              child:Column(
+              child: Column(
                 children: <Widget>[
                   Icon(Icons.info),
                   Text("Info"),
@@ -80,7 +80,7 @@ class HomePage extends StatelessWidget{
               padding: const EdgeInsets.all(8.0),
               textColor: Colors.white,
               color: Colors.blue,
-              child:Column(
+              child: Column(
                 children: <Widget>[
                   Icon(Icons.help),
                   Text("Help"),
@@ -101,9 +101,3 @@ class HomePage extends StatelessWidget{
     );
   }
 }
-
-
-
-
-
-
