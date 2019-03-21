@@ -39,8 +39,8 @@ void main() {
       await tester.pumpAndSettle();
     }
 
-    Future<Null> _navigateToPillLibrary(WidgetTester tester) async {
-      await tester.tap(find.byKey(HomePage.navigateToPillLibraryButtonKey));
+    Future<Null> _navigateToSearchBar(WidgetTester tester) async {
+      await tester.tap(find.byKey(HomePage.searchBarKey));
       await tester.pumpAndSettle();
     }
 
@@ -72,11 +72,12 @@ void main() {
         'When tapping "pill library" button, should navigate to PillLibrary page',
         (WidgetTester tester) async {
       await _buildHomePage(tester);
-      await _navigateToPillLibrary(tester);
+      await _navigateToSearchBar(tester);
 
       verify(mockObserver.didPush(any, any));
 
-      expect(find.byType(PillLibrary), findsOneWidget);
+      expect(find.byType(ListView), findsOneWidget);
+      expect(find.byKey(Key('SearchScreen')), findsOneWidget);
     });
 
     testWidgets('When tapping "info" button, should navigate to Info page',
@@ -108,7 +109,7 @@ void main() {
       await _buildHomePage(tester);
       expect(find.byType(Image), findsNWidgets(5));
     });
-    
+
     testWidgets('HomePage has five column and three rows',
         (WidgetTester tester) async {
       await _buildHomePage(tester);

@@ -9,6 +9,7 @@ class HomePage extends StatelessWidget {
   static const navigateToPillLibraryButtonKey = Key('navigateToPillLibrary');
   static const navigateToInfoButtonKey = Key('navigateToInfo');
   static const navigateToHelpButtonKey = Key('navigateToHelp');
+  static final searchBarKey = Key("searchbar");
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,6 +47,8 @@ class HomePage extends StatelessWidget {
                               height: 150,
                               child: new FlatButton(
                                 key: navigateToTakeAPictureButtonKey,
+                                splashColor: Colors.lightBlue[300],
+                                highlightColor: Colors.white,
                                 child: new Image.asset(
                                   'images/photo.png',
                                   height: 70,
@@ -69,7 +72,9 @@ class HomePage extends StatelessWidget {
                                 child: new Container(
                               height: 150,
                               child: new FlatButton(
-                                key: navigateToPillLibraryButtonKey,
+                                key: searchBarKey,
+                                splashColor: Colors.lightBlue[300],
+                                highlightColor: Colors.white,
                                 child: new Image.asset(
                                   'images/list.png',
                                   height: 55,
@@ -77,12 +82,8 @@ class HomePage extends StatelessWidget {
                                 ),
                                 color: Colors.white,
                                 onPressed: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => PillLibrary(),
-                                    ),
-                                  );
+                                  showSearch(
+                                      context: context, delegate: PillSearch());
                                 },
                               ),
                             ))
@@ -99,6 +100,8 @@ class HomePage extends StatelessWidget {
                               height: 100,
                               child: new FlatButton(
                                 key: navigateToInfoButtonKey,
+                                splashColor: Colors.lightBlue[300],
+                                highlightColor: Colors.white,
                                 child: new Image.asset(
                                   'images/info.png',
                                   height: 35,
@@ -123,6 +126,8 @@ class HomePage extends StatelessWidget {
                               height: 100,
                               child: new FlatButton(
                                 key: navigateToHelpButtonKey,
+                                splashColor: Colors.lightBlue[300],
+                                highlightColor: Colors.white,
                                 child: new Image.asset(
                                   'images/help.png',
                                   height: 35,
