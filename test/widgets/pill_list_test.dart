@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:medid/src/models/match_result.dart';
 import 'package:image_test_utils/image_test_utils.dart';
+import 'package:medid/src/ui/pill_info_screen.dart';
 import 'package:medid/src/ui/widgets/pill_list.dart';
+import 'package:mockito/mockito.dart';
 
 main() {
   group('Pill list', () {
@@ -69,20 +71,63 @@ main() {
           final k = Key(results.indexOf(mr).toString());
           final c = tester.widget<Card>(find.byKey(k));
           final lt = c.child as ListTile;
-          expect((lt.title as Text)?.data, mr.title);
+          expect((lt.title as Text)?.data, mr.title + "  " + mr.strength);
           expect((lt.subtitle as Text)?.data, mr.activeSubstance);
-          expect((lt.trailing as Text)?.data, mr.strength);
+
+          final imageFinder = find.descendant(
+              of: find.byWidget(lt),
+              matching: find.byWidgetPredicate((Widget w) =>
+                  w is SizedBox &&
+                  w.height == 100 &&
+                  w.width == 100 &&
+                  w.child is Image));
+          expect(imageFinder, findsOneWidget);
           expect(
-              find.descendant(
-                  of: find.byWidget(lt),
-                  matching: find.byWidgetPredicate((Widget w) =>
-                      w is SizedBox &&
-                      w.height == 100 &&
-                      w.width == 100 &&
-                      w.child is Image)),
-              findsOneWidget);
+            tester.widget(imageFinder),
+            lt.leading,
+          );
         });
+      });
+    });
+
+    testWidgets('taps element -> navigate to pill info screen',
+        (WidgetTester tester) async {
+      provideMockedNetworkImages(() async {
+        final mockObserver = MockNavigatorObserver();
+        final List<MatchResult> results = [
+          MatchResult(
+              title: 'Panodil', strength: '20mg', activeSubstance: 'Coffein'),
+          MatchResult(
+              title: 'Viagra', strength: '10mg', activeSubstance: 'Water'),
+          MatchResult(
+              title: 'Amphetamine', strength: '1kg', activeSubstance: 'N/A'),
+        ];
+        Widget mqResultScreen = new MediaQuery(
+            data: new MediaQueryData(),
+            child: new MaterialApp(
+                navigatorObservers: [mockObserver],
+                home: new PillList(matchResults: results)));
+        await tester.pumpWidget(mqResultScreen);
+
+        final pillToView = results[1];
+
+        await tester.tap(find.byWidgetPredicate((w) =>
+            w is ListTile &&
+            identical((w.subtitle as Text).data, pillToView.activeSubstance)));
+        await tester.pumpAndSettle();
+
+        /// Verify that a push event happened
+        verify(mockObserver.didPush(any, any));
+
+        /// You'd also want to be sure that your page is now
+        /// present in the screen.
+        expect(
+            find.byWidgetPredicate(
+                (w) => w is PillInfoScreen && w.pillExtended == pillToView),
+            findsOneWidget);
       });
     });
   });
 }
+
+class MockNavigatorObserver extends Mock implements NavigatorObserver {}

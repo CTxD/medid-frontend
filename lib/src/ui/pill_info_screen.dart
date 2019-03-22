@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:medid/src/models/pill_extended.dart';
+import 'package:medid/src/models/match_result.dart';
 
 class PillInfoScreen extends StatelessWidget {
-  PillExtended pillExtended;
+  MatchResult pillExtended;
 
 
   PillInfoScreen({Key key, this.pillExtended}) : super(key: key);

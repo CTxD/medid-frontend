@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:medid/src/models/match_result.dart';
+import 'package:medid/src/ui/pill_info_screen.dart';
 
 class PillList extends StatelessWidget {
   List<MatchResult> matchResults;
@@ -8,8 +9,10 @@ class PillList extends StatelessWidget {
   PillList.fromNothing() {
     matchResults = List.generate(
         10,
-        (i) =>
-            MatchResult(title: 'Title $i', activeSubstance: 'Description $i', strength: '$i mg'));
+        (i) => MatchResult(
+            title: 'Title $i',
+            activeSubstance: 'Description $i',
+            strength: '$i mg'));
   }
 
   @override
@@ -25,8 +28,15 @@ class PillList extends StatelessWidget {
                     height: 100,
                     child: Image.network(matchResults[i].pillImageUrl)),
                 subtitle: Text(matchResults[i].activeSubstance),
-                title: Text(matchResults[i].title),
-                trailing: Text(matchResults[i].strength),
+                title: Text(
+                    matchResults[i].title + '  ' + matchResults[i].strength),
+                onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            PillInfoScreen(pillExtended: matchResults[i]),
+                      ),
+                    ),
               ));
         });
   }
