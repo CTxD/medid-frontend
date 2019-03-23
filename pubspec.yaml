@@ -27,6 +27,8 @@ dependencies:
   camera: ^0.4.2
   flutter_bloc: ^0.8.0
   bloc: ^0.10.0
+  path_provider: ^0.5.0+1
+  lamp: ^0.0.6
 
 
 
@@ -40,6 +42,8 @@ dev_dependencies:
 
 # The following section is specific to Flutter.
 flutter:
+  assets:
+    - lib/media/images/
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
