@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:medid/src/ui/home_page.dart';
-import 'package:medid/src/ui/take_a_picture.dart';
-import 'package:medid/src/ui/pill_library.dart';
-import 'package:medid/src/ui/info.dart';
-import 'package:medid/src/ui/help.dart';
+import 'package:medid/src/ui/cam_page.dart';
+import 'package:medid/src/ui/pill_library_page.dart';
+import 'package:medid/src/ui/info_page.dart';
+import 'package:medid/src/ui/help_page.dart';
 import 'package:mockito/mockito.dart';
 
 class MockNavigatorObserver extends Mock implements NavigatorObserver {}
@@ -65,7 +65,7 @@ void main() {
       verify(mockObserver.didPush(any, any));
 
       // ...and there should be a TakeAPicture present in the widget tree.
-      expect(find.byType(TakeAPicture), findsOneWidget);
+      expect(find.byType(CamPage), findsOneWidget);
     });
 
     testWidgets(
@@ -76,7 +76,7 @@ void main() {
 
       verify(mockObserver.didPush(any, any));
 
-      expect(find.byType(PillLibrary), findsOneWidget);
+      expect(find.byType(PillLibraryPage), findsOneWidget);
     });
 
     testWidgets('When tapping "info" button, should navigate to Info page',
@@ -86,7 +86,7 @@ void main() {
 
       verify(mockObserver.didPush(any, any));
 
-      expect(find.byType(Info), findsOneWidget);
+      expect(find.byType(InfoPage), findsOneWidget);
     });
 
     testWidgets('When tapping "help" button, should navigate to help page',
@@ -96,7 +96,7 @@ void main() {
 
       verify(mockObserver.didPush(any, any));
 
-      expect(find.byType(Help), findsOneWidget);
+      expect(find.byType(HelpPage), findsOneWidget);
     });
 
     testWidgets('HomePage renders four buttons', (WidgetTester tester) async {

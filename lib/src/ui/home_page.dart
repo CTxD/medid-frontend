@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:medid/src/ui/info.dart';
-import 'package:medid/src/ui/help.dart';
-import 'package:medid/src/ui/pill_library.dart';
-import 'package:medid/src/ui/take_a_picture.dart';
+import 'package:medid/src/ui/info_page.dart';
+import 'package:medid/src/ui/help_page.dart';
+import 'package:medid/src/ui/pill_library_page.dart';
+import 'package:medid/src/ui/cam_page.dart';
+import 'package:medid/src/ui/widgets/home_button.dart';
 
 class HomePage extends StatelessWidget {
   static const navigateToTakeAPictureButtonKey = Key('navigateToTakeAPicture');
@@ -21,7 +22,7 @@ class HomePage extends StatelessWidget {
                     children: <Widget>[
                       new Container(
                         child: new Expanded(
-                          child: new Image.asset('images/MEDID_LOGO.png'),
+                          child: new Image.asset('images/medid_logo.png'),
                         ),
                       ),
                     ],
@@ -41,51 +42,23 @@ class HomePage extends StatelessWidget {
                         new Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
-                            new Expanded(
-                                child: new Container(
+                            HomeButton(
+                              page: CamPage(),
+                              imagePath: 'images/photo.png',
                               height: 150,
-                              child: new FlatButton(
-                                key: navigateToTakeAPictureButtonKey,
-                                child: new Image.asset(
-                                  'images/photo.png',
-                                  height: 70,
-                                  width: 70,
-                                ),
-                                color: Colors.white,
-                                onPressed: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => TakeAPicture(),
-                                    ),
-                                  );
-                                },
-                              ),
-                            )),
+                              imageWidth: 70,
+                              key: navigateToTakeAPictureButtonKey,
+                            ),
                             SizedBox(
                               width: 2,
                             ),
-                            new Expanded(
-                                child: new Container(
+                            HomeButton(
+                              page: PillLibraryPage(),
+                              imagePath: 'images/list.png',
                               height: 150,
-                              child: new FlatButton(
-                                key: navigateToPillLibraryButtonKey,
-                                child: new Image.asset(
-                                  'images/list.png',
-                                  height: 55,
-                                  width: 55,
-                                ),
-                                color: Colors.white,
-                                onPressed: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => PillLibrary(),
-                                    ),
-                                  );
-                                },
-                              ),
-                            ))
+                              imageWidth: 55,
+                              key: navigateToPillLibraryButtonKey,
+                            ),
                           ],
                         ),
                         SizedBox(
@@ -94,51 +67,23 @@ class HomePage extends StatelessWidget {
                         new Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
-                            new Expanded(
-                                child: new Container(
+                            HomeButton(
+                              page: InfoPage(),
+                              imagePath: 'images/info.png',
                               height: 100,
-                              child: new FlatButton(
-                                key: navigateToInfoButtonKey,
-                                child: new Image.asset(
-                                  'images/info.png',
-                                  height: 35,
-                                  width: 35,
-                                ),
-                                color: Colors.white,
-                                onPressed: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => Info(),
-                                    ),
-                                  );
-                                },
-                              ),
-                            )),
+                              imageWidth: 35,
+                              key: navigateToInfoButtonKey,
+                            ),
                             SizedBox(
                               width: 2,
                             ),
-                            new Expanded(
-                                child: new Container(
+                            HomeButton(
+                              page:HelpPage(),
+                              imagePath: 'images/help.png',
                               height: 100,
-                              child: new FlatButton(
-                                key: navigateToHelpButtonKey,
-                                child: new Image.asset(
-                                  'images/help.png',
-                                  height: 35,
-                                  width: 35,
-                                ),
-                                color: Colors.white,
-                                onPressed: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => Help(),
-                                    ),
-                                  );
-                                },
-                              ),
-                            ))
+                              imageWidth: 35,
+                              key: navigateToHelpButtonKey,
+                            )
                           ],
                         ),
                       ],

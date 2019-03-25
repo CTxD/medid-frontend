@@ -17,7 +17,6 @@ environment:
   sdk: ">=2.1.0 <3.0.0"
 
 dependencies:
-  mockito: ^4.0.0
   flutter:
     sdk: flutter
     
@@ -29,6 +28,7 @@ dependencies:
 
 
 dev_dependencies:
+  mockito: ^4.0.0
   flutter_test:
     sdk: flutter
 
@@ -48,7 +48,7 @@ flutter:
   assets: 
     - images/photo.png 
     - images/list.png
-    - images/MEDID_LOGO.png
+    - images/medid_logo.png
     - images/help.png
     - images/info.png
   #assets:

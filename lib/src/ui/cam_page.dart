@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
-class Info extends StatelessWidget {
+class CamPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
       appBar: AppBar(
-        title: Text("Info"),
+        title: Text("Take a picture"),
       ),
       body: new Center(
         
