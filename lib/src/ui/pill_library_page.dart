@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
-class Help extends StatelessWidget {
+class PillLibraryPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
       appBar: AppBar(
-        title: Text("Help"),
+        title: Text("Pill library"),
       ),
       body: new Center(
         

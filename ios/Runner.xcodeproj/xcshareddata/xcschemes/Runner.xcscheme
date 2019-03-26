@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "1010"
+   LastUpgradeVersion = "0910"
    version = "2.0">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -52,10 +52,11 @@
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES"
       launchAutomaticallySubstyle = "2">
-      <PathRunnable
+      <RemoteRunnable
          runnableDebuggingMode = "0"
-         FilePath = "/&lt;placeholder&gt;">
-      </PathRunnable>
+         BundleIdentifier = "com.medid.unique"
+         RemotePath = "/var/containers/Bundle/Application/8452A38E-397D-4706-84F8-C3142DD3BA4B/Runner.app">
+      </RemoteRunnable>
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"

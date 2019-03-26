@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:medid/src/models/match_result.dart';
-import 'package:medid/src/ui/result_screen.dart';
+import 'package:medid/src/ui/result_page.dart';
 import 'package:image_test_utils/image_test_utils.dart';
 import 'package:medid/src/ui/widgets/pill_list.dart';
 
@@ -9,11 +9,11 @@ main() {
   group('Result screen', () {
     testWidgets('has the proper title', (WidgetTester tester) async {
       provideMockedNetworkImages(() async {
-        Widget mqResultScreen = new MediaQuery(
+        Widget mqResultPage = new MediaQuery(
             data: new MediaQueryData(),
-            child: new MaterialApp(home: new ResultScreen()));
+            child: new MaterialApp(home: new ResultPage()));
 
-        await tester.pumpWidget(mqResultScreen);
+        await tester.pumpWidget(mqResultPage);
         final titleFinder = find.descendant(
             of: find.byType(Scaffold),
             matching: find.byWidgetPredicate((Widget w) =>
@@ -24,13 +24,13 @@ main() {
     testWidgets('given no match results -> pill list has no match results',
         (WidgetTester tester) async {
       provideMockedNetworkImages(() async {
-        Widget mqResultScreen = new MediaQuery(
+        Widget mqResultPage = new MediaQuery(
             data: new MediaQueryData(),
-            child: new MaterialApp(home: new ResultScreen(matchResults: [])));
+            child: new MaterialApp(home: new ResultPage(matchResults: [])));
 
-        await tester.pumpWidget(mqResultScreen);
+        await tester.pumpWidget(mqResultPage);
         final plFinder = find.descendant(
-            of: find.byType(ResultScreen),
+            of: find.byType(ResultPage),
             matching: find.byWidgetPredicate(
                 (Widget w) => w is PillList && w.matchResults.isEmpty));
         expect(plFinder, findsOneWidget);
@@ -47,14 +47,14 @@ main() {
           MatchResult(
               title: 'Amphetamine', strength: '1kg', activeSubstance: 'N/A'),
         ];
-        Widget mqResultScreen = new MediaQuery(
+        Widget mqResultPage = new MediaQuery(
             data: new MediaQueryData(),
             child: new MaterialApp(
-                home: new ResultScreen(matchResults: mockResults)));
+                home: new ResultPage(matchResults: mockResults)));
 
-        await tester.pumpWidget(mqResultScreen);
+        await tester.pumpWidget(mqResultPage);
         final plFinder = find.descendant(
-            of: find.byType(ResultScreen),
+            of: find.byType(ResultPage),
             matching: find.byWidgetPredicate((Widget w) =>
                 w is PillList && identical(w.matchResults, mockResults)));
         expect(plFinder, findsOneWidget);

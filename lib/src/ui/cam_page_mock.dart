@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:medid/src/blocs/cam_bloc.dart';
-import 'package:medid/src/models/match_result.dart';
-import 'package:medid/src/ui/result_screen.dart';
+import 'package:medid/src/ui/result_page.dart';
 
 class CamPageMock extends StatelessWidget {
   @override
@@ -23,7 +20,7 @@ class CamPageMock extends StatelessWidget {
             ],
           ),
           onPressed: () => Navigator.push(
-              context, MaterialPageRoute(builder: (context) => ResultScreen())),
+              context, MaterialPageRoute(builder: (context) => ResultPage())),
         )));
   }
 }

@@ -3,10 +3,10 @@ import 'package:flutter/widgets.dart';
 import 'package:medid/src/models/match_result.dart';
 import 'package:medid/src/ui/widgets/pill_list.dart';
 
-class ResultScreen extends StatelessWidget {
+class ResultPage extends StatelessWidget {
   List<MatchResult> matchResults;
 
-  ResultScreen({Key key, this.matchResults}) : super(key: key);
+  ResultPage({Key key, this.matchResults}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

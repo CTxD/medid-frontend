@@ -1,103 +1,95 @@
 import 'package:flutter/material.dart';
-import 'package:medid/src/ui/cam_page.dart';
 import 'package:medid/src/ui/cam_page_mock.dart';
-import 'package:medid/src/ui/info.dart';
-import 'package:medid/src/ui/help.dart';
-import 'package:medid/src/ui/pill_info_screen.dart';
-import 'package:medid/src/ui/pill_library.dart';
-import 'package:medid/src/ui/take_a_picture.dart';
+import 'package:medid/src/ui/info_page.dart';
+import 'package:medid/src/ui/help_page.dart';
+import 'package:medid/src/ui/pill_library_page.dart';
+import 'package:medid/src/ui/cam_page.dart';
+import 'package:medid/src/ui/widgets/home_button.dart';
 
 class HomePage extends StatelessWidget {
+  static const camPageButtonKey = Key('camPageButton');
+  static const pillLibButtonKey = Key('pillLibButton');
+  static const infoPageButtonKey = Key('infoPageButton');
+  static const helpPageButtonKey = Key('helpPageButton');
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("HomePage"),
-      ),
-      body: new Center(
-        child: new Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: <Widget>[
-            new RaisedButton(
-              padding: const EdgeInsets.all(8.0),
-              textColor: Colors.white,
-              color: Colors.blue,
-              child: Column(
-                children: <Widget>[
-                  Icon(Icons.camera_alt),
-                  Text("Take a picture"),
-                ],
-              ),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => CamPageMock(),
+        body: new Container(
+            decoration: new BoxDecoration(color: Colors.white),
+            child: new Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  new Row(
+                    children: <Widget>[
+                      new Container(
+                        child: new Expanded(
+                          child: new Image.asset('images/medid_logo.png'),
+                        ),
+                      ),
+                    ],
                   ),
-                );
-              },
-            ),
-            
-            new RaisedButton(
-              padding: const EdgeInsets.all(8.0),
-              textColor: Colors.white,
-              color: Colors.blue,
-              child: Column(
-                children: <Widget>[
-                  Icon(Icons.folder_open),
-                  Text("Pill library"),
-                ],
-              ),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => PillLibrary(),
+                  SizedBox(
+                    height: 30,
                   ),
-                );
-              },
-            ),
-            new RaisedButton(
-              padding: const EdgeInsets.all(8.0),
-              textColor: Colors.white,
-              color: Colors.blue,
-              child: Column(
-                children: <Widget>[
-                  Icon(Icons.info),
-                  Text("Info"),
-                ],
-              ),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => Info(),
+                  new Container(
+                    decoration: new BoxDecoration(
+                        gradient: new RadialGradient(
+                      center: Alignment(0.0, 0.0),
+                      colors: [Colors.lightBlue[300], Colors.white],
+                      radius: 0.5,
+                    )),
+                    child: new Wrap(
+                      children: <Widget>[
+                        new Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            HomeButton(
+                              page: CamPage(),
+                              imagePath: 'images/photo.png',
+                              height: 150,
+                              imageWidth: 70,
+                              key: camPageButtonKey,
+                            ),
+                            SizedBox(
+                              width: 2,
+                            ),
+                            HomeButton(
+                              page: PillLibraryPage(),
+                              imagePath: 'images/list.png',
+                              height: 150,
+                              imageWidth: 55,
+                              key: pillLibButtonKey,
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 152,
+                        ),
+                        new Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            HomeButton(
+                              page: InfoPage(),
+                              imagePath: 'images/info.png',
+                              height: 100,
+                              imageWidth: 35,
+                              key: infoPageButtonKey,
+                            ),
+                            SizedBox(
+                              width: 2,
+                            ),
+                            HomeButton(
+                              page: HelpPage(),
+                              imagePath: 'images/help.png',
+                              height: 100,
+                              imageWidth: 35,
+                              key: helpPageButtonKey,
+                            )
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
-                );
-              },
-            ),
-            new RaisedButton(
-              padding: const EdgeInsets.all(8.0),
-              textColor: Colors.white,
-              color: Colors.blue,
-              child: Column(
-                children: <Widget>[
-                  Icon(Icons.help),
-                  Text("Help"),
-                ],
-              ),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => Help(),
-                  ),
-                );
-              },
-            ),
-          ],
-        ),
-      ),
-    );
+                ])));
   }
 }

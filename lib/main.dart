@@ -8,9 +8,6 @@ void main() => runApp(MyApp());
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: "MedID",
-      home: HomePage()
-    );
+    return MaterialApp(title: "MedID", home: HomePage(), color: Colors.black);
   }
 }
