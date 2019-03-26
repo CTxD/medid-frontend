@@ -1,30 +1,28 @@
 import 'package:flutter/material.dart';
 
 class HomeButton extends StatelessWidget {
-  double height;
+  final double height;
 
   final String imagePath;
-
-  final Key key;
 
   final Widget page;
 
   final double imageWidth;
 
   HomeButton({
-    this.key,
-    this.page,
-    this.height,
-    this.imageWidth,
-    this.imagePath,
-  });
+    @required Key key,
+    @required this.page,
+    @required this.height,
+    @required this.imageWidth,
+    @required this.imagePath,
+  }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return new Expanded(
         child: new Container(
       height: this.height,
       child: new FlatButton(
-        key: this.key,
         child: new Image.asset(
           this.imagePath,
           height: this.imageWidth,

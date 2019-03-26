@@ -6,10 +6,10 @@ import 'package:medid/src/ui/cam_page.dart';
 import 'package:medid/src/ui/widgets/home_button.dart';
 
 class HomePage extends StatelessWidget {
-  static const navigateToTakeAPictureButtonKey = Key('navigateToTakeAPicture');
-  static const navigateToPillLibraryButtonKey = Key('navigateToPillLibrary');
-  static const navigateToInfoButtonKey = Key('navigateToInfo');
-  static const navigateToHelpButtonKey = Key('navigateToHelp');
+  static const camPageButtonKey = Key('camPageButton');
+  static const pillLibButtonKey = Key('pillLibButton');
+  static const infoPageButtonKey = Key('infoPageButton');
+  static const helpPageButtonKey = Key('helpPageButton');
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,7 +47,7 @@ class HomePage extends StatelessWidget {
                               imagePath: 'images/photo.png',
                               height: 150,
                               imageWidth: 70,
-                              key: navigateToTakeAPictureButtonKey,
+                              key: camPageButtonKey,
                             ),
                             SizedBox(
                               width: 2,
@@ -57,7 +57,7 @@ class HomePage extends StatelessWidget {
                               imagePath: 'images/list.png',
                               height: 150,
                               imageWidth: 55,
-                              key: navigateToPillLibraryButtonKey,
+                              key: pillLibButtonKey,
                             ),
                           ],
                         ),
@@ -72,17 +72,17 @@ class HomePage extends StatelessWidget {
                               imagePath: 'images/info.png',
                               height: 100,
                               imageWidth: 35,
-                              key: navigateToInfoButtonKey,
+                              key: infoPageButtonKey,
                             ),
                             SizedBox(
                               width: 2,
                             ),
                             HomeButton(
-                              page:HelpPage(),
+                              page: HelpPage(),
                               imagePath: 'images/help.png',
                               height: 100,
                               imageWidth: 35,
-                              key: navigateToHelpButtonKey,
+                              key: helpPageButtonKey,
                             )
                           ],
                         ),
