@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 
-class CamPage extends StatelessWidget {
+class HelpPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    // TODO: implement build
     return Scaffold(
       appBar: AppBar(
-        title: Text('Camera'),
+        title: Text("Help"),
       ),
-      body: Center(
-        // Content
+      body: new Center(
+        
       ),
     );
   }
