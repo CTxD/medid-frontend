@@ -1,4 +1,6 @@
 language: dart
+notifications:
+  slack: sw8-f19:LzRHn2HclAiOkP9rPIrrw3O1
 os:
   - linux
 sudo: required
