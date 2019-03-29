@@ -1,6 +1,9 @@
 # medid
 
 [![Build Status](https://travis-ci.com/pprintz/medid-frontend.svg?branch=master)](https://travis-ci.com/pprintz/medid-frontend)
+[![codecov](https://codecov.io/gh/pprintz/medid-frontend/branch/master/graph/badge.svg)](https://codecov.io/gh/pprintz/medid-frontend)
+
+
 
 A new Flutter project.
 
