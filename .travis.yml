@@ -27,7 +27,7 @@ script:
   - cd $TRAVIS_BUILD_DIR
   - flutter packages get
   - flutter test
-  - flutter test --coverage --coverage-path=../../flutter_bloc.lcov
+  - flutter test --coverage --coverage-path=medid.lcov
 
 after_success:
 - bash <(curl -s https://codecov.io/bash)
