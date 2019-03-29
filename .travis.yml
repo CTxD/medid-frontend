@@ -14,13 +14,19 @@ addons:
       - libstdc++6
       - fonts-droid
 
+install:
+  - echo 'Avoid default Travis CI install step'
+
 before_script:
-  - git clone https://github.com/flutter/flutter.git -b master --depth 1
-  - ./flutter/bin/flutter doctor
+  - cd ..
+  - git clone https://github.com/flutter/flutter.git
+  - export PATH=`pwd`/flutter/bin:`pwd`/flutter/bin/cache/dart-sdk/bin:$PATH
+  - flutter doctor
 
 script:
-- ./flutter/bin/flutter packages get
-- ./flutter/bin/flutter test
+  - cd $TRAVIS_BUILD_DIR
+  - flutter packages get
+  - flutter test
 
 
 after_success:
