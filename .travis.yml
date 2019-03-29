@@ -1,0 +1,35 @@
+language: dart
+notifications:
+  slack: sw8-f19:LzRHn2HclAiOkP9rPIrrw3O1
+os:
+  - linux
+sudo: required
+dist: trusty
+dart:
+  - 2.1.0
+addons:
+  chrome: stable
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - libstdc++6
+      - fonts-droid
+
+install:
+  - echo 'Avoid default Travis CI install step'
+
+before_script:
+  - cd ..
+  - git clone https://github.com/flutter/flutter.git
+  - export PATH=`pwd`/flutter/bin:`pwd`/flutter/bin/cache/dart-sdk/bin:$PATH
+  - flutter doctor
+
+script:
+  - cd $TRAVIS_BUILD_DIR
+  - flutter packages get
+  - flutter test
+  - flutter test --coverage --coverage-path=medid.lcov
+
+after_success:
+- bash <(curl -s https://codecov.io/bash)
