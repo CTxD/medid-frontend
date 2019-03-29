@@ -1,43 +1,60 @@
 import 'package:flutter/material.dart';
-import 'package:medid/src/models/match_result.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:medid/src/bloc/bloc.dart';
 import 'package:medid/src/ui/pill_info_screen.dart';
 
-class PillList extends StatelessWidget {
-  List<MatchResult> matchResults;
+class PillList extends StatefulWidget {
+  final ResultBloc resultBloc;
 
-  PillList({this.matchResults}) : super();
-  PillList.fromNothing() {
-    matchResults = List.generate(
-        10,
-        (i) => MatchResult(
-            title: 'Title $i',
-            activeSubstance: 'Description $i',
-            strength: '$i mg'));
-  }
+  PillList({Key key, @required this.resultBloc}) : super(key: key);
 
   @override
+  State<StatefulWidget> createState() {
+    return _PillListState();
+  }
+}
+
+class _PillListState extends State<PillList> {
+  ResultBloc get _resultBloc => widget.resultBloc;
+  @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-        itemCount: matchResults?.length,
-        itemBuilder: (c, i) {
-          return Card(
-              key: Key(i.toString()),
-              child: ListTile(
-                leading: SizedBox(
-                    width: 100,
-                    height: 100,
-                    child: Image.network(matchResults[i].pillImageUrl)),
-                subtitle: Text(matchResults[i].activeSubstance),
-                title: Text(
-                    matchResults[i].title + '  ' + matchResults[i].strength),
-                onTap: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) =>
-                            PillInfoScreen(pillExtended: matchResults[i]),
-                      ),
-                    ),
-              ));
+    return BlocBuilder<ResultEvent, ResultState>(
+        bloc: _resultBloc,
+        builder: (BuildContext context, ResultState state) {
+          if (state is FoundMatches) {
+            return ListView.builder(
+                itemCount: state.results?.length,
+                itemBuilder: (c, i) {
+                  return Card(
+                      key: Key(i.toString()),
+                      child: ListTile(
+                        leading: SizedBox(
+                            width: 100,
+                            height: 100,
+                            child:
+                                Image.network(state.results[i].pillImageUrl)),
+                        subtitle: Text(state.results[i].activeSubstance),
+                        title: Text(state.results[i].title +
+                            '  ' +
+                            state.results[i].strength),
+                        onTap: () {
+                          _resultBloc.dispatch(
+                              MatchClicked(clickedMr: state.results[i]));
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => PillInfoPage(
+                                    resultBloc: _resultBloc,
+                                  ),
+                            ),
+                          );
+                        },
+                      ));
+                });
+          }
+          return Center(
+            child: CircularProgressIndicator(),
+          );
         });
   }
 }

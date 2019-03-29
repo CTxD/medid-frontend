@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:medid/src/bloc/bloc.dart';
 import 'package:medid/src/ui/result_page.dart';
 
 class CamPageMock extends StatelessWidget {
@@ -20,7 +21,7 @@ class CamPageMock extends StatelessWidget {
             ],
           ),
           onPressed: () => Navigator.push(
-              context, MaterialPageRoute(builder: (context) => ResultPage())),
+              context, MaterialPageRoute(builder: (context) => ResultPage(resultBloc: ResultBloc(fx: new FeatureExtractor()),))),
         )));
   }
 }

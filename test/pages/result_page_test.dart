@@ -1,18 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:medid/src/bloc/bloc.dart';
 import 'package:medid/src/models/match_result.dart';
 import 'package:medid/src/ui/result_page.dart';
 import 'package:image_test_utils/image_test_utils.dart';
 import 'package:medid/src/ui/widgets/pill_list.dart';
+import 'package:mockito/mockito.dart';
+
+class ResultBlocMock extends Mock implements ResultBloc {}
+
+class FeatureExtractorMock extends Mock implements FeatureExtractor {}
 
 main() {
   group('Result screen', () {
+    ResultBloc blocMock;
+    setUp(() {
+      blocMock = ResultBlocMock();
+    });
     testWidgets('has the proper title', (WidgetTester tester) async {
       provideMockedNetworkImages(() async {
         Widget mqResultPage = new MediaQuery(
             data: new MediaQueryData(),
-            child: new MaterialApp(home: new ResultPage()));
-
+            child: new MaterialApp(home: new ResultPage(resultBloc: blocMock)));
+        when(blocMock.currentState)
+            .thenAnswer((_) => FoundMatches(results: []));
         await tester.pumpWidget(mqResultPage);
         final titleFinder = find.descendant(
             of: find.byType(Scaffold),
@@ -21,43 +32,39 @@ main() {
         expect(titleFinder, findsOneWidget);
       });
     });
-    testWidgets('given no match results -> pill list has no match results',
-        (WidgetTester tester) async {
+    testWidgets('renders a pill list as body', (WidgetTester tester) async {
       provideMockedNetworkImages(() async {
         Widget mqResultPage = new MediaQuery(
             data: new MediaQueryData(),
-            child: new MaterialApp(home: new ResultPage(matchResults: [])));
+            child: new MaterialApp(home: new ResultPage(resultBloc: blocMock)));
 
+        when(blocMock.currentState)
+            .thenAnswer((_) => FoundMatches(results: []));
         await tester.pumpWidget(mqResultPage);
-        final plFinder = find.descendant(
-            of: find.byType(ResultPage),
-            matching: find.byWidgetPredicate(
-                (Widget w) => w is PillList && w.matchResults.isEmpty));
-        expect(plFinder, findsOneWidget);
+
+        expect(
+            find.byWidgetPredicate(
+                (w) => w is Scaffold && w.body.runtimeType == PillList),
+            findsOneWidget);
       });
     });
-    testWidgets('given match results -> pill list has same match results',
+    testWidgets('shows a loading indicator while loading',
         (WidgetTester tester) async {
       provideMockedNetworkImages(() async {
-        final mockResults = [
-          MatchResult(
-              title: 'Panodil', strength: '20mg', activeSubstance: 'Coffein'),
-          MatchResult(
-              title: 'Viagra', strength: '10mg', activeSubstance: 'Water'),
-          MatchResult(
-              title: 'Amphetamine', strength: '1kg', activeSubstance: 'N/A'),
-        ];
         Widget mqResultPage = new MediaQuery(
             data: new MediaQueryData(),
-            child: new MaterialApp(
-                home: new ResultPage(matchResults: mockResults)));
+            child: new MaterialApp(home: new ResultPage(resultBloc: blocMock)));
 
+        when(blocMock.currentState).thenAnswer((_) => LoadingMatches());
         await tester.pumpWidget(mqResultPage);
-        final plFinder = find.descendant(
-            of: find.byType(ResultPage),
-            matching: find.byWidgetPredicate((Widget w) =>
-                w is PillList && identical(w.matchResults, mockResults)));
-        expect(plFinder, findsOneWidget);
+
+        expect(
+            find.byWidgetPredicate((w) =>
+                w is Scaffold &&
+                w.body.runtimeType == Center &&
+                (w.body as Center).child.runtimeType ==
+                    CircularProgressIndicator),
+            findsOneWidget);
       });
     });
   });

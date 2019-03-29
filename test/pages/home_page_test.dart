@@ -11,6 +11,7 @@ import 'package:mockito/mockito.dart';
 class MockNavigatorObserver extends Mock implements NavigatorObserver {}
 
 void main() {
+  
   group('HomePage tests', () {
     NavigatorObserver mockObserver;
 
@@ -97,6 +98,7 @@ void main() {
           of: find.byWidget(outerColumn),
           matching: find.byWidgetPredicate(
               (w) => w is Row && outerColumn.children.first == w));
+              
       expect(firstElementFinder, findsOneWidget);
       final imageFinder =
           find.descendant(of: firstElementFinder, matching: find.byType(Image));
