@@ -20,7 +20,7 @@ class _ResultPageState extends State<ResultPage> {
   ResultBloc _resultBloc;
   @override
   Widget build(BuildContext context) {
-
+    
     return BlocBuilder<ResultEvent, ResultState>(
         bloc: _resultBloc,
         builder: (BuildContext context, ResultState state) {

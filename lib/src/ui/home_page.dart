@@ -44,7 +44,7 @@ class HomePage extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
                             HomeButton(
-                              page: CamPageMock(),
+                              page: CamPage(),
                               imagePath: 'images/photo.png',
                               height: 150,
                               imageWidth: 70,

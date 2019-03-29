@@ -17,7 +17,7 @@ class ResultBloc extends Bloc<ResultEvent, ResultState> {
       yield ShowPillInfo(pillInfo: event.clickedMr);
     }
     if (event is ResultPageLoaded) {
-      await Future.delayed(const Duration(seconds: 2));
+      await Future.delayed(const Duration(seconds: 1));
       yield FoundMatches(results: fx.getMatches());
     }
   }

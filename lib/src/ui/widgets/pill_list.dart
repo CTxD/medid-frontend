@@ -40,13 +40,19 @@ class _PillListState extends State<PillList> {
                         onTap: () {
                           _resultBloc.dispatch(
                               MatchClicked(clickedMr: state.results[i]));
+                          MaterialPageRoute route = MaterialPageRoute(
+                              builder: (context) => WillPopScope(
+                                    onWillPop: () async {
+                                      _resultBloc.dispatch(ResultPageLoaded());
+                                      return true;
+                                    },
+                                    child: PillInfoPage(
+                                      resultBloc: _resultBloc,
+                                    ),
+                                  ));
                           Navigator.push(
                             context,
-                            MaterialPageRoute(
-                              builder: (context) => PillInfoPage(
-                                    resultBloc: _resultBloc,
-                                  ),
-                            ),
+                            route,
                           );
                         },
                       ));
