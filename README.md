@@ -1,5 +1,7 @@
 # medid
 
+[![Build Status](https://travis-ci.com/pprintz/medid-frontend.svg?branch=master)](https://travis-ci.com/pprintz/medid-frontend)
+
 A new Flutter project.
 
 ## Getting Started
