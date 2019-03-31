@@ -16,7 +16,7 @@ class _CamPageState extends State<CamPage> {
   CamBloc _camBloc = CamBloc();
 
   _CamPageState(){
-    _camBloc.dispatch(camInitEvent());
+    _camBloc.dispatch(CamInitEvent());
   }
 
   bool _picTaken = false;
@@ -24,14 +24,16 @@ class _CamPageState extends State<CamPage> {
   @override
   void initState() {
     super.initState();
+    
     SchedulerBinding.instance.addPersistentFrameCallback((_) {
       if(_camBloc.currentState is CamPictureTaken && !_picTaken){
         _picTaken = true;
-        Navigator.of(context).pushReplacement(MaterialPageRoute(
-          builder: (context) => CamResult(
-            imageFilePath: (_camBloc.currentState as CamPictureTaken).imageFilePath
-          )
-        ));  
+        
+          Navigator.of(context).pushReplacement(MaterialPageRoute(
+            builder: (context) => CamResult(
+              imageFilePath: (_camBloc.currentState as CamPictureTaken).imageFilePath
+            )
+          ));  
       }
     });
   }
@@ -60,11 +62,11 @@ class _CamPageState extends State<CamPage> {
             return Center(
               child: Row(
                 children: <Widget>[
-                  Text("Noget gik galt"),
+                  Text("${state.errorMsg}"),
                   FloatingActionButton(
                     child: Text("Prøv Igen"),
                     onPressed: () {
-                      _camBloc.dispatch(camInitEvent());
+                      _camBloc.dispatch(CamInitEvent());
                     },
                   )
                 ],
@@ -103,7 +105,7 @@ class _CamPageState extends State<CamPage> {
                         height: 100,
                         child: InkWell(
                           onTap: () {
-                            _camBloc.dispatch(onTakePictureEvent());
+                            _camBloc.dispatch(OnTakePictureEvent());
                           },
                           child: null
                         ),
@@ -178,6 +180,7 @@ class ShapesPainter extends CustomPainter{
     paint.strokeWidth = .5;
 
     Path customPath = Path();
+    canvas.drawPath(customPath, paint);
     
     customPath.moveTo(startX, startY);
     customPath.lineTo(startX + rectSize, startY);
@@ -185,13 +188,8 @@ class ShapesPainter extends CustomPainter{
     customPath.lineTo(startX, startY + rectSize);
     customPath.close();
   
-    canvas.drawPath(customPath, paint);
   }
-
-  
-  
 
   @override
   bool shouldRepaint(CustomPainter oldDelegate) => false;
-
 }

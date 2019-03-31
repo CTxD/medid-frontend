@@ -7,33 +7,46 @@ import 'package:medid/src/blocs/states/cam_state.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:lamp/lamp.dart';
 
+
+
 class CamBloc extends Bloc<CamEvent, CamState> {
+  final List<CamState> errors = [
+    CamError("Kameraet kunne ikke blive initialiseret"),
+    CamError("Kameraet kunne ikke tage et billede"),
+    CamError("Fotobiblioteket kunne ikke findes"),
+    CamError("Ingen kameraer blev fundet"),
+    CamError("Ingen kameraer kan bruges"),
+    CamError("Kameraet kunne ikke blive initialiseret"),
+    CamError("Kameraet kunne ikke konfigueres"),
+    CamError("Denne handling kan ikke udføres!"),
+  ];
+
   Directory extDir;
   String dirPath;
   String recentImageString;
 
   bool isDirPathLoaded = false;
 
-  CamBloc(){
+  DocumentDirectoryData directoryWrapper;
+  LampSwitcher lamp;
+
+  CamBloc({DocumentDirectoryData dirDoc, LampSwitcher lampSwitcher}){
+    directoryWrapper = dirDoc == null ? new DocumentDirectoryData() : dirDoc;
+    lamp = lampSwitcher == null ? new LampSwitcher() : lampSwitcher;
+
     loadDirectoryData().then((pathLoadedStatus) {
       isDirPathLoaded = pathLoadedStatus;
+    }).catchError((_) {
+
     });
   }
 
   @override
   get initialState => CamUninitialized();
 
-
-
   @override
   Stream<CamState> mapEventToState(CamState currentState, CamEvent event) async* {
-    if(event is onTakePictureEvent){
-      // Check if camera is initialised
-      if(!currentState.controller.value.isInitialized){
-        yield CamError("Kameraet kunne ikke blive initialiseret");
-        return;
-      }
-
+    if(event is OnTakePictureEvent){
       // Check if camera is currently taking a picture
       if(currentState.controller.value.isTakingPicture){
         yield currentState;
@@ -42,85 +55,103 @@ class CamBloc extends Bloc<CamEvent, CamState> {
 
       String filePath = "$dirPath/${new DateTime.now().toString().replaceAll(' ', '')}.jpg";
 
+      
       // Take the picture
       try{
-        Lamp.turnOn();
+        lamp.hasLamp().then((res) {
+          if(res == true){
+            lamp.turnOn();
+          }
+          
+        }).catchError((_) {
+          
+        });
         await currentState.controller.takePicture(filePath);
-      }on CameraException{
-        yield CamError("Kameraet kunne ikke tage et billede");
+      }catch(_){
+        lamp.hasLamp().then((res) {
+          if(res == true){
+            lamp.turnOff();
+          }
+        }).catchError((_) {});
+
+        yield errors[1];
+        
         return;
       }
 
-      // Take the picture
       yield CamPictureTaken(filePath, currentState.availableCameras, currentState.controller);
-      Lamp.turnOff();
-    }else if(event is camInitEvent){
+        lamp.hasLamp().then((res) {
+          if(res == true){
+            lamp.turnOff();
+          }
+        }).catchError((_) {
+          
+        });
+    }else if(event is CamInitEvent){
       if(currentState is CamUninitialized){
-        // Check if directory data has been loaded
-        if(!isDirPathLoaded){
-          // Try again
-          await loadDirectoryData();
-          if(!isDirPathLoaded){
-            // Can't be done.
-            yield CamError("Fotobiblioteket kunne ikke findes");
+        List<CameraDescription> cameras = currentState.availableCameras;
+        CameraController controller = currentState.controller;
+
+        // Only do this if the camera is not already initialised
+        List<CameraDescription> cameraList;
+        if(cameras == null){
+          try{
+            cameraList = await availableCameras();
+
+            if(cameraList.length < 1){
+              yield errors[4];
+              return;
+            }
+
+            // Set camera
+            cameras = cameraList;
+          }catch(_){
+            yield errors[3];
             return;
           }
         }
 
-        List<CameraDescription> cameras = currentState.availableCameras;
-        CameraController controller = currentState.controller;
-
-        List<CameraDescription> cameraList;
-
-        try{
-          cameraList = await availableCameras();
-        }on CameraException{
-          cameraList = null;
+        if(cameras.length < 1){
+            yield errors[4];
+            return;
         }
 
-        if(cameraList == null) {
-          yield CamError("Ingen kameraer blev fundet");
-          return;
-        }
 
-        // Check if cameras is found
-        if(cameraList.length < 1){
-          yield CamError("Ingen kameraer kan bruges");
-          return;
-        }
-
-        // Set camera
-        cameras = cameraList;
-
-        // Initialize controller
-        controller = CameraController(cameras.first, ResolutionPreset.high);
-          
-        try{
-          await controller.initialize();
-        }on CameraException{
-          yield CamError("Kameraet kunne ikke blive initialiseret");
-          return;
+        if(controller == null) {
+          // Initialize controller
+          controller = CameraController(cameras.first, ResolutionPreset.high);
+            
+          try{
+            await controller.initialize();
+          }catch(_){
+            yield errors[5];
+            return;
+          }
         }
 
         // Check if it was initialised
-        if(!controller.value.isInitialized){
-          yield CamError("Kameraet kunne ikke konfigueres");
+        if(controller.value == null || !controller.value.isInitialized){
+          yield errors[6];
           return;
         }
           
         yield CamInitialized(cameras, controller);
-      }else{
-        yield CamError("Denne handling kan ikke udføres!");
-        return;
       }
+    }else{
+      yield errors[7];
+      return;
     }
   }
 
   Future<bool> loadDirectoryData() async {
+    if(extDir != null && dirPath != null){
+      return true;
+    }
+
     Directory _extDir;
 
     try{
-      _extDir = await getApplicationDocumentsDirectory();
+      _extDir = await directoryWrapper.documentsDirectory();
     }catch(e){
       _extDir = null;
     }
@@ -130,11 +161,32 @@ class CamBloc extends Bloc<CamEvent, CamState> {
     }
  
     extDir = _extDir;
-    dirPath = "${_extDir.path}/Pictures/med_id";
 
-    Directory(dirPath).create(recursive: true).then((_) {});
+    dirPath = "${extDir.path}/Pictures/med_id";
+
+    await directoryWrapper.createDirectory(dirPath);
 
     return true;
   }
+}
 
+class LampSwitcher {
+  Future<bool> hasLamp() => Lamp.hasLamp;
+
+  void turnOn(){
+    Lamp.turnOn();
+  }
+
+  void turnOff() {
+    Lamp.turnOff();
+  }
+
+}
+
+class DocumentDirectoryData {
+  Future<Directory> documentsDirectory() => getApplicationDocumentsDirectory();
+
+  Future<void> createDirectory(String dirPath, ) async {
+    Directory(dirPath).create(recursive: false).then((_) {});
+  }
 }

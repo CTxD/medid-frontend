@@ -1,5 +1,5 @@
 abstract class CamEvent {}
 
-class camInitEvent implements CamEvent{}
-class onTakePictureEvent implements CamEvent{}
-class camIdleEvent implements CamEvent{}
+class CamInitEvent implements CamEvent{}
+class OnTakePictureEvent implements CamEvent{}
+class CamIdleEvent implements CamEvent{}

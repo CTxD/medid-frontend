@@ -1,6 +1,5 @@
 import "package:bloc/bloc.dart";
 import 'package:medid/src/blocs/events/counter_event.dart';
-import 'package:medid/src/blocs/states/counter_state.dart';
 
 class CounterBloc extends Bloc<CounterEvent, int> {
   @override

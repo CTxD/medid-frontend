@@ -1,13 +1,15 @@
 import 'package:camera/camera.dart';
+import 'package:equatable/equatable.dart';
 
-abstract class CamState {
+
+abstract class CamState extends Equatable {
   List<CameraDescription> availableCameras;
   CameraController controller;
 }
 
 class CamUninitialized extends CamState {
   @override
-  String toString() => "Fejl: Kameraet skal initialiseres";
+  String toString() => "Kameraet skal initialiseres";
 }
 
 class CamInitialized extends CamState {
@@ -37,6 +39,13 @@ class CamError extends CamState {
   CamError(String _errorMsg){
     errorMsg = _errorMsg;
   }
+
+  @override
+  bool operator ==(Object other) =>
+  identical(this, other) ||
+  other is CamError &&
+  runtimeType == other.runtimeType &&
+  errorMsg == other.errorMsg;
 
   @override
   String toString() => "Fejl: $errorMsg";
