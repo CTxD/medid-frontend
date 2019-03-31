@@ -38,6 +38,7 @@ void main() {
 
         sut.dispatch(CamInitEvent());
       });
+      
       test("Emits [CamInitialized, CamError] on capture picture error", () {
         expectLater(sut.state, emitsInOrder([CamUninitialized(), CamInitialized(sut.currentState.availableCameras, sut.currentState.controller), sut.errors[1]]));
 
@@ -71,7 +72,7 @@ void main() {
     });
     group('From CamUninitialised state, on camInitEvent -', () {
       setUp(() {
-        sut = new CamBloc(lampSwitcher: new LampSwitcher());
+        sut = new CamBloc(lampSwitcher: new MockLamp());
         sut.isDirPathLoaded = true;
 
         when(sut.lamp.hasLamp()).thenAnswer((_) => Future<bool>(() => false));
@@ -168,7 +169,7 @@ void main() {
       setUp(() {
         docWrapper = new MockDirectoryWrapper();
 
-        sut = new CamBloc(dirDoc: docWrapper);
+        sut = new CamBloc(dirDoc: docWrapper, lampSwitcher: new MockLamp());
         when(sut.lamp.hasLamp()).thenAnswer((_) => Future<bool>(() => false));
       });
       test('extDir or dirPath != null, return true', () async {
@@ -182,7 +183,6 @@ void main() {
         when(sut.directoryWrapper.documentsDirectory()).thenAnswer((_) => Future<Directory>(() {return null;}));
 
         expect(await sut.loadDirectoryData(), false);
-        verify(sut.directoryWrapper.documentsDirectory).called(2);
       });
 
       test('Directory is being succesfully loaded', () async {
