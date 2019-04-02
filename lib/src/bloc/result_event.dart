@@ -21,6 +21,6 @@ class MatchClicked extends ResultEvent {
 
   @override
   String toString() {
-    return 'MatchClicked { results: $clickedMr }';
+    return 'MatchClicked { clicked: $clickedMr }';
   }
 }

@@ -1,12 +1,13 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
+import 'package:flutter/material.dart';
 import 'package:medid/src/models/match_result.dart';
 import './bloc.dart';
 
 class ResultBloc extends Bloc<ResultEvent, ResultState> {
-  final FeatureExtractor fx;
+  final PillIdentifier pi;
 
-  ResultBloc({this.fx});
+  ResultBloc({@required this.pi});
   @override
   ResultState get initialState => LoadingMatches();
   @override
@@ -18,12 +19,12 @@ class ResultBloc extends Bloc<ResultEvent, ResultState> {
     }
     if (event is ResultPageLoaded) {
       await Future.delayed(const Duration(seconds: 1));
-      yield FoundMatches(results: fx.getMatches());
+      yield FoundMatches(results: pi.getMatches());
     }
   }
 }
 
-class FeatureExtractor {
+class PillIdentifier {
   List<MatchResult> getMatches() {
     return [
       MatchResult(

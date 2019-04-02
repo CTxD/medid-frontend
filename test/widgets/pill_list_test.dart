@@ -9,7 +9,7 @@ import 'package:mockito/mockito.dart';
 
 class ResultBlocMock extends Mock implements ResultBloc {}
 
-class FeatureExtractorMock extends Mock implements FeatureExtractor {}
+class FeatureExtractorMock extends Mock implements PillIdentifier {}
 
 main() {
   group('Pill list', () {
@@ -112,7 +112,24 @@ main() {
       });
     });
 
-    testWidgets('taps element -> navigate to pill info screen',
+    testWidgets('renders loading indicator if in loading state',
+        (WidgetTester tester) async {
+      final mockObserver = MockNavigatorObserver();
+      Widget mqResultScreen = new MediaQuery(
+          data: new MediaQueryData(),
+          child: new MaterialApp(
+              navigatorObservers: [mockObserver],
+              home: new PillList(
+                resultBloc: blocMock,
+              )));
+      when(blocMock.currentState).thenAnswer((_) => LoadingMatches());
+      await tester.pumpWidget(mqResultScreen);
+      expect(find.byType(ListView), findsNothing);
+      expect(find.byType(CircularProgressIndicator), findsOneWidget);
+    });
+
+    testWidgets(
+        'taps element -> navigate to pill info screen -> pop pill info leads to dispatch of event',
         (WidgetTester tester) async {
       provideMockedNetworkImages(() async {
         final mockObserver = MockNavigatorObserver();
@@ -151,6 +168,9 @@ main() {
         /// present in the screen.
         expect(
             find.byWidgetPredicate((w) => w is PillInfoPage), findsOneWidget);
+        await tester.pageBack();
+        await tester.pumpAndSettle();
+        verify(blocMock.dispatch(ResultPageLoaded())).called(1);
       });
     });
   });

@@ -21,7 +21,7 @@ class CamPageMock extends StatelessWidget {
             ],
           ),
           onPressed: () => Navigator.push(
-              context, MaterialPageRoute(builder: (context) => ResultPage(resultBloc: ResultBloc(fx: new FeatureExtractor()),))),
+              context, MaterialPageRoute(builder: (context) => ResultPage(resultBloc: ResultBloc(pi: new PillIdentifier()),))),
         )));
   }
 }

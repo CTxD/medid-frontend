@@ -33,6 +33,6 @@ class ShowPillInfo extends ResultState {
   ShowPillInfo({@required this.pillInfo}) : super([pillInfo]);
   @override
   String toString() {
-    return 'ShowPillInfo { results: $pillInfo }';
+    return 'ShowPillInfo { pillInfo: $pillInfo }';
   }
 }

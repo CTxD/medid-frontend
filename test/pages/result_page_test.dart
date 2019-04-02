@@ -9,7 +9,6 @@ import 'package:mockito/mockito.dart';
 
 class ResultBlocMock extends Mock implements ResultBloc {}
 
-class FeatureExtractorMock extends Mock implements FeatureExtractor {}
 
 main() {
   group('Result screen', () {
