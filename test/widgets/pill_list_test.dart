@@ -9,8 +9,7 @@ import 'package:mockito/mockito.dart';
 
 class ResultBlocMock extends Mock implements ResultBloc {}
 
-class FeatureExtractorMock extends Mock implements PillIdentifier {}
-
+class MockNavigatorObserver extends Mock implements NavigatorObserver {}
 main() {
   group('Pill list', () {
     ResultBloc blocMock;
@@ -24,10 +23,10 @@ main() {
         final nResults = List.generate(
             n,
             (i) => MatchResult(
-                title: 'Title $i',
+                tradeName: 'tradeName $i',
                 activeSubstance: 'Active Substance $i',
                 strength: i.toString()));
-        Widget mqResultScreen = new MediaQuery(
+        Widget pillList = new MediaQuery(
             data: new MediaQueryData(),
             child: new MaterialApp(
                 home: new PillList(
@@ -36,7 +35,7 @@ main() {
 
         when(blocMock.currentState)
             .thenAnswer((_) => FoundMatches(results: nResults));
-        await tester.pumpWidget(mqResultScreen);
+        await tester.pumpWidget(pillList);
         expect(find.byType(ListView), findsOneWidget);
         expect(find.byType(Card), findsNWidgets(n));
       });
@@ -49,10 +48,10 @@ main() {
         final nResults = List.generate(
             n,
             (i) => MatchResult(
-                title: 'Title $i',
+                tradeName: 'tradeName $i',
                 activeSubstance: 'Active Substance $i',
                 strength: i.toString()));
-        Widget mqResultScreen = new MediaQuery(
+        Widget pillList = new MediaQuery(
             data: new MediaQueryData(),
             child: new MaterialApp(
                 home: new PillList(
@@ -61,25 +60,25 @@ main() {
 
         when(blocMock.currentState)
             .thenAnswer((_) => FoundMatches(results: nResults));
-        await tester.pumpWidget(mqResultScreen);
+        await tester.pumpWidget(pillList);
         expect(find.byType(ListView), findsOneWidget);
         expect(find.byType(Card), findsNWidgets(n));
       });
     });
 
     testWidgets(
-        'render each match result appropriately with title, active substance, and image',
+        'render each match result appropriately with tradeName, active substance, and image',
         (WidgetTester tester) async {
       provideMockedNetworkImages(() async {
         final List<MatchResult> results = [
           MatchResult(
-              title: 'Panodil', strength: '20mg', activeSubstance: 'Coffein'),
+              tradeName: 'Panodil', strength: '20mg', activeSubstance: 'Coffein'),
           MatchResult(
-              title: 'Viagra', strength: '10mg', activeSubstance: 'Water'),
+              tradeName: 'Viagra', strength: '10mg', activeSubstance: 'Water'),
           MatchResult(
-              title: 'Amphetamine', strength: '1kg', activeSubstance: 'N/A'),
+              tradeName: 'Amphetamine', strength: '1kg', activeSubstance: 'N/A'),
         ];
-        Widget mqResultScreen = new MediaQuery(
+        Widget pillList = new MediaQuery(
             data: new MediaQueryData(),
             child: new MaterialApp(
                 home: new PillList(
@@ -87,13 +86,13 @@ main() {
             )));
         when(blocMock.currentState)
             .thenAnswer((_) => FoundMatches(results: results));
-        await tester.pumpWidget(mqResultScreen);
+        await tester.pumpWidget(pillList);
 
         results.forEach((mr) {
           final k = Key(results.indexOf(mr).toString());
           final c = tester.widget<Card>(find.byKey(k));
           final lt = c.child as ListTile;
-          expect((lt.title as Text)?.data, mr.title + "  " + mr.strength);
+          expect((lt.title as Text)?.data, mr.tradeName + "  " + mr.strength);
           expect((lt.subtitle as Text)?.data, mr.activeSubstance);
 
           final imageFinder = find.descendant(
@@ -115,7 +114,7 @@ main() {
     testWidgets('renders loading indicator if in loading state',
         (WidgetTester tester) async {
       final mockObserver = MockNavigatorObserver();
-      Widget mqResultScreen = new MediaQuery(
+      Widget pillList = new MediaQuery(
           data: new MediaQueryData(),
           child: new MaterialApp(
               navigatorObservers: [mockObserver],
@@ -123,10 +122,12 @@ main() {
                 resultBloc: blocMock,
               )));
       when(blocMock.currentState).thenAnswer((_) => LoadingMatches());
-      await tester.pumpWidget(mqResultScreen);
+      await tester.pumpWidget(pillList);
       expect(find.byType(ListView), findsNothing);
       expect(find.byType(CircularProgressIndicator), findsOneWidget);
     });
+
+
 
     testWidgets(
         'taps element -> navigate to pill info screen -> pop pill info leads to dispatch of event',
@@ -135,13 +136,13 @@ main() {
         final mockObserver = MockNavigatorObserver();
         final List<MatchResult> results = [
           MatchResult(
-              title: 'Panodil', strength: '20mg', activeSubstance: 'Coffein'),
+              tradeName: 'Panodil', strength: '20mg', activeSubstance: 'Coffein'),
           MatchResult(
-              title: 'Viagra', strength: '10mg', activeSubstance: 'Water'),
+              tradeName: 'Viagra', strength: '10mg', activeSubstance: 'Water'),
           MatchResult(
-              title: 'Amphetamine', strength: '1kg', activeSubstance: 'N/A'),
+              tradeName: 'Amphetamine', strength: '1kg', activeSubstance: 'N/A'),
         ];
-        Widget mqResultScreen = new MediaQuery(
+        Widget pillList = new MediaQuery(
             data: new MediaQueryData(),
             child: new MaterialApp(
                 navigatorObservers: [mockObserver],
@@ -150,7 +151,7 @@ main() {
                 )));
         when(blocMock.currentState)
             .thenAnswer((_) => FoundMatches(results: results));
-        await tester.pumpWidget(mqResultScreen);
+        await tester.pumpWidget(pillList);
 
         final pillToView = results[1];
 
@@ -176,4 +177,3 @@ main() {
   });
 }
 
-class MockNavigatorObserver extends Mock implements NavigatorObserver {}

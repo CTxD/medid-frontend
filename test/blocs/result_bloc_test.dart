@@ -1,44 +1,85 @@
 import 'package:medid/src/bloc/bloc.dart';
 import 'package:medid/src/models/match_result.dart';
+import 'package:medid/src/models/pill_extended.dart';
+import 'package:medid/src/repositories/pill_repository.dart';
 import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';
 
-class PillIdentifierMock extends Mock implements PillIdentifier {}
+class PillRepositoryMock extends Mock implements PillRepository {}
 
 void main() {
   group('ResultBloc', () {
     ResultBloc resultBloc;
-    PillIdentifierMock _piMock;
+    PillRepositoryMock pillRepository;
 
     setUp(() {
-      _piMock = PillIdentifierMock();
-      resultBloc = ResultBloc(pi: _piMock);
+      pillRepository = PillRepositoryMock();
+      resultBloc = ResultBloc(pillRepository: pillRepository);
     });
     test('initial state is correct', () {
       expect(LoadingMatches(), resultBloc.initialState);
     });
     test(
-        'emits loading state followed by foundmatches state when an obj of "ResultPageLoaded" is dispatched',
+        'emits [LoadingMatches, ResultError] when pill repository returns matches',
         () {
-      when(_piMock.getMatches()).thenReturn([]);
+      final List<MatchResult> results = [
+        MatchResult(
+            tradeName: 'Panodil', strength: '20mg', activeSubstance: 'Coffein'),
+        MatchResult(
+            tradeName: 'Viagra', strength: '10mg', activeSubstance: 'Water'),
+        MatchResult(
+            tradeName: 'Amphetamine', strength: '1kg', activeSubstance: 'N/A'),
+      ];
+      when(pillRepository.identifyPill(null)).thenAnswer((_) => Future.value(results));
       expectLater(resultBloc.state,
-          emitsInOrder([resultBloc.initialState, FoundMatches(results: [])]));
+          emitsInOrder([LoadingMatches(), FoundMatches(results: results)]));
+
       resultBloc.dispatch(ResultPageLoaded());
     });
-    test('emits ShowPillInfo when an obj of "MatchClicked" is dispatched', () {
-      final clickedMr = MatchResult();
 
+    test(
+        'emits [LoadingMatches, ResultError] when pill repository throws error',
+        () {
+      when(pillRepository.identifyPill(null)).thenThrow('Matching error');
+      expectLater(
+          resultBloc.state, emitsInOrder([LoadingMatches(), MatchingError()]));
+
+      resultBloc.dispatch(ResultPageLoaded());
+    });
+
+    test(
+        'emits [LoadingMatches, ShowPillInfo] when an obj of "MatchClicked" is dispatched and repository returns extended pill',
+        () {
+      final clickedMr = MatchResult(
+          tradeName: 'Panodil', strength: '20mg', activeSubstance: 'Coffein');
+      final extendedPill = ExtendedPill();
+
+      when(pillRepository.getExtendedPill(clickedMr.tradeName))
+          .thenAnswer((_) => Future.value(extendedPill));
       expectLater(
           resultBloc.state,
           emitsInOrder(
-              [resultBloc.initialState, ShowPillInfo(pillInfo: clickedMr)]));
+              [LoadingMatches(), ShowPillInfo(pillInfo: extendedPill)]));
+      resultBloc.dispatch(MatchClicked(clickedMr: clickedMr));
+    });
+    test(
+        'emits [LoadingMatches, ShowPillInfoError] when an obj of "MatchClicked" is dispatched and repository throws error',
+        () {
+      final clickedMr = MatchResult(
+          tradeName: 'Panodil', strength: '20mg', activeSubstance: 'Coffein');
+
+      when(pillRepository.getExtendedPill(clickedMr.tradeName))
+          .thenThrow('ShowPillInfo error ');
+      expectLater(resultBloc.state,
+          emitsInOrder([LoadingMatches(), ShowPillInfoError()]));
       resultBloc.dispatch(MatchClicked(clickedMr: clickedMr));
     });
   });
+
   group('ResultEvent', () {
     test(' ".toStrings"   ', () {
       final mr = MatchResult(
-          title: 'Panodil', strength: '20mg', activeSubstance: 'Coffein');
+          tradeName: 'Panodil', strength: '20mg', activeSubstance: 'Coffein');
       final MatchClicked cm = MatchClicked(clickedMr: mr);
 
       expect(cm.toString(), 'MatchClicked { clicked: $mr }');
@@ -48,11 +89,11 @@ void main() {
   group('ResultState', () {
     test(' ".toStrings"   ', () {
       final mr = MatchResult(
-          title: 'Panodil', strength: '20mg', activeSubstance: 'Coffein');
+          tradeName: 'Panodil', strength: '20mg', activeSubstance: 'Coffein');
       final MatchClicked cm = MatchClicked(clickedMr: mr);
       final List<MatchResult> e = [];
 
-      expect(LoadingMatches().toString(), 'LoadingMatches');
+      expect(LoadingMatches(image: null).toString(), 'LoadingMatches');
 
       expect(
           FoundMatches(results: e).toString(), 'FoundMatches { results: $e }');

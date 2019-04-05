@@ -34,7 +34,7 @@ class _PillListState extends State<PillList> {
                             child:
                                 Image.network(state.results[i].pillImageUrl)),
                         subtitle: Text(state.results[i].activeSubstance),
-                        title: Text(state.results[i].title +
+                        title: Text(state.results[i].tradeName +
                             '  ' +
                             state.results[i].strength),
                         onTap: () {

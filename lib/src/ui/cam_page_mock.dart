@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:medid/src/bloc/bloc.dart';
+import 'package:medid/src/repositories/pill_api_client.dart';
+import 'package:medid/src/repositories/pill_repository.dart';
 import 'package:medid/src/ui/result_page.dart';
+import 'package:http/http.dart' as http;
 
 class CamPageMock extends StatelessWidget {
   @override
@@ -21,7 +24,13 @@ class CamPageMock extends StatelessWidget {
             ],
           ),
           onPressed: () => Navigator.push(
-              context, MaterialPageRoute(builder: (context) => ResultPage(resultBloc: ResultBloc(pi: new PillIdentifier()),))),
+              context,
+              MaterialPageRoute(
+                  builder: (context) => ResultPage(
+                      resultBloc: ResultBloc(
+                          pillRepository: new PillRepository(
+                              pillApiClient:
+                                  PillApiClient(httpClient: http.Client())))))),
         )));
   }
 }

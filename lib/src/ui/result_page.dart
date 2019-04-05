@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:medid/src/bloc/bloc.dart';
-import 'package:medid/src/ui/pill_info_screen.dart';
 import 'package:medid/src/ui/widgets/pill_list.dart';
 
 class ResultPage extends StatefulWidget {
@@ -17,10 +16,9 @@ class ResultPage extends StatefulWidget {
 }
 
 class _ResultPageState extends State<ResultPage> {
-  ResultBloc _resultBloc;
+  ResultBloc get _resultBloc => widget.resultBloc;
   @override
   Widget build(BuildContext context) {
-    
     return BlocBuilder<ResultEvent, ResultState>(
         bloc: _resultBloc,
         builder: (BuildContext context, ResultState state) {
@@ -34,6 +32,19 @@ class _ResultPageState extends State<ResultPage> {
               ),
             );
           }
+          if (state is MatchingError) {
+            return Scaffold(
+              appBar: AppBar(
+                title: Text("Fejl ved identificering"),
+              ),
+              body: Center(
+                child: Text(
+                  'Noget gik galt!',
+                  style: TextStyle(color: Colors.red),
+                ),
+              ),
+            );
+          }
           return Scaffold(
             appBar: AppBar(
               title: Text("Resultat"),
@@ -44,7 +55,6 @@ class _ResultPageState extends State<ResultPage> {
   }
 
   void initState() {
-    _resultBloc = widget.resultBloc;
     _resultBloc.dispatch(ResultPageLoaded());
     super.initState();
   }
