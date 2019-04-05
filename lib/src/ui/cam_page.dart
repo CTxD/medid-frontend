@@ -8,15 +8,21 @@ import 'package:medid/src/blocs/states/cam_state.dart';
 import 'package:medid/src/ui/cam_result.dart';
 
 class CamPage extends StatefulWidget {
+  final CamBloc camBloc;
+  final SchedulerBinder schedulerBinder;
+
+  const CamPage({Key key,@required this.camBloc, this.schedulerBinder}) : super(key: key);
+
   @override
   State<StatefulWidget> createState() => _CamPageState();
 }
 
 class _CamPageState extends State<CamPage> {
-  CamBloc _camBloc = CamBloc();
+  CamBloc get _camBloc => widget.camBloc;
+  SchedulerBinder get _schedulerBinder => widget.schedulerBinder == null ? SchedulerBinder() : widget.schedulerBinder;
 
   _CamPageState(){
-    _camBloc.dispatch(CamInitEvent());
+
   }
 
   bool _picTaken = false;
@@ -24,18 +30,10 @@ class _CamPageState extends State<CamPage> {
   @override
   void initState() {
     super.initState();
-    
-    SchedulerBinding.instance.addPersistentFrameCallback((_) {
-      if(_camBloc.currentState is CamPictureTaken && !_picTaken){
-        _picTaken = true;
-        
-          Navigator.of(context).pushReplacement(MaterialPageRoute(
-            builder: (context) => CamResult(
-              imageFilePath: (_camBloc.currentState as CamPictureTaken).imageFilePath
-            )
-          ));  
-      }
-    });
+
+    _camBloc.dispatch(CamInitEvent());    
+
+    _schedulerBinder.bindCamTakenEvent(context, _camBloc, _picTaken);
   }
 
   @override
@@ -118,6 +116,22 @@ class _CamPageState extends State<CamPage> {
        }
       )
     );
+  }
+}
+
+class SchedulerBinder {
+  void bindCamTakenEvent(BuildContext context, CamBloc _camBloc, bool _picTaken){
+    SchedulerBinding.instance.addPersistentFrameCallback((_) {
+      if(_camBloc.currentState is CamPictureTaken && !_picTaken){
+        _picTaken = true;
+        
+          Navigator.of(context).pushReplacement(MaterialPageRoute(
+            builder: (context) => CamResult(
+              imageFilePath: (_camBloc.currentState as CamPictureTaken).imageFilePath
+            )
+          ));  
+      }
+    });
   }
 }
 

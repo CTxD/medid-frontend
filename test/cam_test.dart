@@ -1,10 +1,12 @@
 import 'dart:io';
 
 import 'package:camera/camera.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:medid/src/blocs/cam_bloc.dart';
 import 'package:medid/src/blocs/states/cam_state.dart';
 import 'package:medid/src/blocs/events/cam_event.dart';
+import 'package:medid/src/ui/cam_page.dart';
 import 'package:mockito/mockito.dart';
 
 
@@ -12,11 +14,13 @@ class MockCameraDescription extends Mock implements CameraDescription {}
 class MockCameraController extends Mock implements CameraController {}
 class MockDirectoryWrapper extends Mock implements DocumentDirectoryData {}
 class MockLamp extends Mock implements LampSwitcher {}
+class MockCamBloc extends Mock implements CamBloc {}
+class MockSchedulerBinder extends Mock implements SchedulerBinder {}
 
 void main() {
   CamBloc sut;
 
-  group('Cam Bloc Tests:', (){
+  group('Cam Bloc Test:', (){
     group('From CamInitialised state, on CamTakePictureEvent', () {
       setUp(() {
         sut = new CamBloc(lampSwitcher: new MockLamp());
@@ -38,6 +42,17 @@ void main() {
 
         sut.dispatch(CamInitEvent());
       });
+
+      test("Emits [CamInitialized, CamPictureTaken] on no errors", (){
+        //String filePath = "$dirPath/${new DateTime.now().toString().replaceAll(' ', '')}.jpg";
+        expectLater(sut.state, emitsInOrder([CamUninitialized(), CamInitialized(sut.currentState.availableCameras, sut.currentState.controller), CamPictureTaken("IMAGE STRING", sut.currentState.availableCameras, sut.currentState.controller)]));
+
+        when(sut.currentState.controller.value).thenReturn(
+            new CameraValue(isInitialized: true, isTakingPicture: false)
+          );
+
+        sut.dispatch(OnTakePictureEvent());
+      });
       
       test("Emits [CamInitialized, CamError] on capture picture error", () {
         expectLater(sut.state, emitsInOrder([CamUninitialized(), CamInitialized(sut.currentState.availableCameras, sut.currentState.controller), sut.errors[1]]));
@@ -53,19 +68,6 @@ void main() {
         when(sut.currentState.controller.value).thenReturn(
           new CameraValue(isInitialized: true, isTakingPicture: true)
         );
-
-        sut.dispatch(OnTakePictureEvent());
-      });
-
-      test("Emits [CamInitialized, CamPictureTaken] on no errors", (){
-        //String filePath = "$dirPath/${new DateTime.now().toString().replaceAll(' ', '')}.jpg";
-        expectLater(sut.state, emitsInOrder([CamUninitialized(), CamInitialized(sut.currentState.availableCameras, sut.currentState.controller), CamPictureTaken("IMAGE STRING", sut.currentState.availableCameras, sut.currentState.controller)]));
-
-        when(sut.currentState.controller.value).thenReturn(
-            new CameraValue(isInitialized: true, isTakingPicture: false)
-          );
-
-        when(sut.currentState.controller.takePicture(any)).thenAnswer((_) {});
 
         sut.dispatch(OnTakePictureEvent());
       });
@@ -88,21 +90,6 @@ void main() {
             });
 
         sut.dispatch(CamIdleEvent());
-      });
-
-      test('Emits [CamUninitialized, CamError] on takePictureEvent', () {
-        expectLater(
-            sut.state, emitsInOrder([CamUninitialized(), sut.errors[0]]));
-        sut.dispatch(OnTakePictureEvent());
-      });
-
-      test('Emits [CamUninitialized, CamError] on !dirPathLoaded', () {
-        sut.isDirPathLoaded = false;
-
-        expectLater(
-            sut.state, emitsInOrder([CamUninitialized(), sut.errors[2]]));
-
-        sut.dispatch(CamInitEvent());
       });
 
       test('Emits [CamUninitialized, CamError] for camera init error', () {
@@ -191,6 +178,72 @@ void main() {
 
         expect(await sut.loadDirectoryData(), true);
       });
+    });
+  });
+  group('Cam Widget Test:', () {
+    MockCamBloc camBloc;
+    MockSchedulerBinder schedulerBinder;
+    Widget sut;
+
+    setUp(() {
+      camBloc = new MockCamBloc();
+      schedulerBinder = MockSchedulerBinder();
+
+      when(schedulerBinder.bindCamTakenEvent(null, null, null)).thenAnswer((_) {});
+
+      sut = MediaQuery(
+        data: MediaQueryData(),
+        child: MaterialApp(
+          home: CamPage(camBloc: camBloc, schedulerBinder: schedulerBinder)
+        ),
+      );
+
+    });
+
+    testWidgets("Correct tile in the app bar", (tester) async {
+      when(camBloc.currentState).thenAnswer((_) => CamUninitialized());
+
+      await tester.pumpWidget(sut);
+
+      final titleFinder = find.descendant(
+           of: find.byType(Scaffold),
+           matching: find.byWidgetPredicate((Widget w) =>
+               w is AppBar && (w.title as Text).data == "Identificer Pille"));
+      
+      expect(titleFinder, findsOneWidget);
+    });
+
+    testWidgets("Correct text is rendered on CamUninitialised state", (WidgetTester tester) async {
+      when(camBloc.currentState).thenAnswer((_) => CamUninitialized());
+      
+      await tester.pumpWidget(sut);
+
+      expect(find.text("Kameraet indlæses - vent venligst."), findsOneWidget);            
+    });
+
+    testWidgets("Correct text and button is rendered on CamError state", (tester) async {
+      String errorMsg = "Testing Error";
+
+      when(camBloc.currentState).thenAnswer((_) => CamError("$errorMsg"));
+
+      await tester.pumpWidget(sut);
+
+      expect(find.text("$errorMsg"), findsOneWidget);
+      expect(find.byType(FloatingActionButton), findsOneWidget);
+      expect(find.text("Prøv Igen"), findsOneWidget);
+    });
+
+    testWidgets("The correct overlay and button is rendered, when the state is CamInitialised", (tester) async {
+      final controller = MockCameraController();
+      final cams = List<MockCameraDescription>();
+
+      controller.value = CameraValue(isInitialized: true, previewSize: Size(800, 600));
+
+      when(camBloc.currentState).thenAnswer((_) => CamInitialized(cams, controller));
+
+      await tester.pumpWidget(sut);
+
+      expect(find.byType(CustomPaint), findsOneWidget);
     });
   });
 }

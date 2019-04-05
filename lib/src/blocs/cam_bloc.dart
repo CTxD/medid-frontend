@@ -54,7 +54,6 @@ class CamBloc extends Bloc<CamEvent, CamState> {
       }
 
       String filePath = "$dirPath/${new DateTime.now().toString().replaceAll(' ', '')}.jpg";
-
       
       // Take the picture
       try{
@@ -62,10 +61,7 @@ class CamBloc extends Bloc<CamEvent, CamState> {
           if(res == true){
             lamp.turnOn();
           }
-          
-        }).catchError((_) {
-          
-        });
+        }).catchError((_) {});
         await currentState.controller.takePicture(filePath);
       }catch(_){
         lamp.hasLamp().then((res) {
@@ -75,7 +71,6 @@ class CamBloc extends Bloc<CamEvent, CamState> {
         }).catchError((_) {});
 
         yield errors[1];
-        
         return;
       }
 
