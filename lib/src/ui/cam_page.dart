@@ -10,8 +10,9 @@ import 'package:medid/src/ui/cam_result.dart';
 class CamPage extends StatefulWidget {
   final CamBloc camBloc;
   final SchedulerBinder schedulerBinder;
+  final CameraPreviewWidget cameraPreview;
 
-  const CamPage({Key key,@required this.camBloc, this.schedulerBinder}) : super(key: key);
+  const CamPage({Key key,@required this.camBloc, this.schedulerBinder, this.cameraPreview}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _CamPageState();
@@ -20,10 +21,7 @@ class CamPage extends StatefulWidget {
 class _CamPageState extends State<CamPage> {
   CamBloc get _camBloc => widget.camBloc;
   SchedulerBinder get _schedulerBinder => widget.schedulerBinder == null ? SchedulerBinder() : widget.schedulerBinder;
-
-  _CamPageState(){
-
-  }
+  CameraPreviewWidget get _cameraPreview => widget.cameraPreview == null ? CameraPreviewWidget() : widget.cameraPreview;
 
   bool _picTaken = false;
 
@@ -79,7 +77,7 @@ class _CamPageState extends State<CamPage> {
                   scale: state.controller.value.aspectRatio / deviceRatio,
                     child: AspectRatio(
                     aspectRatio: state.controller.value.aspectRatio,
-                    child: CameraPreview(state.controller),
+                    child: _cameraPreview.getCameraPreview(state.controller)
                   ),
                 ),
                 Center(
@@ -112,10 +110,17 @@ class _CamPageState extends State<CamPage> {
                   ),
                 ),
             ],
-          );}
+          );
+          }
        }
       )
     );
+  }
+}
+
+class CameraPreviewWidget {
+  CameraPreview getCameraPreview(CameraController controller) {
+    return CameraPreview(controller);
   }
 }
 

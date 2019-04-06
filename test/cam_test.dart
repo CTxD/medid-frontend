@@ -16,6 +16,7 @@ class MockDirectoryWrapper extends Mock implements DocumentDirectoryData {}
 class MockLamp extends Mock implements LampSwitcher {}
 class MockCamBloc extends Mock implements CamBloc {}
 class MockSchedulerBinder extends Mock implements SchedulerBinder {}
+class MockCameraPreviewWidget extends Mock implements CameraPreviewWidget {}
 
 void main() {
   CamBloc sut;
@@ -183,18 +184,21 @@ void main() {
   group('Cam Widget Test:', () {
     MockCamBloc camBloc;
     MockSchedulerBinder schedulerBinder;
+    MockCameraPreviewWidget cameraPreview;
     Widget sut;
 
     setUp(() {
-      camBloc = new MockCamBloc();
+      camBloc = MockCamBloc();
       schedulerBinder = MockSchedulerBinder();
+      cameraPreview = MockCameraPreviewWidget();
 
       when(schedulerBinder.bindCamTakenEvent(null, null, null)).thenAnswer((_) {});
+      when(cameraPreview.getCameraPreview(null)).thenReturn(null);
 
       sut = MediaQuery(
         data: MediaQueryData(),
         child: MaterialApp(
-          home: CamPage(camBloc: camBloc, schedulerBinder: schedulerBinder)
+          home: CamPage(camBloc: camBloc, schedulerBinder: schedulerBinder, cameraPreview: cameraPreview)
         ),
       );
 
@@ -234,16 +238,17 @@ void main() {
     });
 
     testWidgets("The correct overlay and button is rendered, when the state is CamInitialised", (tester) async {
-      final controller = MockCameraController();
-      final cams = List<MockCameraDescription>();
+      MockCameraController controller = MockCameraController();
+      List<MockCameraDescription> cams = List<MockCameraDescription>();
+      cams.add(MockCameraDescription());
 
-      controller.value = CameraValue(isInitialized: true, previewSize: Size(800, 600));
+      when(controller.value).thenAnswer((_) => CameraValue(isInitialized: true, previewSize: Size(2000, 2000)));
 
       when(camBloc.currentState).thenAnswer((_) => CamInitialized(cams, controller));
 
       await tester.pumpWidget(sut);
 
-      expect(find.byType(CustomPaint), findsOneWidget);
+      expect(find.byType(CustomPaint), findsNWidgets(3));
     });
   });
 }
