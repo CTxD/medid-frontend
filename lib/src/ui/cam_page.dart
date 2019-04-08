@@ -74,8 +74,12 @@ class _CamPageState extends State<CamPage> {
                 builder: (context) => CamResult(
                   imageFilePath: (_camBloc.currentState as CamPictureTaken).imageFilePath
                 )
-              ));  
+              ));
             });
+            return Container(
+              width: 0,
+              height: 0
+            );
           }else{
             final size = MediaQuery.of(context).size;
             final deviceRatio = size.width / (size.height + size.height * .2);
