@@ -11,7 +11,7 @@ class App extends StatefulWidget {
 }
 
 class _AppState extends State<App>{
-  final CounterBloc _counterBloc = CounterBloc();
+
   final CamBloc _camBloc = CamBloc();
 
   @override
@@ -25,7 +25,7 @@ class _AppState extends State<App>{
           child: Icon(Icons.camera),
           onPressed: () {
             Navigator.push(context, MaterialPageRoute(
-              builder: (context) => CamPage()
+              builder: (context) => CamPage(camBloc: _camBloc)
             ));
           },
         ),

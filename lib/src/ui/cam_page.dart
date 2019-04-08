@@ -29,9 +29,9 @@ class _CamPageState extends State<CamPage> {
   void initState() {
     super.initState();
 
-    _camBloc.dispatch(CamInitEvent());    
+    _camBloc.dispatch(CamInitEvent());
 
-    _schedulerBinder.bindCamTakenEvent(context, _camBloc, _picTaken);
+    //_schedulerBinder.bindCamTakenEvent(context, _camBloc, _picTaken);
   }
 
   @override
@@ -68,6 +68,14 @@ class _CamPageState extends State<CamPage> {
                 ],
               )
             );
+          }else if(state is CamPictureTaken){
+            SchedulerBinding.instance.addPostFrameCallback((_) {
+              Navigator.of(context).pushReplacement(MaterialPageRoute(
+                builder: (context) => CamResult(
+                  imageFilePath: (_camBloc.currentState as CamPictureTaken).imageFilePath
+                )
+              ));  
+            });
           }else{
             final size = MediaQuery.of(context).size;
             final deviceRatio = size.width / (size.height + size.height * .2);

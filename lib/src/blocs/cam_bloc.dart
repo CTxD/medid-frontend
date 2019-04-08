@@ -181,7 +181,7 @@ class LampSwitcher {
 class DocumentDirectoryData {
   Future<Directory> documentsDirectory() => getApplicationDocumentsDirectory();
 
-  Future<void> createDirectory(String dirPath, ) async {
-    Directory(dirPath).create(recursive: false).then((_) {});
+  Future<void> createDirectory(String dirPath) async {
+    Directory(dirPath).create(recursive: true).then((_) {});
   }
 }
