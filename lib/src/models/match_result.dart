@@ -1,3 +1,4 @@
+import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'match_result.g.dart';
@@ -29,12 +30,19 @@ class SlimPill {
   final String pillImageUrl;
   final String strength;
 
+  static List encodeToJson(List<SlimPill> list) {
+    List jsonList = List();
+    list.map((item) => jsonList.add(item.toJson())).toList();
+    return jsonList;
+  }
+
   SlimPill(
       {this.tradeName,
       this.activeSubstance,
       this.pillImageUrl =
           "http://pro.medicin.dk/resource/media/L58WAN1L?ptype=1",
       this.strength});
+
   factory SlimPill.fromJson(Map<String, dynamic> json) =>
       _$SlimPillFromJson(json);
   Map<String, dynamic> toJson() => _$SlimPillToJson(this);
