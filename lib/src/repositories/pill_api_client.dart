@@ -27,7 +27,7 @@ class PillApiClient {
   };
   static const baseUrl = 'https//www.whereisit.com';
 
-  Future<List<MatchResult>> matchImage(String img) async {
+  Future<List<MatchResult>> identifyPill(String img) async {
     try {
       final response =
           await this.httpClient.get(baseUrl + img, headers: jsonHeaders);

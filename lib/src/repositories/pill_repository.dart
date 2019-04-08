@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:io';
-import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:medid/src/models/match_result.dart';
@@ -15,7 +14,7 @@ class PillRepository {
   Future<List<MatchResult>> identifyPill(File pill) async {
     final bytes = await pill.readAsBytes();
     final stringRep = base64UrlEncode(bytes);
-    final matches = pillApiClient.matchImage(stringRep);
+    final matches = pillApiClient.identifyPill(stringRep);
     return matches;
   }
 

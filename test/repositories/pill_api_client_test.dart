@@ -56,7 +56,7 @@ main() {
       expect(res.tradeName, exp.tradeName);
     });
 
-    test('matchImage throws Not200Error when statuscode is not 200', () async {
+    test('identifyPill throws Not200Error when statuscode is not 200', () async {
       final byteRep = 'AEIDPAOD';
       final apiClient = PillApiClient(httpClient: httpClient);
       when(httpClient.get(PillApiClient.baseUrl + byteRep,
@@ -64,19 +64,19 @@ main() {
           .thenAnswer((_) => Future.value(http.Response('', 404)));
 
       expect(
-          apiClient.matchImage(byteRep), throwsA(isInstanceOf<Not200Error>()));
+          apiClient.identifyPill(byteRep), throwsA(isInstanceOf<Not200Error>()));
     });
 
-    test('matchImage throws RequestFailedError when the request throws', () async {
+    test('identifyPill throws RequestFailedError when the request throws', () async {
       final byteRep = 'AEIDPAOD';
       final apiClient = PillApiClient(httpClient: httpClient);
       when(httpClient.get(PillApiClient.baseUrl + byteRep,
               headers: PillApiClient.jsonHeaders)).thenThrow(Error());
 
       expect(
-          apiClient.matchImage(byteRep), throwsA(isInstanceOf<RequestFailedError>()));
+          apiClient.identifyPill(byteRep), throwsA(isInstanceOf<RequestFailedError>()));
     });
-    test('matchImage returns correct match results given eligible response',
+    test('identifyPill returns correct match results given eligible response',
         () async {
       final byteRep = 'AEIDPAOD';
       final List<MatchResult> results = [
@@ -92,7 +92,7 @@ main() {
               headers: PillApiClient.jsonHeaders))
           .thenAnswer(
               (_) => Future.value(http.Response(json.encode(results), 200)));
-      final mrs = await apiClient.matchImage(byteRep);
+      final mrs = await apiClient.identifyPill(byteRep);
       for (var i = 0; i < 3; i++) {
         expect(mrs[i].tradeName, results[i].tradeName);
       }

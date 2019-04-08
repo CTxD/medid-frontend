@@ -30,12 +30,6 @@ class SlimPill {
   final String pillImageUrl;
   final String strength;
 
-  static List encodeToJson(List<SlimPill> list) {
-    List jsonList = List();
-    list.map((item) => jsonList.add(item.toJson())).toList();
-    return jsonList;
-  }
-
   SlimPill(
       {this.tradeName,
       this.activeSubstance,
