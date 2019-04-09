@@ -20,21 +20,17 @@ class _ResultPageState extends State<PillInfoPage> {
   ResultBloc get _resultBloc => widget.resultBloc;
   @override
   Widget build(BuildContext context) {
+    // TODO: Implement PillInfoPage w.r.t. ShowPillInfo state and default state
     return BlocBuilder<ResultEvent, ResultState>(
         bloc: _resultBloc,
         builder: (BuildContext context, ResultState state) {
-          if (state is ShowPillInfo) {
-            return Scaffold(
-                appBar: AppBar(
-                  title: Text(state.pillInfo.tradeName),
-                ),
-                body: Container(
-                  child: Text('HEJ CHRISTIAN'),
-                ));
-          }
-          return Center(
-            child: CircularProgressIndicator(),
-          );
+          return Scaffold(
+              appBar: AppBar(
+                title: Text('Placeholder'),
+              ),
+              body: Container(
+                child: Text('Placeholder child'),
+              ));
         });
   }
 }

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:medid/src/ui/cam_page_mock.dart';
 import 'package:medid/src/ui/info_page.dart';
 import 'package:medid/src/ui/help_page.dart';
 import 'package:medid/src/ui/pill_library_page.dart';

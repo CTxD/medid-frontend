@@ -11,10 +11,6 @@ abstract class ResultState extends Equatable {
   final Image image;
 }
 
-class InitialResultState extends ResultState {
-  InitialResultState({Image image}) : super(image);
-}
-
 class LoadingMatches extends ResultState {
   LoadingMatches({Image image}) : super(image);
 
