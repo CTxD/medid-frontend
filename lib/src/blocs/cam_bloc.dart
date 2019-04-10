@@ -139,22 +139,6 @@ class CamBloc extends Bloc<CamEvent, CamState> {
       }else{
         List<CameraDescription> cameras = currentState.availableCameras;
         CameraController controller = currentState.controller;
-
-        // Initialize controller
-        controller = CameraController(cameras.first, ResolutionPreset.high);
-          
-        try{
-          await controller.initialize();
-        }catch(_){
-          yield errors[5];
-          return;
-        }
-
-        // Check if it was initialised
-        if(controller.value == null || !controller.value.isInitialized){
-          yield errors[6];
-          return;
-        }
         
         yield CamInitialized(cameras, controller);
       }

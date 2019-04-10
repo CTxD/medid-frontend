@@ -25,9 +25,6 @@ class _CamPageState extends State<CamPage> {
   void initState() {
     super.initState();
 
-    print("INIT!");
-
-
     _camBloc.dispatch(CamInitEvent());
     _camBloc.state.listen((state) {
       if(state is CamPictureTaken){
@@ -80,13 +77,7 @@ class _CamPageState extends State<CamPage> {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text("Tag et nyt billede"),
-                  Padding(padding: EdgeInsets.fromLTRB(0, 30, 0, 0)),
-                  FloatingActionButton(
-                    onPressed: () { 
-                      _camBloc.dispatch(CamInitEvent()); 
-                    },
-                  )
+                  Text("Tager billedet, vent venligst."),
                 ],
               )
             );
