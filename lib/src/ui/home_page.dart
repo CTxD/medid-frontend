@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:medid/src/blocs/cam_bloc.dart';
 import 'package:medid/src/ui/info_page.dart';
 import 'package:medid/src/ui/help_page.dart';
@@ -13,6 +14,8 @@ class HomePage extends StatelessWidget {
   static const helpPageButtonKey = Key('helpPageButton');
   @override
   Widget build(BuildContext context) {
+    final camBloc = CamBloc();
+
     return Scaffold(
         body: new Container(
             decoration: new BoxDecoration(color: Colors.white),
@@ -44,7 +47,10 @@ class HomePage extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
                             HomeButton(
-                              page: CamPage(camBloc: CamBloc()),
+                              page: BlocProvider<CamBloc>(
+                                bloc: camBloc,
+                                child: CamPage()
+                              ),
                               imagePath: 'images/photo.png',
                               height: 150,
                               imageWidth: 70,

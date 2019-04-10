@@ -25,10 +25,13 @@ class _CamPageState extends State<CamPage> {
   void initState() {
     super.initState();
 
+    print("INIT!");
+
+
     _camBloc.dispatch(CamInitEvent());
     _camBloc.state.listen((state) {
       if(state is CamPictureTaken){
-        Navigator.of(context).pushReplacement(MaterialPageRoute(
+        Navigator.of(context).push(MaterialPageRoute(
           builder: (context) => CamResult(
             imageFilePath: (_camBloc.currentState as CamPictureTaken).imageFilePath
           ),
@@ -38,9 +41,8 @@ class _CamPageState extends State<CamPage> {
   }
 
   @override
-  void dispose() {
+  void dispose(){
     super.dispose();
-    _camBloc.dispose();
   }
 
   @override
