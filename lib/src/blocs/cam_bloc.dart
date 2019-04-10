@@ -10,6 +10,7 @@ import 'package:lamp/lamp.dart';
 
 
 class CamBloc extends Bloc<CamEvent, CamState> {
+  // Error states for the Camera page
   final List<CamState> errors = [
     CamError("Kameraet kunne ikke blive initialiseret"),
     CamError("Kameraet kunne ikke tage et billede"),
@@ -34,6 +35,7 @@ class CamBloc extends Bloc<CamEvent, CamState> {
     directoryWrapper = dirDoc == null ? new DocumentDirectoryData() : dirDoc;
     lamp = lampSwitcher == null ? new LampSwitcher() : lampSwitcher;
 
+    // Load directory path for the device
     loadDirectoryData().then((pathLoadedStatus) {
       isDirPathLoaded = pathLoadedStatus;
     }).catchError((_) {
@@ -63,6 +65,7 @@ class CamBloc extends Bloc<CamEvent, CamState> {
           }
         });
 
+        // Take the picture
         await currentState.controller.takePicture(filePath);
       }catch(_){
         lamp.hasLamp().then((res) {
@@ -75,6 +78,7 @@ class CamBloc extends Bloc<CamEvent, CamState> {
         return;
       }
 
+      // Change the CamState
       yield CamPictureTaken(filePath, currentState.availableCameras, currentState.controller);
       
       lamp.hasLamp().then((res) {
@@ -83,6 +87,7 @@ class CamBloc extends Bloc<CamEvent, CamState> {
         }
       });
     }else if(event is CamInitEvent){
+      // If we need to setup from scratch (Uninitialised or an Error)
       if(currentState is CamUninitialized || currentState is CamError){
         List<CameraDescription> cameras = currentState.availableCameras;
         CameraController controller = currentState.controller;
