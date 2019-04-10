@@ -1,6 +1,6 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:medid/src/blocs/cam_bloc.dart';
 import 'package:medid/src/blocs/events/cam_event.dart';
@@ -9,29 +9,32 @@ import 'package:medid/src/ui/cam_result.dart';
 
 class CamPage extends StatefulWidget {
   final CamBloc camBloc;
-  final SchedulerBinder schedulerBinder;
   final CameraPreviewWidget cameraPreview;
 
-  const CamPage({Key key,@required this.camBloc, this.schedulerBinder, this.cameraPreview}) : super(key: key);
+  const CamPage({Key key, this.camBloc, this.cameraPreview}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _CamPageState();
 }
 
 class _CamPageState extends State<CamPage> {
-  CamBloc get _camBloc => widget.camBloc;
-  SchedulerBinder get _schedulerBinder => widget.schedulerBinder == null ? SchedulerBinder() : widget.schedulerBinder;
+  CamBloc get _camBloc => widget.camBloc == null ? BlocProvider.of<CamBloc>(context) : widget.camBloc;
   CameraPreviewWidget get _cameraPreview => widget.cameraPreview == null ? CameraPreviewWidget() : widget.cameraPreview;
-
-  bool _picTaken = false;
 
   @override
   void initState() {
     super.initState();
 
     _camBloc.dispatch(CamInitEvent());
-
-    //_schedulerBinder.bindCamTakenEvent(context, _camBloc, _picTaken);
+    _camBloc.state.listen((state) {
+      if(state is CamPictureTaken){
+        Navigator.of(context).pushReplacement(MaterialPageRoute(
+          builder: (context) => CamResult(
+            imageFilePath: (_camBloc.currentState as CamPictureTaken).imageFilePath
+          ),
+        ));  
+      }
+    });
   }
 
   @override
@@ -59,6 +62,7 @@ class _CamPageState extends State<CamPage> {
               child: Row(
                 children: <Widget>[
                   Text("${state.errorMsg}"),
+                  Padding(padding: EdgeInsets.fromLTRB(0, 10, 0, 0)),
                   FloatingActionButton(
                     child: Text("Prøv Igen"),
                     onPressed: () {
@@ -69,16 +73,20 @@ class _CamPageState extends State<CamPage> {
               )
             );
           }else if(state is CamPictureTaken){
-            SchedulerBinding.instance.addPostFrameCallback((_) {
-              Navigator.of(context).pushReplacement(MaterialPageRoute(
-                builder: (context) => CamResult(
-                  imageFilePath: (_camBloc.currentState as CamPictureTaken).imageFilePath
-                )
-              ));
-            });
-            return Container(
-              width: 0,
-              height: 0
+            _camBloc.dispatch(CamInitEvent());
+            return Center(
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text("Tag et nyt billede"),
+                  Padding(padding: EdgeInsets.fromLTRB(0, 30, 0, 0)),
+                  FloatingActionButton(
+                    onPressed: () { 
+                      _camBloc.dispatch(CamInitEvent()); 
+                    },
+                  )
+                ],
+              )
             );
           }else{
             final size = MediaQuery.of(context).size;
@@ -133,22 +141,6 @@ class _CamPageState extends State<CamPage> {
 class CameraPreviewWidget {
   CameraPreview getCameraPreview(CameraController controller) {
     return CameraPreview(controller);
-  }
-}
-
-class SchedulerBinder {
-  void bindCamTakenEvent(BuildContext context, CamBloc _camBloc, bool _picTaken){
-    SchedulerBinding.instance.addPersistentFrameCallback((_) {
-      if(_camBloc.currentState is CamPictureTaken && !_picTaken){
-        _picTaken = true;
-        
-          Navigator.of(context).pushReplacement(MaterialPageRoute(
-            builder: (context) => CamResult(
-              imageFilePath: (_camBloc.currentState as CamPictureTaken).imageFilePath
-            )
-          ));  
-      }
-    });
   }
 }
 

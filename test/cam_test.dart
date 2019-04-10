@@ -15,7 +15,6 @@ class MockCameraController extends Mock implements CameraController {}
 class MockDirectoryWrapper extends Mock implements DocumentDirectoryData {}
 class MockLamp extends Mock implements LampSwitcher {}
 class MockCamBloc extends Mock implements CamBloc {}
-class MockSchedulerBinder extends Mock implements SchedulerBinder {}
 class MockCameraPreviewWidget extends Mock implements CameraPreviewWidget {}
 
 void main() {
@@ -183,22 +182,21 @@ void main() {
   });
   group('Cam Widget Test:', () {
     MockCamBloc camBloc;
-    MockSchedulerBinder schedulerBinder;
+
     MockCameraPreviewWidget cameraPreview;
     Widget sut;
 
     setUp(() {
       camBloc = MockCamBloc();
-      schedulerBinder = MockSchedulerBinder();
+
       cameraPreview = MockCameraPreviewWidget();
 
-      when(schedulerBinder.bindCamTakenEvent(null, null, null)).thenAnswer((_) {});
       when(cameraPreview.getCameraPreview(null)).thenReturn(null);
 
       sut = MediaQuery(
         data: MediaQueryData(),
         child: MaterialApp(
-          home: CamPage(camBloc: camBloc, schedulerBinder: schedulerBinder, cameraPreview: cameraPreview)
+          home: CamPage(camBloc: camBloc, cameraPreview: cameraPreview)
         ),
       );
 

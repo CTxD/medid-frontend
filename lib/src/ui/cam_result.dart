@@ -23,4 +23,8 @@ class _CamResultState extends State<CamResult>{
     );
   }
 
+  @override
+  void dispose() {
+    super.dispose();
+  } 
 }

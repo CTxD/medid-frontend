@@ -61,29 +61,29 @@ class CamBloc extends Bloc<CamEvent, CamState> {
           if(res == true){
             lamp.turnOn();
           }
-        }).catchError((_) {});
+        });
+
         await currentState.controller.takePicture(filePath);
       }catch(_){
         lamp.hasLamp().then((res) {
           if(res == true){
             lamp.turnOff();
           }
-        }).catchError((_) {});
-
+        });
+        
         yield errors[1];
         return;
       }
 
       yield CamPictureTaken(filePath, currentState.availableCameras, currentState.controller);
-        lamp.hasLamp().then((res) {
-          if(res == true){
-            lamp.turnOff();
-          }
-        }).catchError((_) {
-          
-        });
+      
+      lamp.hasLamp().then((res) {
+        if(res == true){
+          lamp.turnOff();
+        }
+      });
     }else if(event is CamInitEvent){
-      if(currentState is CamUninitialized){
+      if(currentState is CamUninitialized || currentState is CamError){
         List<CameraDescription> cameras = currentState.availableCameras;
         CameraController controller = currentState.controller;
 
@@ -124,12 +124,33 @@ class CamBloc extends Bloc<CamEvent, CamState> {
           }
         }
 
-        // Check if it was initialised
+          // Check if it was initialised
         if(controller.value == null || !controller.value.isInitialized){
           yield errors[6];
           return;
         }
           
+        yield CamInitialized(cameras, controller);
+      }else{
+        List<CameraDescription> cameras = currentState.availableCameras;
+        CameraController controller = currentState.controller;
+
+        // Initialize controller
+        controller = CameraController(cameras.first, ResolutionPreset.high);
+          
+        try{
+          await controller.initialize();
+        }catch(_){
+          yield errors[5];
+          return;
+        }
+
+        // Check if it was initialised
+        if(controller.value == null || !controller.value.isInitialized){
+          yield errors[6];
+          return;
+        }
+        
         yield CamInitialized(cameras, controller);
       }
     }else{
