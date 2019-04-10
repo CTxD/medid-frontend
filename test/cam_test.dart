@@ -14,7 +14,9 @@ class MockCameraDescription extends Mock implements CameraDescription {}
 class MockCameraController extends Mock implements CameraController {}
 class MockDirectoryWrapper extends Mock implements DocumentDirectoryData {}
 class MockLamp extends Mock implements LampSwitcher {}
-class MockCamBloc extends Mock implements CamBloc {}
+class MockCamBloc extends Mock implements CamBloc {
+  get state => Stream.empty();
+}
 class MockCameraPreviewWidget extends Mock implements CameraPreviewWidget {}
 
 void main() {
@@ -192,14 +194,13 @@ void main() {
       cameraPreview = MockCameraPreviewWidget();
 
       when(cameraPreview.getCameraPreview(null)).thenReturn(null);
-
+      
       sut = MediaQuery(
         data: MediaQueryData(),
         child: MaterialApp(
           home: CamPage(camBloc: camBloc, cameraPreview: cameraPreview)
         ),
       );
-
     });
 
     testWidgets("Correct tile in the app bar", (tester) async {
