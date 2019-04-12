@@ -284,7 +284,8 @@ void main() {
       await tester.pumpWidget(sut);
 
       expect(find.byType(CustomPaint), findsNWidgets(3));
-
+      
+      tester.tap(find.byType(Ink));
     });
 
     testWidgets("Correct information is rendered upon PictureTakenState", (tester) async {
