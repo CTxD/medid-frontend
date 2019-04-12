@@ -8,7 +8,6 @@ import 'package:medid/src/blocs/cam_bloc.dart';
 import 'package:medid/src/blocs/states/cam_state.dart';
 import 'package:medid/src/blocs/events/cam_event.dart';
 import 'package:medid/src/ui/cam_page.dart';
-import 'package:medid/src/ui/cam_result.dart';
 import 'package:mockito/mockito.dart';
 
 
@@ -19,20 +18,7 @@ class MockLamp extends Mock implements LampSwitcher {}
 class MockCameraPreviewWidget extends Mock implements CameraPreviewWidget {}
 class MockNavigator extends Mock implements NavigatorObserver {}
 class MockCamBloc extends Mock implements CamBloc {
-  StreamController<CamState> ctrl = StreamController<CamState>.broadcast();
-
-  get state => ctrl.stream;
-
-  MockCamBloc() {
-    MockCameraController controller = MockCameraController();
-    List<MockCameraDescription> cams = List<MockCameraDescription>();
-    cams.add(MockCameraDescription());
-
-    final path = "test/path";
-
-    ctrl.sink.add(CamPictureTaken(path, cams, controller));
-    ctrl.sink.close();
-  }
+  get state => Stream.fromIterable([CamPictureTaken("", null, null)]);
 }
 
 void main() {
@@ -271,6 +257,8 @@ void main() {
       expect(find.text("Prøv Igen"), findsOneWidget);
 
       tester.press(retryButton);
+
+      verify(camBloc.dispatch(any)).called(1);
     });
 
     testWidgets("The correct overlay and button is rendered, when the state is CamInitialised", (tester) async {
@@ -286,6 +274,8 @@ void main() {
       expect(find.byType(CustomPaint), findsNWidgets(3));
       
       tester.tap(find.byType(Ink));
+
+      verify(camBloc.dispatch(any)).called(1);
     });
 
     testWidgets("Correct information is rendered upon PictureTakenState", (tester) async {
