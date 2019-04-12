@@ -296,5 +296,11 @@ void main() {
       expect(find.byType(Row), findsOneWidget);
       expect(find.text("Tager billedet, vent venligst."), findsOneWidget);
     });
+
+    testWidgets("Assert on repaint is always false", (tester) {
+      final sut = ShapesPainter();
+
+      expect(sut.shouldRepaint(null), false);
+    });
   });
 }
