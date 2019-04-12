@@ -226,14 +226,18 @@ void main() {
 
     testWidgets("Correct text and button is rendered on CamError state", (tester) async {
       String errorMsg = "Testing Error";
+      final retryButton = find.byType(FloatingActionButton);
 
       when(camBloc.currentState).thenAnswer((_) => CamError("$errorMsg"));
+      when(camBloc.dispatch(CamInitEvent())).thenAnswer((_) => true);
 
       await tester.pumpWidget(sut);
 
       expect(find.text("$errorMsg"), findsOneWidget);
       expect(find.byType(FloatingActionButton), findsOneWidget);
       expect(find.text("Prøv Igen"), findsOneWidget);
+
+      tester.press(retryButton).then((answer) => expect(answer is TestGesture, true));
     });
 
     testWidgets("The correct overlay and button is rendered, when the state is CamInitialised", (tester) async {
@@ -248,6 +252,23 @@ void main() {
       await tester.pumpWidget(sut);
 
       expect(find.byType(CustomPaint), findsNWidgets(3));
+    });
+
+    testWidgets("Correct information is rendered upon PictureTakenState", (tester) async {
+      MockCameraController controller = MockCameraController();
+      List<MockCameraDescription> cams = List<MockCameraDescription>();
+      cams.add(MockCameraDescription());
+
+      final path = "test/path";
+
+      when(camBloc.currentState).thenAnswer((_) => CamPictureTaken(path, cams, controller));
+      when(camBloc.dispatch(OnTakePictureEvent())).thenAnswer((_) => true);
+
+      await tester.pumpWidget(sut);
+
+      expect(find.byType(Center), findsOneWidget);
+      expect(find.byType(Row), findsOneWidget);
+      expect(find.text("Tager billedet, vent venligst."), findsOneWidget);
     });
   });
 }
