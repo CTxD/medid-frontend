@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:camera/camera.dart';
@@ -7,6 +8,7 @@ import 'package:medid/src/blocs/cam_bloc.dart';
 import 'package:medid/src/blocs/states/cam_state.dart';
 import 'package:medid/src/blocs/events/cam_event.dart';
 import 'package:medid/src/ui/cam_page.dart';
+import 'package:medid/src/ui/cam_result.dart';
 import 'package:mockito/mockito.dart';
 
 
@@ -14,10 +16,24 @@ class MockCameraDescription extends Mock implements CameraDescription {}
 class MockCameraController extends Mock implements CameraController {}
 class MockDirectoryWrapper extends Mock implements DocumentDirectoryData {}
 class MockLamp extends Mock implements LampSwitcher {}
-class MockCamBloc extends Mock implements CamBloc {
-  get state => Stream.empty();
-}
 class MockCameraPreviewWidget extends Mock implements CameraPreviewWidget {}
+class MockNavigator extends Mock implements NavigatorObserver {}
+class MockCamBloc extends Mock implements CamBloc {
+  StreamController<CamState> ctrl = StreamController<CamState>.broadcast();
+
+  get state => ctrl.stream;
+
+  MockCamBloc() {
+    MockCameraController controller = MockCameraController();
+    List<MockCameraDescription> cams = List<MockCameraDescription>();
+    cams.add(MockCameraDescription());
+
+    final path = "test/path";
+
+    ctrl.sink.add(CamPictureTaken(path, cams, controller));
+    ctrl.sink.close();
+  }
+}
 
 void main() {
   CamBloc sut;
@@ -185,22 +201,39 @@ void main() {
   group('Cam Widget Test:', () {
     MockCamBloc camBloc;
 
+    MockNavigator navigatorObserver;
     MockCameraPreviewWidget cameraPreview;
     Widget sut;
 
     setUp(() {
-      camBloc = MockCamBloc();
+      navigatorObserver = MockNavigator();
 
+      camBloc = MockCamBloc();
       cameraPreview = MockCameraPreviewWidget();
 
+
       when(cameraPreview.getCameraPreview(null)).thenReturn(null);
-      
+
       sut = MediaQuery(
         data: MediaQueryData(),
         child: MaterialApp(
+          navigatorObservers: [navigatorObserver],
           home: CamPage(camBloc: camBloc, cameraPreview: cameraPreview)
         ),
       );
+    });
+
+    testWidgets("InitState calls new navigation on CamPicTaken", (tester) async {
+      MockCameraController controller = MockCameraController();
+      List<MockCameraDescription> cams = List<MockCameraDescription>();
+      cams.add(MockCameraDescription());
+
+      when(controller.value).thenAnswer((_) => CameraValue(isInitialized: true, previewSize: Size(2000, 2000)));
+      when(camBloc.currentState).thenAnswer((_) => CamInitialized(cams, controller));
+
+      await tester.pumpWidget(sut);
+
+      verify(navigatorObserver.didPush(any, any));
     });
 
     testWidgets("Correct tile in the app bar", (tester) async {
@@ -237,7 +270,7 @@ void main() {
       expect(find.byType(FloatingActionButton), findsOneWidget);
       expect(find.text("Prøv Igen"), findsOneWidget);
 
-      tester.press(retryButton).then((answer) => expect(answer is TestGesture, true));
+      tester.press(retryButton);
     });
 
     testWidgets("The correct overlay and button is rendered, when the state is CamInitialised", (tester) async {
@@ -246,12 +279,12 @@ void main() {
       cams.add(MockCameraDescription());
 
       when(controller.value).thenAnswer((_) => CameraValue(isInitialized: true, previewSize: Size(2000, 2000)));
-
       when(camBloc.currentState).thenAnswer((_) => CamInitialized(cams, controller));
 
       await tester.pumpWidget(sut);
 
       expect(find.byType(CustomPaint), findsNWidgets(3));
+
     });
 
     testWidgets("Correct information is rendered upon PictureTakenState", (tester) async {
