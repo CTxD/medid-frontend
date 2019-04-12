@@ -268,6 +268,7 @@ void main() {
 
       when(controller.value).thenAnswer((_) => CameraValue(isInitialized: true, previewSize: Size(2000, 2000)));
       when(camBloc.currentState).thenAnswer((_) => CamInitialized(cams, controller));
+      when(cameraPreview.getCameraPreview(controller)).thenAnswer((_) => null);
 
       await tester.pumpWidget(sut);
 
@@ -276,6 +277,7 @@ void main() {
       tester.tap(find.byType(Ink));
 
       verify(camBloc.dispatch(any)).called(1);
+      verify(cameraPreview.getCameraPreview(controller)).called(1);
     });
 
     testWidgets("Correct information is rendered upon PictureTakenState", (tester) async {
