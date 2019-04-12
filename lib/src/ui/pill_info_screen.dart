@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:medid/src/bloc/bloc.dart';
-import 'package:medid/src/bloc/result_bloc.dart';
+
+import 'package:medid/src/blocs/result/bloc.dart';
 import 'package:medid/src/models/match_result.dart';
 
 class PillInfoPage extends StatefulWidget {

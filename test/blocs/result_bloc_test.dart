@@ -1,4 +1,4 @@
-import 'package:medid/src/bloc/bloc.dart';
+import 'package:medid/src/blocs/result/bloc.dart';
 import 'package:medid/src/models/match_result.dart';
 import 'package:medid/src/models/pill_extended.dart';
 import 'package:medid/src/repositories/pill_repository.dart';
