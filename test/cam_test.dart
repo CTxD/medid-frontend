@@ -47,8 +47,44 @@ void main() {
         sut.dispatch(CamInitEvent());
       });
 
+      test("Lampswitcher functions works as expected", () async {
+        final sut = MockLamp();
+
+        when(sut.turnOff()).thenAnswer((_) => true);
+        when(sut.turnOn()).thenAnswer((_) => true);
+
+        sut.turnOn();
+        sut.turnOff();
+
+        verify(sut.turnOn()).called(1);
+        verify(sut.turnOff()).called(1);        
+      });
+
+      test("DirectoryData function works as expected", () async {
+        final sut = MockDirectoryWrapper();
+
+        when(sut.documentsDirectory()).thenAnswer((_) => Future<Directory>(() => Directory("test")));
+        when(sut.createDirectory("test")).thenAnswer((_) => Future<void>(() => null));
+
+        await sut.documentsDirectory();
+        await sut.createDirectory("test");
+
+        verify(await sut.documentsDirectory()).called(1);
+        verify(await sut.createDirectory("test")).called(1);
+      });
+
+      test("Emits [CamInitialized, CamPitureTaken, CamInitialized] On event after camPictureTaken", () {
+        expectLater(sut.state, emitsInOrder([CamUninitialized(), CamInitialized(sut.currentState.availableCameras, sut.currentState.controller), CamPictureTaken("IMAGE STRING", sut.currentState.availableCameras, sut.currentState.controller), CamInitialized(sut.currentState.availableCameras, sut.currentState.controller)]));
+
+        when(sut.currentState.controller.value).thenReturn(
+            new CameraValue(isInitialized: true, isTakingPicture: false)
+          );
+
+        sut.dispatch(OnTakePictureEvent());
+        sut.dispatch(CamInitEvent());         
+      });
+
       test("Emits [CamInitialized, CamPictureTaken] on no errors", (){
-        //String filePath = "$dirPath/${new DateTime.now().toString().replaceAll(' ', '')}.jpg";
         expectLater(sut.state, emitsInOrder([CamUninitialized(), CamInitialized(sut.currentState.availableCameras, sut.currentState.controller), CamPictureTaken("IMAGE STRING", sut.currentState.availableCameras, sut.currentState.controller)]));
 
         when(sut.currentState.controller.value).thenReturn(
