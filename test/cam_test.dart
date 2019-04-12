@@ -105,7 +105,7 @@ void main() {
         sut.currentState.availableCameras = List<MockCameraDescription>();
 
         expectLater(
-            sut.state, emitsInOrder([CamUninitialized(), sut.errors[4]]));
+            sut.state, emitsInOrder([CamUninitialized(), sut.errors[6]]));
 
         sut.dispatch(CamInitEvent());
       });
@@ -126,7 +126,7 @@ void main() {
 
         sut.currentState.controller = new MockCameraController();
 
-        expectLater(sut.state, emitsInAnyOrder([CamUninitialized(), sut.errors[6]]));
+        expectLater(sut.state, emitsInAnyOrder([CamUninitialized(), sut.errors[0]]));
 
         sut.dispatch(CamInitEvent());
       });

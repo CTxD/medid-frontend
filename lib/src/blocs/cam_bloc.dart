@@ -39,7 +39,7 @@ class CamBloc extends Bloc<CamEvent, CamState> {
     loadDirectoryData().then((pathLoadedStatus) {
       isDirPathLoaded = pathLoadedStatus;
     }).catchError((_) {
-
+      throw errors[2];
     });
   }
 
@@ -112,7 +112,7 @@ class CamBloc extends Bloc<CamEvent, CamState> {
         }
 
         if(cameras.length < 1){
-            yield errors[4];
+            yield errors[6];
             return;
         }
 
@@ -131,7 +131,7 @@ class CamBloc extends Bloc<CamEvent, CamState> {
 
           // Check if it was initialised
         if(controller.value == null || !controller.value.isInitialized){
-          yield errors[6];
+          yield errors[0];
           return;
         }
           
