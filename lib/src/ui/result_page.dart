@@ -7,7 +7,11 @@ import 'package:medid/src/ui/widgets/pill_list.dart';
 class ResultPage extends StatefulWidget {
   final ResultBloc resultBloc;
 
-  const ResultPage({Key key, @required this.resultBloc}) : super(key: key);
+  final String imageFilePath;
+
+  const ResultPage(
+      {Key key, @required this.resultBloc, @required this.imageFilePath})
+      : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
@@ -37,11 +41,19 @@ class _ResultPageState extends State<ResultPage> {
               appBar: AppBar(
                 title: Text("Fejl ved identificering"),
               ),
-              body: Center(
-                child: Text(
-                  'Noget gik galt!',
-                  style: TextStyle(color: Colors.red),
-                ),
+              body: Column(
+                children: [
+                  Center(
+                      child: Text(
+                    'Noget gik galt!\n' + state.error.toString(),
+                    style: TextStyle(color: Colors.red),
+                  )),
+                  FlatButton(
+                    child: Text('Prøv igen'),
+                    onPressed: () => _resultBloc
+                        .dispatch(ResultPageLoaded(imageFilePath: state.imageFilePath)),
+                  )
+                ],
               ),
             );
           }
@@ -55,7 +67,7 @@ class _ResultPageState extends State<ResultPage> {
   }
 
   void initState() {
-    _resultBloc.dispatch(ResultPageLoaded());
+    _resultBloc.dispatch(ResultPageLoaded(imageFilePath: widget.imageFilePath));
     super.initState();
   }
 }

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:medid/src/blocs/result/bloc.dart';
 import 'package:medid/src/models/match_result.dart';
 import 'package:medid/src/models/pill_extended.dart';
@@ -14,13 +16,13 @@ void main() {
 
     setUp(() {
       pillRepository = PillRepositoryMock();
-      resultBloc = ResultBloc(pillRepository: pillRepository);
+      resultBloc = ResultBloc(createFile: (s) => null, pillRepository: pillRepository);
     });
     test('initial state is correct', () {
       expect(LoadingMatches(), resultBloc.initialState);
     });
     test(
-        'emits [LoadingMatches, ResultError] when pill repository returns matches',
+        'emits [LoadingMatches, FoundMatches] when pill repository returns matches',
         () {
       final List<MatchResult> results = [
         MatchResult(
@@ -33,8 +35,7 @@ void main() {
       when(pillRepository.identifyPill(null)).thenAnswer((_) => Future.value(results));
       expectLater(resultBloc.state,
           emitsInOrder([LoadingMatches(), FoundMatches(results: results)]));
-
-      resultBloc.dispatch(ResultPageLoaded());
+      resultBloc.dispatch(ResultPageLoaded(imageFilePath: 'TestPath'));
     });
 
     test(
@@ -93,7 +94,7 @@ void main() {
       final MatchClicked cm = MatchClicked(clickedMr: mr);
       final List<MatchResult> e = [];
 
-      expect(LoadingMatches(image: null).toString(), 'LoadingMatches');
+      expect(LoadingMatches(imageFilePath: null).toString(), 'LoadingMatches');
 
       expect(
           FoundMatches(results: e).toString(), 'FoundMatches { results: $e }');

@@ -4,14 +4,19 @@ import 'package:meta/meta.dart';
 
 @immutable
 abstract class ResultEvent extends Equatable {
+
   ResultEvent([List props = const []]) : super(props);
 }
 
 class ResultPageLoaded extends ResultEvent {
+  
+  final String imageFilePath;
+  ResultPageLoaded({this.imageFilePath});
   @override
   String toString() {
     return 'ResultPageLoaded';
   }
+
 }
 
 class MatchClicked extends ResultEvent {

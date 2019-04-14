@@ -10,9 +10,12 @@ import './bloc.dart';
 class ResultBloc extends Bloc<ResultEvent, ResultState> {
   final PillRepository pillRepository;
 
-  ResultBloc({@required this.pillRepository});
+
+  ResultBloc({@required this.pillRepository, @required this.createFile });
   @override
   ResultState get initialState => LoadingMatches();
+
+  final createFile;
   @override
   Stream<ResultState> mapEventToState(
     ResultEvent event,
@@ -27,12 +30,14 @@ class ResultBloc extends Bloc<ResultEvent, ResultState> {
       }
     }
     if (event is ResultPageLoaded) {
+      if (!(this.currentState is LoadingMatches))
+        yield LoadingMatches(imageFilePath: event.imageFilePath);
       try {
         final List<MatchResult> rs =
-            await pillRepository.identifyPill(null);
-        yield FoundMatches(results: rs);
-      } catch (_) {
-        yield MatchingError();
+            await pillRepository.identifyPill(createFile(event.imageFilePath));
+        yield FoundMatches(results: rs, imageFilePath: event.imageFilePath);
+      } catch (e) {
+        yield MatchingError(error: e, imageFilePath: event.imageFilePath);
       }
     }
   }

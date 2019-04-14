@@ -62,10 +62,10 @@ main() {
     });
     testWidgets('renders error text if in error state',
         (WidgetTester tester) async {
-      when(blocMock.currentState).thenAnswer((_) => MatchingError());
+      when(blocMock.currentState).thenAnswer((_) => MatchingError(error: Error()));
       await tester.pumpWidget(mqResultPage);
       expect(find.byType(ListView), findsNothing);
-      expect(find.text('Noget gik galt!'), findsOneWidget);
+      expect(find.text('Noget gik galt!\n' + Error().toString()), findsOneWidget);
       expect(find.text('Fejl ved identificering'), findsOneWidget);
     });
   });

@@ -7,12 +7,12 @@ import 'package:equatable/equatable.dart';
 
 @immutable
 abstract class ResultState extends Equatable {
-  ResultState(this.image, [List props = const []]) : super(props);
-  final Image image;
+  ResultState(this.imageFilePath, [List props = const []]) : super(props);
+  final String imageFilePath;
 }
 
 class LoadingMatches extends ResultState {
-  LoadingMatches({Image image}) : super(image);
+  LoadingMatches({String imageFilePath}) : super(imageFilePath);
 
   @override
   String toString() {
@@ -21,7 +21,9 @@ class LoadingMatches extends ResultState {
 }
 
 class MatchingError extends ResultState {
-  MatchingError({Image image}) : super(image);
+
+  final error;
+  MatchingError({String imageFilePath, this.error}) : super(imageFilePath);
   @override
   String toString() {
     return 'MatchingError';
@@ -29,7 +31,7 @@ class MatchingError extends ResultState {
 }
 
 class ShowPillInfoError extends ResultState {
-  ShowPillInfoError({Image image}) : super(image);
+  ShowPillInfoError({String imageFilePath}) : super(imageFilePath);
   @override
   String toString() {
     return 'ShowPillInfoError';
@@ -39,7 +41,7 @@ class ShowPillInfoError extends ResultState {
 class FoundMatches extends ResultState {
   final List<MatchResult> results;
 
-  FoundMatches({@required this.results, Image image}) : super(image, [results]);
+  FoundMatches({@required this.results, String imageFilePath}) : super(imageFilePath, [results]);
   @override
   String toString() {
     return 'FoundMatches { results: $results }';
@@ -49,8 +51,8 @@ class FoundMatches extends ResultState {
 class ShowPillInfo extends ResultState {
   final MatchResult pillInfo;
 
-  ShowPillInfo({@required this.pillInfo, Image image})
-      : super(image, [pillInfo]);
+  ShowPillInfo({@required this.pillInfo, String imageFilePath})
+      : super(imageFilePath, [pillInfo]);
   @override
   String toString() {
     return 'ShowPillInfo { pillInfo: $pillInfo }';
