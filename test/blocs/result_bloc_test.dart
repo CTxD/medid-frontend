@@ -49,6 +49,17 @@ void main() {
     });
 
     test(
+        'emits [LoadingMatches, ResultError, LoadingMatches, ResultError] when pill repository throws error twice',
+        () {
+      when(pillRepository.identifyPill(null)).thenThrow('Matching error');
+      expectLater(
+          resultBloc.state, emitsInOrder([LoadingMatches(), MatchingError(), LoadingMatches(), MatchingError()]));
+
+      resultBloc.dispatch(ResultPageLoaded());
+      resultBloc.dispatch(ResultPageLoaded());
+    });
+
+    test(
         'emits [LoadingMatches, ShowPillInfo] when an obj of "MatchClicked" is dispatched and repository returns extended pill',
         () {
       final clickedMr = MatchResult(

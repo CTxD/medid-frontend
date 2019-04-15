@@ -49,6 +49,7 @@ class _ResultPageState extends State<ResultPage> {
                     style: TextStyle(color: Colors.red),
                   )),
                   FlatButton(
+                    key: Key('ResultTryAgainButton'),
                     child: Text('Prøv igen'),
                     onPressed: () => _resultBloc
                         .dispatch(ResultPageLoaded(imageFilePath: state.imageFilePath)),

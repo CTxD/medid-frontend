@@ -9,7 +9,6 @@ import 'package:medid/src/blocs/result/bloc.dart';
 import 'package:http/http.dart' as http;
 import 'package:medid/src/repositories/pill_api_client.dart';
 import 'package:medid/src/repositories/pill_repository.dart';
-import 'package:medid/src/ui/cam_result.dart';
 import 'package:medid/src/ui/result_page.dart';
 
 class CamPage extends StatefulWidget {

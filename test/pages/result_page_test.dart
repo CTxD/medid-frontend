@@ -15,12 +15,11 @@ main() {
     setUp(() {
       blocMock = ResultBlocMock();
       mqResultPage = new MediaQuery(
-            data: new MediaQueryData(),
-            child: new MaterialApp(home: new ResultPage(resultBloc: blocMock)));
+          data: new MediaQueryData(),
+          child: new MaterialApp(home: new ResultPage(resultBloc: blocMock)));
     });
     testWidgets('has the proper title', (WidgetTester tester) async {
       provideMockedNetworkImages(() async {
-
         when(blocMock.currentState)
             .thenAnswer((_) => FoundMatches(results: []));
         await tester.pumpWidget(mqResultPage);
@@ -29,11 +28,11 @@ main() {
             matching: find.byWidgetPredicate((Widget w) =>
                 w is AppBar && (w.title as Text).data == "Resultat"));
         expect(titleFinder, findsOneWidget);
+        verify(blocMock.dispatch(ResultPageLoaded())).called(1);
       });
     });
     testWidgets('renders a pill list as body', (WidgetTester tester) async {
       provideMockedNetworkImages(() async {
-
         when(blocMock.currentState)
             .thenAnswer((_) => FoundMatches(results: []));
         await tester.pumpWidget(mqResultPage);
@@ -47,7 +46,6 @@ main() {
     testWidgets('shows a loading indicator while loading',
         (WidgetTester tester) async {
       provideMockedNetworkImages(() async {
-
         when(blocMock.currentState).thenAnswer((_) => LoadingMatches());
         await tester.pumpWidget(mqResultPage);
 
@@ -62,11 +60,26 @@ main() {
     });
     testWidgets('renders error text if in error state',
         (WidgetTester tester) async {
-      when(blocMock.currentState).thenAnswer((_) => MatchingError(error: Error()));
+      when(blocMock.currentState).thenAnswer(
+          (_) => MatchingError(imageFilePath: 'testpath', error: Error()));
       await tester.pumpWidget(mqResultPage);
       expect(find.byType(ListView), findsNothing);
-      expect(find.text('Noget gik galt!\n' + Error().toString()), findsOneWidget);
+      expect(
+          find.text('Noget gik galt!\n' + Error().toString()), findsOneWidget);
       expect(find.text('Fejl ved identificering'), findsOneWidget);
+      expect(
+          find.descendant(
+              of: find.byType(FlatButton), matching: find.text('Prøv igen')),
+          findsOneWidget);
+    });
+
+    testWidgets('can try again if in error state', (WidgetTester tester) async {
+      when(blocMock.currentState)
+          .thenAnswer((_) => MatchingError(error: Error()));
+      await tester.pumpWidget(mqResultPage);
+      await tester.tap(find.byKey(Key('ResultTryAgainButton')));
+      await tester.pumpAndSettle();
+      verify(blocMock.dispatch(ResultPageLoaded(imageFilePath: 'testpath'))).called(2);
     });
   });
 }
