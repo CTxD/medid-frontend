@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:medid/src/blocs/cam_bloc.dart';
+import 'package:medid/src/blocs/cam/bloc.dart';
 import 'package:medid/src/ui/info_page.dart';
 import 'package:medid/src/ui/help_page.dart';
 import 'package:medid/src/ui/pill_library_page.dart';

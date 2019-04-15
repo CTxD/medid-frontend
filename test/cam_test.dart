@@ -4,19 +4,22 @@ import 'dart:io';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:medid/src/blocs/cam_bloc.dart';
-import 'package:medid/src/blocs/states/cam_state.dart';
-import 'package:medid/src/blocs/events/cam_event.dart';
+import 'package:medid/src/blocs/cam/bloc.dart';
 import 'package:medid/src/ui/cam_page.dart';
 import 'package:mockito/mockito.dart';
 
-
 class MockCameraDescription extends Mock implements CameraDescription {}
+
 class MockCameraController extends Mock implements CameraController {}
+
 class MockDirectoryWrapper extends Mock implements DocumentDirectoryData {}
+
 class MockLamp extends Mock implements LampSwitcher {}
+
 class MockCameraPreviewWidget extends Mock implements CameraPreviewWidget {}
+
 class MockNavigator extends Mock implements NavigatorObserver {}
+
 class MockCamBloc extends Mock implements CamBloc {
   get state => Stream.fromIterable([CamPictureTaken("", null, null)]);
 }
@@ -24,7 +27,7 @@ class MockCamBloc extends Mock implements CamBloc {
 void main() {
   CamBloc sut;
 
-  group('Cam Bloc Test:', (){
+  group('Cam Bloc Test:', () {
     group('From CamInitialised state, on CamTakePictureEvent', () {
       setUp(() {
         sut = new CamBloc(lampSwitcher: new MockLamp());
@@ -39,8 +42,7 @@ void main() {
         sut.currentState.controller = controller;
 
         when(sut.currentState.controller.value).thenReturn(
-          new CameraValue(isInitialized: true, isTakingPicture: false)
-        );
+            new CameraValue(isInitialized: true, isTakingPicture: false));
 
         when(sut.lamp.hasLamp()).thenAnswer((_) => Future<bool>(() => false));
 
@@ -57,14 +59,16 @@ void main() {
         sut.turnOff();
 
         verify(sut.turnOn()).called(1);
-        verify(sut.turnOff()).called(1);        
+        verify(sut.turnOff()).called(1);
       });
 
       test("DirectoryData function works as expected", () async {
         final sut = MockDirectoryWrapper();
 
-        when(sut.documentsDirectory()).thenAnswer((_) => Future<Directory>(() => Directory("test")));
-        when(sut.createDirectory("test")).thenAnswer((_) => Future<void>(() => null));
+        when(sut.documentsDirectory())
+            .thenAnswer((_) => Future<Directory>(() => Directory("test")));
+        when(sut.createDirectory("test"))
+            .thenAnswer((_) => Future<void>(() => null));
 
         await sut.documentsDirectory();
         await sut.createDirectory("test");
@@ -73,41 +77,72 @@ void main() {
         verify(await sut.createDirectory("test")).called(1);
       });
 
-      test("Emits [CamInitialized, CamPitureTaken, CamInitialized] On event after camPictureTaken", () {
-        expectLater(sut.state, emitsInOrder([CamUninitialized(), CamInitialized(sut.currentState.availableCameras, sut.currentState.controller), CamPictureTaken("IMAGE STRING", sut.currentState.availableCameras, sut.currentState.controller), CamInitialized(sut.currentState.availableCameras, sut.currentState.controller)]));
+      test(
+          "Emits [CamInitialized, CamPitureTaken, CamInitialized] On event after camPictureTaken",
+          () {
+        expectLater(
+            sut.state,
+            emitsInOrder([
+              CamUninitialized(),
+              CamInitialized(sut.currentState.availableCameras,
+                  sut.currentState.controller),
+              CamPictureTaken("IMAGE STRING", sut.currentState.availableCameras,
+                  sut.currentState.controller),
+              CamInitialized(sut.currentState.availableCameras,
+                  sut.currentState.controller)
+            ]));
 
         when(sut.currentState.controller.value).thenReturn(
-            new CameraValue(isInitialized: true, isTakingPicture: false)
-          );
+            new CameraValue(isInitialized: true, isTakingPicture: false));
 
         sut.dispatch(OnTakePictureEvent());
-        sut.dispatch(CamInitEvent());         
+        sut.dispatch(CamInitEvent());
       });
 
-      test("Emits [CamInitialized, CamPictureTaken] on no errors", (){
-        expectLater(sut.state, emitsInOrder([CamUninitialized(), CamInitialized(sut.currentState.availableCameras, sut.currentState.controller), CamPictureTaken("IMAGE STRING", sut.currentState.availableCameras, sut.currentState.controller)]));
+      test("Emits [CamInitialized, CamPictureTaken] on no errors", () {
+        expectLater(
+            sut.state,
+            emitsInOrder([
+              CamUninitialized(),
+              CamInitialized(sut.currentState.availableCameras,
+                  sut.currentState.controller),
+              CamPictureTaken("IMAGE STRING", sut.currentState.availableCameras,
+                  sut.currentState.controller)
+            ]));
 
         when(sut.currentState.controller.value).thenReturn(
-            new CameraValue(isInitialized: true, isTakingPicture: false)
-          );
+            new CameraValue(isInitialized: true, isTakingPicture: false));
 
         sut.dispatch(OnTakePictureEvent());
       });
-      
+
       test("Emits [CamInitialized, CamError] on capture picture error", () {
-        expectLater(sut.state, emitsInOrder([CamUninitialized(), CamInitialized(sut.currentState.availableCameras, sut.currentState.controller), sut.errors[1]]));
+        expectLater(
+            sut.state,
+            emitsInOrder([
+              CamUninitialized(),
+              CamInitialized(sut.currentState.availableCameras,
+                  sut.currentState.controller),
+              sut.errors[1]
+            ]));
 
-        when(sut.currentState.controller.takePicture(any)).thenThrow(new CameraException("", ""));
+        when(sut.currentState.controller.takePicture(any))
+            .thenThrow(new CameraException("", ""));
 
         sut.dispatch(OnTakePictureEvent());
       });
 
       test("Returns if the camera is already taking picture", () {
-        expectLater(sut.state, emitsInOrder([CamUninitialized(), CamInitialized(sut.currentState.availableCameras, sut.currentState.controller)]));
-        
+        expectLater(
+            sut.state,
+            emitsInOrder([
+              CamUninitialized(),
+              CamInitialized(sut.currentState.availableCameras,
+                  sut.currentState.controller)
+            ]));
+
         when(sut.currentState.controller.value).thenReturn(
-          new CameraValue(isInitialized: true, isTakingPicture: true)
-        );
+            new CameraValue(isInitialized: true, isTakingPicture: true));
 
         sut.dispatch(OnTakePictureEvent());
       });
@@ -125,9 +160,8 @@ void main() {
 
       test('Emits [CamUninitialized, CamError] on non-existing event', () {
         expectLater(
-            sut.state, emitsInOrder([CamUninitialized(), sut.errors[7]])).then((_) {
-              
-            });
+                sut.state, emitsInOrder([CamUninitialized(), sut.errors[7]]))
+            .then((_) {});
 
         sut.dispatch(CamIdleEvent());
       });
@@ -164,14 +198,15 @@ void main() {
 
         sut.currentState.controller = new MockCameraController();
 
-        expectLater(sut.state, emitsInAnyOrder([CamUninitialized(), sut.errors[0]]));
+        expectLater(
+            sut.state, emitsInAnyOrder([CamUninitialized(), sut.errors[0]]));
 
         sut.dispatch(CamInitEvent());
       });
 
       test(
-        'Emits [CamUninitialized, CamInitialised] for proper cameras and a valid controller',
-        () {
+          'Emits [CamUninitialized, CamInitialised] for proper cameras and a valid controller',
+          () {
         sut.isDirPathLoaded = true;
         sut.currentState.availableCameras = List<MockCameraDescription>();
         sut.currentState.availableCameras.add(new MockCameraDescription());
@@ -182,11 +217,12 @@ void main() {
             sut.state,
             emitsInAnyOrder([
               CamUninitialized(),
-              CamInitialized(
-                  sut.currentState.availableCameras, sut.currentState.controller)
+              CamInitialized(sut.currentState.availableCameras,
+                  sut.currentState.controller)
             ]));
-        
-        when(sut.currentState.controller.value).thenReturn(new CameraValue(isInitialized: true));
+
+        when(sut.currentState.controller.value)
+            .thenReturn(new CameraValue(isInitialized: true));
 
         sut.dispatch(CamInitEvent());
       });
@@ -207,14 +243,21 @@ void main() {
       });
 
       test('_extDir is null due to it not being loaded', () async {
-        when(sut.directoryWrapper.documentsDirectory()).thenAnswer((_) => Future<Directory>(() {return null;}));
+        when(sut.directoryWrapper.documentsDirectory())
+            .thenAnswer((_) => Future<Directory>(() {
+                  return null;
+                }));
 
         expect(await sut.loadDirectoryData(), false);
       });
 
       test('Directory is being succesfully loaded', () async {
-        when(sut.directoryWrapper.documentsDirectory()).thenAnswer((_) => Future<Directory>(() {return new Directory("Test");}));
-        when(sut.directoryWrapper.createDirectory("test")).thenAnswer((_) => Future<void>(() {}));
+        when(sut.directoryWrapper.documentsDirectory())
+            .thenAnswer((_) => Future<Directory>(() {
+                  return new Directory("Test");
+                }));
+        when(sut.directoryWrapper.createDirectory("test"))
+            .thenAnswer((_) => Future<void>(() {}));
 
         expect(await sut.loadDirectoryData(), true);
       });
@@ -233,25 +276,26 @@ void main() {
       camBloc = MockCamBloc();
       cameraPreview = MockCameraPreviewWidget();
 
-
       when(cameraPreview.getCameraPreview(null)).thenReturn(null);
 
       sut = MediaQuery(
         data: MediaQueryData(),
         child: MaterialApp(
-          navigatorObservers: [navigatorObserver],
-          home: CamPage(camBloc: camBloc, cameraPreview: cameraPreview)
-        ),
+            navigatorObservers: [navigatorObserver],
+            home: CamPage(camBloc: camBloc, cameraPreview: cameraPreview)),
       );
     });
 
-    testWidgets("InitState calls new navigation on CamPicTaken", (tester) async {
+    testWidgets("InitState calls new navigation on CamPicTaken",
+        (tester) async {
       MockCameraController controller = MockCameraController();
       List<MockCameraDescription> cams = List<MockCameraDescription>();
       cams.add(MockCameraDescription());
 
-      when(controller.value).thenAnswer((_) => CameraValue(isInitialized: true, previewSize: Size(2000, 2000)));
-      when(camBloc.currentState).thenAnswer((_) => CamInitialized(cams, controller));
+      when(controller.value).thenAnswer((_) =>
+          CameraValue(isInitialized: true, previewSize: Size(2000, 2000)));
+      when(camBloc.currentState)
+          .thenAnswer((_) => CamInitialized(cams, controller));
 
       await tester.pumpWidget(sut);
 
@@ -264,22 +308,24 @@ void main() {
       await tester.pumpWidget(sut);
 
       final titleFinder = find.descendant(
-           of: find.byType(Scaffold),
-           matching: find.byWidgetPredicate((Widget w) =>
-               w is AppBar && (w.title as Text).data == "Identificer Pille"));
-      
+          of: find.byType(Scaffold),
+          matching: find.byWidgetPredicate((Widget w) =>
+              w is AppBar && (w.title as Text).data == "Identificer Pille"));
+
       expect(titleFinder, findsOneWidget);
     });
 
-    testWidgets("Correct text is rendered on CamUninitialised state", (WidgetTester tester) async {
+    testWidgets("Correct text is rendered on CamUninitialised state",
+        (WidgetTester tester) async {
       when(camBloc.currentState).thenAnswer((_) => CamUninitialized());
-      
+
       await tester.pumpWidget(sut);
 
-      expect(find.text("Kameraet indlæses - vent venligst."), findsOneWidget);            
+      expect(find.text("Kameraet indlæses - vent venligst."), findsOneWidget);
     });
 
-    testWidgets("Correct text and button is rendered on CamError state", (tester) async {
+    testWidgets("Correct text and button is rendered on CamError state",
+        (tester) async {
       String errorMsg = "Testing Error";
       final retryButton = find.byType(FloatingActionButton);
 
@@ -297,33 +343,39 @@ void main() {
       verify(camBloc.dispatch(any)).called(1);
     });
 
-    testWidgets("The correct overlay and button is rendered, when the state is CamInitialised", (tester) async {
+    testWidgets(
+        "The correct overlay and button is rendered, when the state is CamInitialised",
+        (tester) async {
       MockCameraController controller = MockCameraController();
       List<MockCameraDescription> cams = List<MockCameraDescription>();
       cams.add(MockCameraDescription());
 
-      when(controller.value).thenAnswer((_) => CameraValue(isInitialized: true, previewSize: Size(2000, 2000)));
-      when(camBloc.currentState).thenAnswer((_) => CamInitialized(cams, controller));
+      when(controller.value).thenAnswer((_) =>
+          CameraValue(isInitialized: true, previewSize: Size(2000, 2000)));
+      when(camBloc.currentState)
+          .thenAnswer((_) => CamInitialized(cams, controller));
       when(cameraPreview.getCameraPreview(controller)).thenAnswer((_) => null);
 
       await tester.pumpWidget(sut);
 
       expect(find.byType(CustomPaint), findsNWidgets(3));
-      
+
       tester.tap(find.byType(Ink));
 
       verify(camBloc.dispatch(any)).called(1);
       verify(cameraPreview.getCameraPreview(controller)).called(1);
     });
 
-    testWidgets("Correct information is rendered upon PictureTakenState", (tester) async {
+    testWidgets("Correct information is rendered upon PictureTakenState",
+        (tester) async {
       MockCameraController controller = MockCameraController();
       List<MockCameraDescription> cams = List<MockCameraDescription>();
       cams.add(MockCameraDescription());
 
       final path = "test/path";
 
-      when(camBloc.currentState).thenAnswer((_) => CamPictureTaken(path, cams, controller));
+      when(camBloc.currentState)
+          .thenAnswer((_) => CamPictureTaken(path, cams, controller));
       when(camBloc.dispatch(OnTakePictureEvent())).thenAnswer((_) => true);
 
       await tester.pumpWidget(sut);
