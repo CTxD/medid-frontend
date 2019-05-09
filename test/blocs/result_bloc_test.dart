@@ -16,7 +16,8 @@ void main() {
 
     setUp(() {
       pillRepository = PillRepositoryMock();
-      resultBloc = ResultBloc(createFile: (s) => null, pillRepository: pillRepository);
+      resultBloc =
+          ResultBloc(createFile: (s) => null, pillRepository: pillRepository);
     });
     test('initial state is correct', () {
       expect(LoadingMatches(), resultBloc.initialState);
@@ -24,6 +25,7 @@ void main() {
     test(
         'emits [LoadingMatches, FoundMatches] when pill repository returns matches',
         () {
+      final String testJson = '{\n"0": "iVBjdW1lbnRJRD0JRU5ErkJggg=="\n}';
       final List<MatchResult> results = [
         MatchResult(
             tradeName: 'Panodil', strength: '20mg', activeSubstance: 'Coffein'),
@@ -32,31 +34,58 @@ void main() {
         MatchResult(
             tradeName: 'Amphetamine', strength: '1kg', activeSubstance: 'N/A'),
       ];
-      when(pillRepository.identifyPill(null)).thenAnswer((_) => Future.value(results));
+      when(pillRepository.identifyPill(null, '2'))
+          .thenAnswer((_) => Future.value(results));
       expectLater(resultBloc.state,
-          emitsInOrder([LoadingMatches(), FoundMatches(results: results)]));
-      resultBloc.dispatch(ResultPageLoaded(imageFilePath: 'TestPath'));
+          emitsInOrder([LoadingMatches(), UserSelectImprint()]));
+      resultBloc.dispatch(ResultPageLoaded(
+          imageFilePath: 'TestPath', imprintsJson: Future.value(testJson)));
     });
 
     test(
         'emits [LoadingMatches, ResultError] when pill repository throws error',
         () {
-      when(pillRepository.identifyPill(null)).thenThrow('Matching error');
-      expectLater(
-          resultBloc.state, emitsInOrder([LoadingMatches(), MatchingError()]));
+      final String testJson = '{\n"0": "iVBjdW1lbnRJRD0JRU5ErkJggg=="\n}';
+      when(pillRepository.identifyPill(null, '2')).thenThrow('Matching error');
 
-      resultBloc.dispatch(ResultPageLoaded());
+      expectLater(
+          resultBloc.state,
+          emitsInOrder([
+            LoadingMatches(),
+            UserSelectImprint(),
+            LoadingMatches(),
+            MatchingError()
+          ]));
+
+      resultBloc
+          .dispatch(ResultPageLoaded(imprintsJson: Future.value(testJson)));
+      resultBloc.dispatch(UserInitRecog(imprint: '2'));
     });
 
     test(
         'emits [LoadingMatches, ResultError, LoadingMatches, ResultError] when pill repository throws error twice',
         () {
-      when(pillRepository.identifyPill(null)).thenThrow('Matching error');
-      expectLater(
-          resultBloc.state, emitsInOrder([LoadingMatches(), MatchingError(), LoadingMatches(), MatchingError()]));
+      final String testJson = '{\n"0": "iVBjdW1lbnRJRD0JRU5ErkJggg=="\n}';
+      when(pillRepository.identifyPill(null, '2')).thenThrow('Matching error');
 
-      resultBloc.dispatch(ResultPageLoaded());
-      resultBloc.dispatch(ResultPageLoaded());
+      expectLater(
+          resultBloc.state,
+          emitsInOrder([
+            LoadingMatches(),
+            UserSelectImprint(),
+            LoadingMatches(),
+            MatchingError(),
+            UserSelectImprint(),
+            LoadingMatches(),
+            MatchingError()
+          ]));
+
+      resultBloc
+          .dispatch(ResultPageLoaded(imprintsJson: Future.value(testJson)));
+      resultBloc.dispatch(UserInitRecog(imprint: '2'));
+      resultBloc
+          .dispatch(ResultPageLoaded(imprintsJson: Future.value(testJson)));
+      resultBloc.dispatch(UserInitRecog(imprint: '2'));
     });
 
     test(
@@ -95,7 +124,11 @@ void main() {
       final MatchClicked cm = MatchClicked(clickedMr: mr);
 
       expect(cm.toString(), 'MatchClicked { clicked: $mr }');
-      expect(ResultPageLoaded().toString(), 'ResultPageLoaded');
+      final tJson = Future.value('');
+      expect(
+          ResultPageLoaded(imageFilePath: 'path', imprintsJson: tJson)
+              .toString(),
+          'ResultPageLoaded { imageFilePath: path , imprintsJson: ${tJson.toString()} }');
     });
   });
   group('ResultState', () {

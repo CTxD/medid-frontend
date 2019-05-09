@@ -1,7 +1,5 @@
 import 'dart:async';
-import 'dart:collection';
 import 'dart:convert';
-import 'dart:typed_data';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:medid/src/models/match_result.dart';
@@ -23,7 +21,6 @@ class ResultBloc extends Bloc<ResultEvent, ResultState> {
     ResultEvent event,
   ) async* {
     if (event is ChosenImprint) {
-
       yield SelectedImprint(
           imageFilePath: this.currentState.imageFilePath,
           imprints: (this.currentState as UserSelectImprint).imprints,

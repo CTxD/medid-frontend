@@ -58,13 +58,15 @@ main() {
 
     test('identifyPill throws Not200Error when statuscode is not 200', () async {
       final byteRep = 'AEIDPAOD';
-      final apiClient = PillApiClient(httpClient: httpClient);
-      when(httpClient.get(PillApiClient.baseUrl + byteRep,
-              headers: PillApiClient.jsonHeaders))
-          .thenAnswer((_) => Future.value(http.Response('', 404)));
 
+      final apiClient = PillApiClient(httpClient: httpClient);
+      final b = json.encode(TestPillRepresentation(imgAsBytes: byteRep, imprint: '2'));
+      
+      when(httpClient.post(PillApiClient.baseUrl,
+              headers: PillApiClient.jsonHeaders, body: b))
+          .thenAnswer((_) => Future.value(http.Response('', 404)));
       expect(
-          apiClient.identifyPill(byteRep), throwsA(isInstanceOf<Not200Error>()));
+          apiClient.identifyPill(byteRep, '2'), throwsA(isInstanceOf<Not200Error>()));
     });
 
     test('identifyPill throws RequestFailedError when the request throws', () async {
@@ -74,7 +76,7 @@ main() {
               headers: PillApiClient.jsonHeaders)).thenThrow(Error());
 
       expect(
-          apiClient.identifyPill(byteRep), throwsA(isInstanceOf<RequestFailedError>()));
+          apiClient.identifyPill(byteRep,''), throwsA(isInstanceOf<RequestFailedError>()));
     });
     test('identifyPill returns correct match results given eligible response',
         () async {
@@ -87,12 +89,15 @@ main() {
         MatchResult(
             tradeName: 'Amphetamine', strength: '1kg', activeSubstance: 'N/A'),
       ];
+      final b = json.encode(TestPillRepresentation(imgAsBytes: byteRep, imprint: '2'));
       final apiClient = PillApiClient(httpClient: httpClient);
-      when(httpClient.get(PillApiClient.baseUrl + byteRep,
-              headers: PillApiClient.jsonHeaders))
+      when(httpClient.post(PillApiClient.baseUrl,
+              headers: PillApiClient.jsonHeaders, body: b))
           .thenAnswer(
               (_) => Future.value(http.Response(json.encode(results), 200)));
-      final mrs = await apiClient.identifyPill(byteRep);
+
+
+      final mrs = await apiClient.identifyPill(byteRep,'2');
       for (var i = 0; i < 3; i++) {
         expect(mrs[i].tradeName, results[i].tradeName);
       }
