@@ -48,9 +48,7 @@ class HomePage extends StatelessWidget {
                           children: <Widget>[
                             HomeButton(
                               page: BlocProvider<CamBloc>(
-                                bloc: camBloc,
-                                child: CamPage()
-                              ),
+                                  bloc: camBloc, child: CamPage()),
                               imagePath: 'images/photo.png',
                               height: 150,
                               imageWidth: 70,

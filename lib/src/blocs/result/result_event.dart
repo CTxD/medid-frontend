@@ -4,19 +4,37 @@ import 'package:meta/meta.dart';
 
 @immutable
 abstract class ResultEvent extends Equatable {
-
   ResultEvent([List props = const []]) : super(props);
 }
 
 class ResultPageLoaded extends ResultEvent {
-  
   final String imageFilePath;
-  ResultPageLoaded({this.imageFilePath});
+  final Future<String> imprintsJson;
+
+  ResultPageLoaded({this.imageFilePath, this.imprintsJson});
   @override
   String toString() {
-    return 'ResultPageLoaded';
+    return 'ResultPageLoaded { imageFilePath: $imageFilePath , imprintsJson: $imprintsJson }';
   }
+}
 
+class UserInitRecog extends ResultEvent {
+  final String imageFilePath;
+  final String imprint;
+  UserInitRecog({this.imageFilePath, this.imprint});
+  @override
+  String toString() {
+    return 'UserInitRecog';
+  }
+}
+
+class ChosenImprint extends ResultEvent {
+  final String imprint;
+  ChosenImprint({this.imprint});
+  @override
+  String toString() {
+    return 'ChosenImprint';
+  }
 }
 
 class MatchClicked extends ResultEvent {

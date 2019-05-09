@@ -27,10 +27,12 @@ class PillApiClient {
   };
   static const baseUrl = 'https//www.whereisit.com';
 
-  Future<List<MatchResult>> identifyPill(String img) async {
+  Future<List<MatchResult>> identifyPill(String img, String imprint) async {
     try {
-      final response =
-          await this.httpClient.get(baseUrl + img, headers: jsonHeaders);
+      final input = TestPillRepresentation(imprint: imprint, imgAsBytes: img);
+      final response = await this
+          .httpClient
+          .post(baseUrl, headers: jsonHeaders, body: json.encode(input));
       if (response.statusCode != 200)
         throw Not200Error(statusCode: response.statusCode);
       Iterable l = json.decode(response.body);

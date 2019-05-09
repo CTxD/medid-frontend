@@ -11,10 +11,10 @@ class PillRepository {
   final PillApiClient pillApiClient;
   PillRepository({@required this.pillApiClient});
 
-  Future<List<MatchResult>> identifyPill(File pill) async {
+  Future<List<MatchResult>> identifyPill(File pill, String imprint) async {
     final bytes = await pill.readAsBytes();
     final stringRep = base64UrlEncode(bytes);
-    final matches = pillApiClient.identifyPill(stringRep);
+    final matches = pillApiClient.identifyPill(stringRep, imprint);
     return matches;
   }
 

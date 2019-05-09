@@ -24,6 +24,20 @@ Map<String, dynamic> _$MatchResultToJson(MatchResult instance) =>
       'probability': instance.probability
     };
 
+TestPillRepresentation _$TestPillRepresentationFromJson(
+    Map<String, dynamic> json) {
+  return TestPillRepresentation(
+      imgAsBytes: json['imgAsBytes'] as String,
+      imprint: json['imprint'] as String);
+}
+
+Map<String, dynamic> _$TestPillRepresentationToJson(
+        TestPillRepresentation instance) =>
+    <String, dynamic>{
+      'imgAsBytes': instance.imgAsBytes,
+      'imprint': instance.imprint
+    };
+
 SlimPill _$SlimPillFromJson(Map<String, dynamic> json) {
   return SlimPill(
       tradeName: json['tradeName'] as String,

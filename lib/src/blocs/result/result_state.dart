@@ -1,3 +1,4 @@
+import 'dart:typed_data';
 import 'dart:ui';
 
 import 'package:medid/src/models/match_result.dart';
@@ -21,7 +22,6 @@ class LoadingMatches extends ResultState {
 }
 
 class MatchingError extends ResultState {
-
   final error;
   MatchingError({String imageFilePath, this.error}) : super(imageFilePath);
   @override
@@ -40,12 +40,44 @@ class ShowPillInfoError extends ResultState {
 
 class FoundMatches extends ResultState {
   final List<MatchResult> results;
+  final String imprint;
 
-  FoundMatches({@required this.results, String imageFilePath}) : super(imageFilePath, [results]);
+  FoundMatches({@required this.results, String imageFilePath, this.imprint})
+      : super(imageFilePath, [results]);
   @override
   String toString() {
     return 'FoundMatches { results: $results }';
   }
+}
+
+class UserSelectImprint extends ResultState {
+  UserSelectImprint({String imageFilePath, this.imprints})
+      : super(imageFilePath);
+
+  final Map<String, Uint8List> imprints;
+
+  @override
+  String toString() {
+    return 'UserSelectImprint';
+  }
+}
+
+class SelectedImprint extends UserSelectImprint {
+  final String chosenImprint;
+  final Map<String, Uint8List> imprints;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is SelectedImprint &&
+          runtimeType == other.runtimeType &&
+          chosenImprint == other.chosenImprint;
+
+  @override
+  int get hashCode => chosenImprint.hashCode;
+
+  SelectedImprint({this.chosenImprint, this.imprints, String imageFilePath})
+      : super(imageFilePath: imageFilePath);
 }
 
 class ShowPillInfo extends ResultState {
