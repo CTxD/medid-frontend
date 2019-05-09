@@ -55,8 +55,8 @@ main() {
 
       
       when(mockedFile.readAsBytes()).thenAnswer((_) => Future.value(fileAsBytes));
-      when(apiClient.identifyPill(base64UrlEncode(fileAsBytes))).thenAnswer((_) => Future.value(mrs));
-      final actualMrs = await pillRepo.identifyPill(mockedFile);
+      when(apiClient.identifyPill(base64UrlEncode(fileAsBytes), '')).thenAnswer((_) => Future.value(mrs));
+      final actualMrs = await pillRepo.identifyPill(mockedFile, '');
       for (var i = 0; i < 3; i++) {
         expect(actualMrs[i].tradeName, mrs[i].tradeName);
       }
