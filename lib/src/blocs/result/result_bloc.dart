@@ -40,7 +40,7 @@ class ResultBloc extends Bloc<ResultEvent, ResultState> {
             imageFilePath: event.imageFilePath,
             imprints: impImages);
       } catch (e) {
-        print(e);
+       yield(MatchingError(error: e, imageFilePath: event.imageFilePath));
       }
     }
     if (event is MatchClicked) {

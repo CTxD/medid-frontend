@@ -103,10 +103,10 @@ class _ResultPageState extends State<ResultPage> {
   }
 
   Widget renderImprint({int i, UserSelectImprint state}) {
-    final impId = i.toString();
-    final img = state.imprints[i.toString()];
+    final impId = state.imprints.keys.toList()[i];
+    final img = state.imprints.values.toList()[i];
 
-    if (state is SelectedImprint && int.parse(state.chosenImprint) == i) {
+    if (state is SelectedImprint && state.imprints.keys.toList()[i] == state.chosenImprint) {
       return new Container(
           decoration: new BoxDecoration(
               border: new Border.all(color: Colors.blueAccent)),

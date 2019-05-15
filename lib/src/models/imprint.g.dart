@@ -8,8 +8,8 @@ part of 'imprint.dart';
 
 Imprint _$ImprintFromJson(Map<String, dynamic> json) {
   return Imprint(
-      id: json['id'] as int, imgasbytes: json['imgasbytes'] as String);
+      path: json['path'] as String, imgasbytes: json['imgasbytes'] as String);
 }
 
 Map<String, dynamic> _$ImprintToJson(Imprint instance) =>
-    <String, dynamic>{'id': instance.id, 'imgasbytes': instance.imgasbytes};
+    <String, dynamic>{'path': instance.path, 'imgasbytes': instance.imgasbytes};

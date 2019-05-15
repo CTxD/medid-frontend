@@ -5,10 +5,10 @@ part 'imprint.g.dart';
 
 @JsonSerializable()
 class Imprint {
-  final int id;
+  final String path;
   final String imgasbytes;
 
-  Imprint({this.id, this.imgasbytes});
+  Imprint({this.path, this.imgasbytes});
 
   factory Imprint.fromJson(Map<String, dynamic> json) =>
       _$ImprintFromJson(json);
