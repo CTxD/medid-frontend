@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:typed_data';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:medid/src/models/match_result.dart';
@@ -36,6 +37,7 @@ class ResultBloc extends Bloc<ResultEvent, ResultState> {
           final bytes = Base64Decoder().convert(v);
           return MapEntry(k, bytes);
         });
+        impImages.putIfAbsent('Intet Præg', () => Uint8List(0));
         yield UserSelectImprint(
             imageFilePath: event.imageFilePath,
             imprints: impImages);

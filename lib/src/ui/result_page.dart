@@ -56,7 +56,7 @@ class _ResultPageState extends State<ResultPage> {
                         child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text('Genkend'),
+                              Text('Identificer'),
                               Icon(Icons.search),
                             ]),
                         onPressed: () {
@@ -106,7 +106,8 @@ class _ResultPageState extends State<ResultPage> {
     final impId = state.imprints.keys.toList()[i];
     final img = state.imprints.values.toList()[i];
 
-    if (state is SelectedImprint && state.imprints.keys.toList()[i] == state.chosenImprint) {
+    if (state is SelectedImprint &&
+        state.imprints.keys.toList()[i] == state.chosenImprint) {
       return new Container(
           decoration: new BoxDecoration(
               border: new Border.all(color: Colors.blueAccent)),
@@ -114,7 +115,7 @@ class _ResultPageState extends State<ResultPage> {
             highlightShape: BoxShape.rectangle,
             highlightColor: Colors.blue,
             enableFeedback: true,
-            child: Image.memory(img),
+            child: (img.length != 0) ? Image.memory(img) : Text('Intet Præg'),
             onTap: () {
               _resultBloc.dispatch(ChosenImprint(imprint: impId));
             },
@@ -124,9 +125,7 @@ class _ResultPageState extends State<ResultPage> {
         highlightShape: BoxShape.rectangle,
         highlightColor: Colors.blue,
         enableFeedback: true,
-        child: Image.memory(
-          img,
-        ),
+        child: (img.length != 0) ? Image.memory(img) : Text('Intet Præg'),
         onTap: () {
           _resultBloc.dispatch(ChosenImprint(imprint: impId));
         });
