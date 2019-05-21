@@ -37,7 +37,7 @@ class ResultBloc extends Bloc<ResultEvent, ResultState> {
           final bytes = Base64Decoder().convert(v);
           return MapEntry(k, bytes);
         });
-        impImages.putIfAbsent('Intet Præg', () => Uint8List(0));
+        impImages.putIfAbsent('Intet præg', () => Uint8List(0));
         yield UserSelectImprint(
             imageFilePath: event.imageFilePath,
             imprints: impImages);
@@ -59,8 +59,8 @@ class ResultBloc extends Bloc<ResultEvent, ResultState> {
       if (!(this.currentState is LoadingMatches))
         yield LoadingMatches(imageFilePath: event.imageFilePath);
       try {
-        final List<MatchResult> rs =
-            await pillRepository.identifyPill(createFile(event.imageFilePath), event.imprint);
+        final List<MatchResult> rs = await pillRepository.identifyPill(createFile(event.imageFilePath), event.imprint);
+        rs.sort((r1,r2) => r2.probability.compareTo(r1.probability));
         yield FoundMatches(results: rs, imageFilePath: event.imageFilePath, imprint:event.imprint);
       } catch (e) {
         yield MatchingError(error: e, imageFilePath: event.imageFilePath);

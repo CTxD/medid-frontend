@@ -25,9 +25,12 @@ class MatchResult extends SlimPill {
 
 @JsonSerializable()
 class TestPillRepresentation{
-  final String imgAsBytes;
-  final String imprint;
-  TestPillRepresentation({this.imgAsBytes, this.imprint});
+  final String imgstring;
+  final String imprintid;
+  final int width;
+  final int height;
+  
+  TestPillRepresentation({this.width, this.height, this.imgstring, this.imprintid});
 
   factory TestPillRepresentation.fromJson(Map<String, dynamic> json) =>
       _$TestPillRepresentationFromJson(json);

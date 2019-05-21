@@ -25,14 +25,15 @@ class PillApiClient {
   static const jsonHeaders = {
     HttpHeaders.contentTypeHeader: 'application/json'
   };
-  static const baseUrl = 'https//www.whereisit.com';
+  static const baseUrl = 'http://3157f4a9.ngrok.io/api/v1/fx/';
 
-  Future<List<MatchResult>> identifyPill(String img, String imprint) async {
+  Future<List<MatchResult>> identifyPill(String img, String imprint, int width, int height) async {
     try {
-      final input = TestPillRepresentation(imprint: imprint, imgAsBytes: img);
+      final input = TestPillRepresentation(imprintid: imprint, imgstring: img, width: width, height: height);
+      print(img);
       final response = await this
           .httpClient
-          .post(baseUrl, headers: jsonHeaders, body: json.encode(input));
+          .put(baseUrl + 'getmatches', headers: jsonHeaders, body: json.encode(input));
       if (response.statusCode != 200)
         throw Not200Error(statusCode: response.statusCode);
       Iterable l = json.decode(response.body);
@@ -41,6 +42,7 @@ class PillApiClient {
           l.map((dynamic model) => MatchResult.fromJson(model)).toList();
       return results;
     } catch (e) {
+      print(e);
       if (e is Not200Error)
         throw e;
       else

@@ -55,7 +55,7 @@ class CamBloc extends Bloc<CamEvent, CamState> {
       }
 
       String filePath =
-          "$dirPath/${new DateTime.now().toString().replaceAll(' ', '')}.jpg";
+          "$dirPath/${new DateTime.now().toString().replaceAll(' ', '')}.png";
 
       // Take the picture
       try {

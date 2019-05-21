@@ -27,15 +27,19 @@ Map<String, dynamic> _$MatchResultToJson(MatchResult instance) =>
 TestPillRepresentation _$TestPillRepresentationFromJson(
     Map<String, dynamic> json) {
   return TestPillRepresentation(
-      imgAsBytes: json['imgAsBytes'] as String,
-      imprint: json['imprint'] as String);
+      width: json['width'] as int,
+      height: json['height'] as int,
+      imgstring: json['imgstring'] as String,
+      imprintid: json['imprintid'] as String);
 }
 
 Map<String, dynamic> _$TestPillRepresentationToJson(
         TestPillRepresentation instance) =>
     <String, dynamic>{
-      'imgAsBytes': instance.imgAsBytes,
-      'imprint': instance.imprint
+      'imgstring': instance.imgstring,
+      'imprintid': instance.imprintid,
+      'width': instance.width,
+      'height': instance.height
     };
 
 SlimPill _$SlimPillFromJson(Map<String, dynamic> json) {

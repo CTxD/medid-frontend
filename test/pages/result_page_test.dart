@@ -16,7 +16,7 @@ main() {
       blocMock = ResultBlocMock();
       mqResultPage = new MediaQuery(
           data: new MediaQueryData(),
-          child: new MaterialApp(home: new ResultPage(resultBloc: blocMock)));
+          child: new MaterialApp(home: new ResultPage(resultBloc: blocMock, imageFilePath: '',)));
     });
     testWidgets('has the proper title', (WidgetTester tester) async {
       provideMockedNetworkImages(() async {
