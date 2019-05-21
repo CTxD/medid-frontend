@@ -9,17 +9,17 @@ part of 'pill_extended.dart';
 ExtendedPill _$ExtendedPillFromJson(Map<String, dynamic> json) {
   return ExtendedPill(
       probability: json['probability'],
-      activeSubstance: json['activeSubstance'],
-      pillImageUrl: json['pillImageUrl'],
+      substance: json['substance'],
+      imgstring: json['imgstring'],
       strength: json['strength'],
-      tradeName: json['tradeName']);
+      name: json['name']);
 }
 
 Map<String, dynamic> _$ExtendedPillToJson(ExtendedPill instance) =>
     <String, dynamic>{
-      'tradeName': instance.tradeName,
-      'activeSubstance': instance.activeSubstance,
-      'pillImageUrl': instance.pillImageUrl,
+      'name': instance.name,
+      'substance': instance.substance,
+      'imgstring': instance.imgstring,
       'strength': instance.strength,
       'probability': instance.probability
     };

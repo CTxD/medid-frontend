@@ -20,11 +20,11 @@ main() {
       final pillRepo = PillRepository(pillApiClient: apiClient);
       final List<SlimPill> slims = [
         SlimPill(
-            tradeName: 'Panodil', strength: '20mg', activeSubstance: 'Coffein'),
+            name: 'Panodil', strength: '20mg', substance: 'Coffein'),
         SlimPill(
-            tradeName: 'Viagra', strength: '10mg', activeSubstance: 'Water'),
+            name: 'Viagra', strength: '10mg', substance: 'Water'),
         SlimPill(
-            tradeName: 'Amphetamine', strength: '1kg', activeSubstance: 'N/A'),
+            name: 'Amphetamine', strength: '1kg', substance: 'N/A'),
       ];
       when(apiClient.getSlims()).thenAnswer((_) => Future.value(slims));
       final actualSlims = await pillRepo.getSlimPills();
@@ -33,7 +33,7 @@ main() {
     test('getExtended returns pillApiClient value', () async {
       final pillRepo = PillRepository(pillApiClient: apiClient);
       final ExtendedPill exp = ExtendedPill(
-          tradeName: 'Panodil', strength: '20mg', activeSubstance: 'Coffein');
+          name: 'Panodil', strength: '20mg', substance: 'Coffein');
       when(apiClient.getExtendedPill('Panodil'))
           .thenAnswer((_) => Future.value(exp));
       final actualExp = await pillRepo.getExtendedPill('Panodil');
@@ -46,11 +46,11 @@ main() {
       final fileAsBytes = [1,2,3];
       final List<MatchResult> mrs = [
         MatchResult(
-            tradeName: 'Panodil', strength: '20mg', activeSubstance: 'Coffein'),
+            name: 'Panodil', strength: '20mg', substance: 'Coffein'),
         MatchResult(
-            tradeName: 'Viagra', strength: '10mg', activeSubstance: 'Water'),
+            name: 'Viagra', strength: '10mg', substance: 'Water'),
         MatchResult(
-            tradeName: 'Amphetamine', strength: '1kg', activeSubstance: 'N/A'),
+            name: 'Amphetamine', strength: '1kg', substance: 'N/A'),
       ];
 
       
@@ -58,7 +58,7 @@ main() {
       when(apiClient.identifyPill(base64UrlEncode(fileAsBytes), '')).thenAnswer((_) => Future.value(mrs));
       final actualMrs = await pillRepo.identifyPill(mockedFile, '');
       for (var i = 0; i < 3; i++) {
-        expect(actualMrs[i].tradeName, mrs[i].tradeName);
+        expect(actualMrs[i].name, mrs[i].name);
       }
     });
 

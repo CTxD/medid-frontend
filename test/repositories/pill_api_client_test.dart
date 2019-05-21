@@ -45,7 +45,7 @@ main() {
       final apiClient = PillApiClient(httpClient: httpClient);
       final tradeName = 'Panodil';
       final ExtendedPill exp = ExtendedPill(
-          tradeName: tradeName, strength: '20mg', activeSubstance: 'Coffein');
+          name: tradeName, strength: '20mg', substance: 'Coffein');
 
       final jsonExp = json.encode(exp);
       when(httpClient.get(PillApiClient.baseUrl + tradeName,
@@ -53,7 +53,7 @@ main() {
           .thenAnswer((_) => Future.value(http.Response(jsonExp, 200)));
 
       final res = await apiClient.getExtendedPill(tradeName);
-      expect(res.tradeName, exp.tradeName);
+      expect(res.name, exp.name);
     });
 
     test('identifyPill throws Not200Error when statuscode is not 200', () async {
@@ -83,11 +83,11 @@ main() {
       final byteRep = 'AEIDPAOD';
       final List<MatchResult> results = [
         MatchResult(
-            tradeName: 'Panodil', strength: '20mg', activeSubstance: 'Coffein'),
+            name: 'Panodil', strength: '20mg', substance: 'Coffein'),
         MatchResult(
-            tradeName: 'Viagra', strength: '10mg', activeSubstance: 'Water'),
+            name: 'Viagra', strength: '10mg', substance: 'Water'),
         MatchResult(
-            tradeName: 'Amphetamine', strength: '1kg', activeSubstance: 'N/A'),
+            name: 'Amphetamine', strength: '1kg', substance: 'N/A'),
       ];
       final b = json.encode(TestPillRepresentation(imgAsBytes: byteRep, imprint: '2'));
       final apiClient = PillApiClient(httpClient: httpClient);
@@ -99,7 +99,7 @@ main() {
 
       final mrs = await apiClient.identifyPill(byteRep,'2');
       for (var i = 0; i < 3; i++) {
-        expect(mrs[i].tradeName, results[i].tradeName);
+        expect(mrs[i].name, results[i].name);
       }
     });
 
@@ -124,11 +124,11 @@ main() {
     test('getSlims return objects when given eligible response', () async {
       final List<SlimPill> results = [
         SlimPill(
-            tradeName: 'Panodil', strength: '20mg', activeSubstance: 'Coffein'),
+            name: 'Panodil', strength: '20mg', substance: 'Coffein'),
         SlimPill(
-            tradeName: 'Viagra', strength: '10mg', activeSubstance: 'Water'),
+            name: 'Viagra', strength: '10mg', substance: 'Water'),
         SlimPill(
-            tradeName: 'Amphetamine', strength: '1kg', activeSubstance: 'N/A'),
+            name: 'Amphetamine', strength: '1kg', substance: 'N/A'),
       ];
 
       final jsonRes = json.encode(results);
@@ -139,7 +139,7 @@ main() {
 
       final slims = await apiClient.getSlims();
       for (var i = 0; i < 3; i++) {
-        expect(slims[i].activeSubstance, results[i].activeSubstance);
+        expect(slims[i].substance, results[i].substance);
       }
     });
   });

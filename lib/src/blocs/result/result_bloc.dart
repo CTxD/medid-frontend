@@ -48,7 +48,7 @@ class ResultBloc extends Bloc<ResultEvent, ResultState> {
     if (event is MatchClicked) {
       try {
         final ExtendedPill info =
-            await pillRepository.getExtendedPill(event.clickedMr.tradeName);
+            await pillRepository.getExtendedPill(event.clickedMr.name);
         yield ShowPillInfo(pillInfo: info);
       } catch (_) {
         yield ShowPillInfoError();
@@ -60,6 +60,7 @@ class ResultBloc extends Bloc<ResultEvent, ResultState> {
         yield LoadingMatches(imageFilePath: event.imageFilePath);
       try {
         final List<MatchResult> rs = await pillRepository.identifyPill(createFile(event.imageFilePath), event.imprint);
+
         rs.sort((r1,r2) => r2.probability.compareTo(r1.probability));
         yield FoundMatches(results: rs, imageFilePath: event.imageFilePath, imprint:event.imprint);
       } catch (e) {

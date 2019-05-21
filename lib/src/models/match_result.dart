@@ -1,4 +1,3 @@
-import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'match_result.g.dart';
@@ -6,22 +5,37 @@ part 'match_result.g.dart';
 @JsonSerializable()
 class MatchResult extends SlimPill {
   final double probability;
+  final String kind;
+  final String side;
 
   MatchResult(
-      {this.probability = 1,
-      activeSubstance,
-      pillImageUrl = "http://pro.medicin.dk/resource/media/L58WAN1L?ptype=1",
+      {this.probability,
+      substance,
+      imgstring,
       strength,
-      tradeName})
+      name,
+      this.kind,
+      this.side})
       : super(
-            activeSubstance: activeSubstance,
-            pillImageUrl: pillImageUrl,
+            substance: substance,
+            imgstring: imgstring,
             strength: strength,
-            tradeName: tradeName);
+            name: name);
+
+
+  
   factory MatchResult.fromJson(Map<String, dynamic> json) =>
       _$MatchResultFromJson(json);
   Map<String, dynamic> toJson() => _$MatchResultToJson(this);
 }
+
+          /*'probability': self.probability,
+            'imgstring': self.imgstring.decode('UTF-8'),
+            'name': self.pillfeature['name'],
+            'side': self.pillfeature['side'],
+            'substance': self.substance,
+            'kind': self.pillfeature['kind'],
+            'strength': self.pillfeature['strength'],*/
 
 @JsonSerializable()
 class TestPillRepresentation{
@@ -39,15 +53,15 @@ class TestPillRepresentation{
 
 @JsonSerializable()
 class SlimPill {
-  final String tradeName;
-  final String activeSubstance;
-  final String pillImageUrl;
+  final String name;
+  final String substance;
+  final String imgstring;
   final String strength;
 
   SlimPill(
-      {this.tradeName,
-      this.activeSubstance,
-      this.pillImageUrl =
+      {this.name,
+      this.substance,
+      this.imgstring =
           "http://pro.medicin.dk/resource/media/L58WAN1L?ptype=1",
       this.strength});
 

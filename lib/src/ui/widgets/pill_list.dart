@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:medid/src/blocs/result/bloc.dart';
@@ -22,6 +25,15 @@ class _PillListState extends State<PillList> {
         bloc: _resultBloc,
         builder: (BuildContext context, ResultState state) {
           if (state is FoundMatches) {
+            final converter = Base64Decoder();
+            List<Uint8List> images = List<Uint8List>();
+            state.results.forEach((r) {
+              if (r.imgstring != null) {
+                Uint8List bytes = converter.convert(r.imgstring);
+                print(r.imgstring);
+                images.add(bytes);
+              }else images.add(Uint8List(0));
+            });
             return ListView.builder(
                 itemCount: state.results?.length,
                 itemBuilder: (c, i) {
@@ -31,30 +43,12 @@ class _PillListState extends State<PillList> {
                         leading: SizedBox(
                             width: 100,
                             height: 100,
-                            child:
-                                Image.network(state.results[i].pillImageUrl)),
-                        subtitle: Text(state.results[i].activeSubstance),
-                        title: Text(state.results[i].tradeName +
+                            child: Image.memory(images[i])),
+                        subtitle: Text(state.results[i].substance),
+                        title: Text(state.results[i].name +
                             '  ' +
                             state.results[i].strength),
-                        onTap: () {
-                          _resultBloc.dispatch(
-                              MatchClicked(clickedMr: state.results[i]));
-                          MaterialPageRoute route = MaterialPageRoute(
-                              builder: (context) => WillPopScope(
-                                    onWillPop: () async {
-                                      _resultBloc.dispatch(ResultPageLoaded());
-                                      return true;
-                                    },
-                                    child: PillInfoPage(
-                                      resultBloc: _resultBloc,
-                                    ),
-                                  ));
-                          Navigator.push(
-                            context,
-                            route,
-                          );
-                        },
+                        
                       ));
                 });
           }

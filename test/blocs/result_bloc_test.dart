@@ -28,11 +28,11 @@ void main() {
       final String testJson = '{\n"0": "iVBjdW1lbnRJRD0JRU5ErkJggg=="\n}';
       final List<MatchResult> results = [
         MatchResult(
-            tradeName: 'Panodil', strength: '20mg', activeSubstance: 'Coffein'),
+            name: 'Panodil', strength: '20mg', substance: 'Coffein'),
         MatchResult(
-            tradeName: 'Viagra', strength: '10mg', activeSubstance: 'Water'),
+            name: 'Viagra', strength: '10mg', substance: 'Water'),
         MatchResult(
-            tradeName: 'Amphetamine', strength: '1kg', activeSubstance: 'N/A'),
+            name: 'Amphetamine', strength: '1kg', substance: 'N/A'),
       ];
       when(pillRepository.identifyPill(null, '2'))
           .thenAnswer((_) => Future.value(results));
@@ -92,10 +92,10 @@ void main() {
         'emits [LoadingMatches, ShowPillInfo] when an obj of "MatchClicked" is dispatched and repository returns extended pill',
         () {
       final clickedMr = MatchResult(
-          tradeName: 'Panodil', strength: '20mg', activeSubstance: 'Coffein');
+          name: 'Panodil', strength: '20mg', substance: 'Coffein');
       final extendedPill = ExtendedPill();
 
-      when(pillRepository.getExtendedPill(clickedMr.tradeName))
+      when(pillRepository.getExtendedPill(clickedMr.name))
           .thenAnswer((_) => Future.value(extendedPill));
       expectLater(
           resultBloc.state,
@@ -107,9 +107,9 @@ void main() {
         'emits [LoadingMatches, ShowPillInfoError] when an obj of "MatchClicked" is dispatched and repository throws error',
         () {
       final clickedMr = MatchResult(
-          tradeName: 'Panodil', strength: '20mg', activeSubstance: 'Coffein');
+          name: 'Panodil', strength: '20mg', substance: 'Coffein');
 
-      when(pillRepository.getExtendedPill(clickedMr.tradeName))
+      when(pillRepository.getExtendedPill(clickedMr.name))
           .thenThrow('ShowPillInfo error ');
       expectLater(resultBloc.state,
           emitsInOrder([LoadingMatches(), ShowPillInfoError()]));
@@ -120,7 +120,7 @@ void main() {
   group('ResultEvent', () {
     test(' ".toStrings"   ', () {
       final mr = MatchResult(
-          tradeName: 'Panodil', strength: '20mg', activeSubstance: 'Coffein');
+          name: 'Panodil', strength: '20mg', substance: 'Coffein');
       final MatchClicked cm = MatchClicked(clickedMr: mr);
 
       expect(cm.toString(), 'MatchClicked { clicked: $mr }');
@@ -134,7 +134,7 @@ void main() {
   group('ResultState', () {
     test(' ".toStrings"   ', () {
       final mr = MatchResult(
-          tradeName: 'Panodil', strength: '20mg', activeSubstance: 'Coffein');
+          name: 'Panodil', strength: '20mg', substance: 'Coffein');
       final MatchClicked cm = MatchClicked(clickedMr: mr);
       final List<MatchResult> e = [];
 

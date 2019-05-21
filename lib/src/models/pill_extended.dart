@@ -7,16 +7,16 @@ part 'pill_extended.g.dart';
 class ExtendedPill extends MatchResult {
   ExtendedPill(
       {probability = 1.0,
-      activeSubstance,
-      pillImageUrl = "http://pro.medicin.dk/resource/media/L58WAN1L?ptype=1",
+      substance,
+      imgstring = "http://pro.medicin.dk/resource/media/L58WAN1L?ptype=1",
       strength,
-      tradeName})
+      name})
       : super(
             probability: probability,
-            activeSubstance: activeSubstance,
-            pillImageUrl: pillImageUrl,
+            substance: substance,
+            imgstring: imgstring,
             strength: strength,
-            tradeName: tradeName);
+            name: name);
   factory ExtendedPill.fromJson(Map<String, dynamic> json) =>
       _$ExtendedPillFromJson(json);
   Map<String, dynamic> toJson() => _$ExtendedPillToJson(this);

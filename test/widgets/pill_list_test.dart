@@ -23,8 +23,8 @@ main() {
         final nResults = List.generate(
             n,
             (i) => MatchResult(
-                tradeName: 'tradeName $i',
-                activeSubstance: 'Active Substance $i',
+                name: 'tradeName $i',
+                substance: 'Active Substance $i',
                 strength: i.toString()));
         Widget pillList = new MediaQuery(
             data: new MediaQueryData(),
@@ -48,8 +48,8 @@ main() {
         final nResults = List.generate(
             n,
             (i) => MatchResult(
-                tradeName: 'tradeName $i',
-                activeSubstance: 'Active Substance $i',
+                name: 'tradeName $i',
+                substance: 'Active Substance $i',
                 strength: i.toString()));
         Widget pillList = new MediaQuery(
             data: new MediaQueryData(),
@@ -72,11 +72,11 @@ main() {
       provideMockedNetworkImages(() async {
         final List<MatchResult> results = [
           MatchResult(
-              tradeName: 'Panodil', strength: '20mg', activeSubstance: 'Coffein'),
+              name: 'Panodil', strength: '20mg', substance: 'Coffein'),
           MatchResult(
-              tradeName: 'Viagra', strength: '10mg', activeSubstance: 'Water'),
+              name: 'Viagra', strength: '10mg', substance: 'Water'),
           MatchResult(
-              tradeName: 'Amphetamine', strength: '1kg', activeSubstance: 'N/A'),
+              name: 'Amphetamine', strength: '1kg', substance: 'N/A'),
         ];
         Widget pillList = new MediaQuery(
             data: new MediaQueryData(),
@@ -92,8 +92,8 @@ main() {
           final k = Key(results.indexOf(mr).toString());
           final c = tester.widget<Card>(find.byKey(k));
           final lt = c.child as ListTile;
-          expect((lt.title as Text)?.data, mr.tradeName + "  " + mr.strength);
-          expect((lt.subtitle as Text)?.data, mr.activeSubstance);
+          expect((lt.title as Text)?.data, mr.name + "  " + mr.strength);
+          expect((lt.subtitle as Text)?.data, mr.substance);
 
           final imageFinder = find.descendant(
               of: find.byWidget(lt),
@@ -136,11 +136,11 @@ main() {
         final mockObserver = MockNavigatorObserver();
         final List<MatchResult> results = [
           MatchResult(
-              tradeName: 'Panodil', strength: '20mg', activeSubstance: 'Coffein'),
+              name: 'Panodil', strength: '20mg', substance: 'Coffein'),
           MatchResult(
-              tradeName: 'Viagra', strength: '10mg', activeSubstance: 'Water'),
+              name: 'Viagra', strength: '10mg', substance: 'Water'),
           MatchResult(
-              tradeName: 'Amphetamine', strength: '1kg', activeSubstance: 'N/A'),
+              name: 'Amphetamine', strength: '1kg', substance: 'N/A'),
         ];
         Widget pillList = new MediaQuery(
             data: new MediaQueryData(),
@@ -157,7 +157,7 @@ main() {
 
         await tester.tap(find.byWidgetPredicate((w) =>
             w is ListTile &&
-            identical((w.subtitle as Text).data, pillToView.activeSubstance)));
+            identical((w.subtitle as Text).data, pillToView.substance)));
         when(blocMock.currentState)
             .thenAnswer((_) => ShowPillInfo(pillInfo: results[1]));
         await tester.pumpAndSettle();

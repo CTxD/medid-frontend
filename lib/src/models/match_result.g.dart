@@ -9,19 +9,23 @@ part of 'match_result.dart';
 MatchResult _$MatchResultFromJson(Map<String, dynamic> json) {
   return MatchResult(
       probability: (json['probability'] as num)?.toDouble(),
-      activeSubstance: json['activeSubstance'],
-      pillImageUrl: json['pillImageUrl'],
+      substance: json['substance'],
+      imgstring: json['imgstring'],
       strength: json['strength'],
-      tradeName: json['tradeName']);
+      name: json['name'],
+      kind: json['kind'] as String,
+      side: json['side'] as String);
 }
 
 Map<String, dynamic> _$MatchResultToJson(MatchResult instance) =>
     <String, dynamic>{
-      'tradeName': instance.tradeName,
-      'activeSubstance': instance.activeSubstance,
-      'pillImageUrl': instance.pillImageUrl,
+      'name': instance.name,
+      'substance': instance.substance,
+      'imgstring': instance.imgstring,
       'strength': instance.strength,
-      'probability': instance.probability
+      'probability': instance.probability,
+      'kind': instance.kind,
+      'side': instance.side
     };
 
 TestPillRepresentation _$TestPillRepresentationFromJson(
@@ -44,15 +48,15 @@ Map<String, dynamic> _$TestPillRepresentationToJson(
 
 SlimPill _$SlimPillFromJson(Map<String, dynamic> json) {
   return SlimPill(
-      tradeName: json['tradeName'] as String,
-      activeSubstance: json['activeSubstance'] as String,
-      pillImageUrl: json['pillImageUrl'] as String,
+      name: json['name'] as String,
+      substance: json['substance'] as String,
+      imgstring: json['imgstring'] as String,
       strength: json['strength'] as String);
 }
 
 Map<String, dynamic> _$SlimPillToJson(SlimPill instance) => <String, dynamic>{
-      'tradeName': instance.tradeName,
-      'activeSubstance': instance.activeSubstance,
-      'pillImageUrl': instance.pillImageUrl,
+      'name': instance.name,
+      'substance': instance.substance,
+      'imgstring': instance.imgstring,
       'strength': instance.strength
     };
