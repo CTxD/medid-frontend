@@ -25,7 +25,7 @@ class PillApiClient {
   static const jsonHeaders = {
     HttpHeaders.contentTypeHeader: 'application/json'
   };
-  static const baseUrl = 'http://74eeb365.ngrok.io/api/v1/fx/';
+  static const baseUrl = 'http://adbd85d0.ngrok.io/api/v1/fx/';
 
   Future<List<MatchResult>> identifyPill(String img, String imprint, int width, int height) async {
     try {
@@ -36,10 +36,8 @@ class PillApiClient {
       if (response.statusCode != 200)
         throw Not200Error(statusCode: response.statusCode);
       Iterable l = json.decode(response.body);
-      print(response.body);
       List<MatchResult> results =
           l.map((dynamic model) => MatchResult.fromJson(model)).toList();
-          print(results);
       return results;
     } catch (e) {
       print(e);

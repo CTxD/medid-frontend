@@ -115,7 +115,7 @@ class _ResultPageState extends State<ResultPage> {
             highlightShape: BoxShape.rectangle,
             highlightColor: Colors.blue,
             enableFeedback: true,
-            child: (img.length != 0) ? Image.memory(img) : Text('Intet Præg'),
+            child: (img.length != 0) ? Image.memory(img) : Text(impId),
             onTap: () {
               _resultBloc.dispatch(ChosenImprint(imprint: impId));
             },
@@ -125,7 +125,7 @@ class _ResultPageState extends State<ResultPage> {
         highlightShape: BoxShape.rectangle,
         highlightColor: Colors.blue,
         enableFeedback: true,
-        child: (img.length != 0) ? Image.memory(img) : Text('Intet Præg'),
+        child: (img.length != 0) ? Image.memory(img) : Text(impId),
         onTap: () {
           _resultBloc.dispatch(ChosenImprint(imprint: impId));
         });

@@ -38,6 +38,7 @@ class ResultBloc extends Bloc<ResultEvent, ResultState> {
           return MapEntry(k, bytes);
         });
         impImages.putIfAbsent('Intet præg', () => Uint8List(0));
+        impImages.putIfAbsent('Tekst eller tal', () => Uint8List(0));
         yield UserSelectImprint(
             imageFilePath: event.imageFilePath,
             imprints: impImages);
@@ -61,7 +62,6 @@ class ResultBloc extends Bloc<ResultEvent, ResultState> {
       try {
         final List<MatchResult> rs = await pillRepository.identifyPill(createFile(event.imageFilePath), event.imprint);
 
-        rs.sort((r1,r2) => r2.probability.compareTo(r1.probability));
         yield FoundMatches(results: rs, imageFilePath: event.imageFilePath, imprint:event.imprint);
       } catch (e) {
         yield MatchingError(error: e, imageFilePath: event.imageFilePath);

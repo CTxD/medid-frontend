@@ -30,9 +30,9 @@ class _PillListState extends State<PillList> {
             state.results.forEach((r) {
               if (r.imgstring != null) {
                 Uint8List bytes = converter.convert(r.imgstring);
-                print(r.imgstring);
                 images.add(bytes);
-              }else images.add(Uint8List(0));
+              } else
+                images.add(Uint8List(0));
             });
             return ListView.builder(
                 itemCount: state.results?.length,
@@ -48,7 +48,6 @@ class _PillListState extends State<PillList> {
                         title: Text(state.results[i].name +
                             '  ' +
                             state.results[i].strength),
-                        
                       ));
                 });
           }
