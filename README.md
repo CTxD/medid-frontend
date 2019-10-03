@@ -5,7 +5,7 @@
 
 
 
-A new Flutter project.
+Frontend of the medid application.
 
 ## Getting Started
 
